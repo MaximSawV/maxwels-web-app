@@ -1,50 +1,5 @@
-<?php
-    ini_set('session.gc_maxlifetime', 86400);
-    session_set_cookie_params(86400);
-    session_start();
-?>
 <html>
     <head>
-        <?php
-            require_once("php-function/db_connect.php");
-            require_once("php-function/class.php");
-            require_once("php-function/password_hashing.php");
-
-            $loggedIn = false;
-            $version = rand(0,999999999) * rand(0,999999999);
-            echo("<link rel='stylesheet' href='phpstyle.css?v=$version'/>
-                    <script src='php-website-code.js'></script>
-            ");
-            if (isset($_GET['logged'])) {
-                if ($_GET['logged'] == "no") {
-                    session_unset();
-                    session_destroy();
-                    echo('<script>logout(2)</script>');
-                }
-            }
-
-            if (isset($_SESSION['user']) && isset($_SESSION['login-password']) && isset($_SESSION['id'])) {
-                $id = $_SESSION['id'];
-                $user = $_SESSION['user'];
-                $password = $_SESSION['login-password'];
-                $getUser = $pdo->prepare("SELECT `Username`, `Password` FROM `user` WHERE `ID` = :id");
-                $getUser->execute(['id' => $id]);
-                $result = $getUser->fetchAll();
-                foreach($result as $userTest) {
-                    if ($userTest['Username'] == $user) {
-                        if ($userTest['Password'] == $password){
-                            $GLOBALS['loggedIn'] = true;
-                        } else {
-                            $GLOBALS['loggedIn']  = false;
-                        }
-                    } else {
-                        $GLOBALS['loggedIn']  = false;
-                    }
-                }
-            } else {
-                $GLOBALS['loggedIn']  = false;
-            }
-        ?>
         <title>
             Maxwels
         </title>
@@ -52,97 +7,37 @@
         <meta charset="utf-8"/>
     </head>
     <body>
-        <?php
-            if(isset($_SESSION['user']) && isset($_SESSION['what'])) {
-                $user = $_SESSION['user'];
-                $what = $_SESSION['what'];
-                echo("
-                <div class='spacer'>
-                    <p> Welcome $user </p>
-                </div>
-                ");
-            }
-        ?>
         <div class="easter-egg" id="eegg" onclick="eegg('eegg')">
             .
         </div>
         <div class="page">
             <ul class="side-menu" id="sideMenu">
-                <?php
-                    if ($GLOBALS['loggedIn']  == false) {
-                        echo('
-                                <li class="login-field" id="loginField" style="display: none;">
-                                    <form class="login" method:post;>
-                                        <input type="text" placeholder="Username" name="user"/>
-                                        <input type="password" placeholder="Password" name="login-password"/>
-                                        <span class="log-buttons">
-                                            <input type="submit" value="Login"/>
-                                            <input type="button" value="Register" onclick="register()"/>
-                                            <input type="button" value="Cancel" onclick="logout()"/>
-                                            ');
-                                                if (isset($_GET['user']) && isset($_GET['login-password'])) {
-                                                    $userName = $_GET['user'];
-                                                    $password = $_GET['login-password'];
-                                                    $userStatement = $pdo->prepare("SELECT `ID`, `Username`, `Password`, `Is`, `Email` FROM `user` WHERE `Username` = :username LIMIT 1");
-                                                    $userStatement->execute(['username' => $userName]);
-                                                    $user = $userStatement->fetch(PDO::FETCH_ASSOC);
-
-                                                    if ($user === false) {
-                                                        echo ("<script> alert('This User does not exist!')");
-                                                    } else {
-                                                        $salt = $user["Email"];
-                                                        $hashedPassword = hashing($password, $salt);
-                                                        if ($hashedPassword == $user["Password"]) {
-                                                            $_SESSION['user'] = $user["Username"];
-                                                            $_SESSION['login-password'] = $hashedPassword;
-                                                            $_SESSION['id'] = $user["ID"];
-                                                            $_SESSION['what'] = $user["is"];
-                                                            $GLOBALS['loggedIn'] = true;
-                                                            echo('<script> reload() </script>');
-                                                        }
-                                                    }
-
-                                                    /* Beispiel
-
-                                                    while($user = $userStatement->fetch()) {
-                                                        // Schleife von allen usern
-                                                    }*/
-
-                                                    if ($GLOBALS['loggedIn'] == false) {
-                                                        session_unset();
-                                                        echo('<script>logout(0)</script>');
-                                                    }
-                                                }
-                                            echo("
-                                        </span>
-                                    </form>
-                                </li>
-                        ");
-                    }
-                ?>
+                <li class="login-field" id="loginField" style="display: none;">
+                    <form class="login">
+                        <input type="text" placeholder="Username" name="user"/>
+                        <input type="password" placeholder="Password" name="login-password"/>
+                        <span class="log-buttons">
+                            <input type="submit" value="Login"/>
+                            <input type="button" value="Register" onclick="register()"/>
+                            <input type="button" value="Cancel" onclick="logout()"/>
+                        </span>
+                    </form>
+                </li>
                 <li>
                     <a onclick="showLogin()" id="showLoginButton">
                         Login
                     </a>
                 </li>
-                <?php
-                    if ($GLOBALS['loggedIn']  == true ) {
-                        $currentUser = $_SESSION['id'];
-                        echo('<script>test()</script>');
-
-                        $getUser = $pdo->prepare("SELECT `is` AS `is` FROM `user` WHERE `ID` = :currentUser");
-                        $getUser->execute(["currentUser" => $currentUser]);
-                        $result = $getUser->fetch(PDO::FETCH_ASSOC);
-                        if ($result['is'] == "Programmer") {
-                            echo ("<li> <a href='http://localhost/requestProgrammer.php' target='_blank' id='request'> Requests </a> </li>");
-                        }
-
-                        if($result["is"] == "Customer") {
-                            echo("<il> <a href='http://localhost/requestCustomer.php' target='_blank' id='request'> Requests </a> </li>");
-                        }
-                        echo('<li><a onclick="logout()"> Logout </a></li>');
-                    }
-                ?>
+                <li> <a href='http://localhost/requestProgrammer.php' target='_blank' id='request'>
+                        Requests
+                    </a>
+                </li>
+                <li> <a href='http://localhost/requestCustomer.php' target='_blank' id='request'> Requests </a> </li>
+                    <li>
+                        <a onclick="logout()">
+                            Logout
+                        </a>
+                    </li>
                 <li>
                     <a href="#statistic">
                         About
@@ -185,34 +80,13 @@
                         
                         <div id="7" onclick="newsBlockOpen(7)" onmouseleave="newsBlockClose(7)">
                             <h1 id="70"> Requests</h1>
-                            <?php
-                                $sqlGetAllRequests = $pdo->query("SELECT COUNT(`R_ID`) as total FROM `requests`");
-                                $sqlGetAllRequests->execute();
-                                $row = $sqlGetAllRequests ->fetch();
-                                $number = $row['total'];
-                                echo('<p id=71>' . $number . ' Requests</p>');
-                            ?>
+                            <p> 0 </p>
                         </div>
 
                         <div id="8" onclick="newsBlockOpen(8)" onmouseleave="newsBlockClose(8)">
                             <h1 id="80"> Rating </h1>
-                            <?php
-
-                                $sqlGetAllRequests = $pdo->prepare("SELECT COUNT(*) as total FROM `requests` WHERE `Status` = 'DONE'");
-                                $sqlGetAllRequests->execute();
-                                $row = $sqlGetAllRequests->fetch(PDO::FETCH_ASSOC);
-                                $number = $row['total'];
-                                $sqlGetAllRequests = $pdo->prepare("SELECT COUNT(*) as total FROM `requests` WHERE `Satisfied` = 'YES'");
-                                $sqlGetAllRequests->execute();
-                                $row = $sqlGetAllRequests->fetch(PDO::FETCH_ASSOC);
-                                $numberYes = $row['total'];
-                                if($number + $numberYes > 1) {
-                                    $rating=(round(($numberYes / $number)*100));
-                                    echo("<p id='81'>$rating%  satisfaction rate </p>");
-                                }else{
-                                    echo("<p id='81'> No satisfaction rate </p>");
-                                }
-                            ?>
+                            <p id='81'>$rating%  satisfaction rate </p>
+                            <p id='81'> No satisfaction rate </p>
                         </div>
                     </div>
                     <div class="spacer">
