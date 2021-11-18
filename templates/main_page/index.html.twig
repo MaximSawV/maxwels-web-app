@@ -11,14 +11,14 @@
     <body id="body" onload="createClock()">
         <div class="page">
             <ul class="side-menu" id="sideMenu">
+            {% if logged == false %}
                 <li class="login-field" id="loginField" style="display: none;">
                     <form class="login" action="{{ path('login') }}" method="post">
                         <input type="text" placeholder="Username" name="_username"/>
                         <input type="password" placeholder="Password" name="_password"/>
                         <span class="log-buttons">
                             <input type="submit" value="Login"/>
-                            <input type="button" value="Register"/>
-                            <input type="button" value="Cancel"/>
+                            <input type="button" value="Cancel" onclick="hideLogin()"/>
                         </span>
                     </form>
                 </li>
@@ -27,16 +27,24 @@
                         Login
                     </a>
                 </li>
-                <li> <a href='http://localhost/requestProgrammer.php' target='_blank' id='request'>
-                        Requests
+                <li>
+                    <a href="/register">
+                        Sign up
                     </a>
                 </li>
-                <li> <a href='http://localhost/requestCustomer.php' target='_blank' id='request'> Requests </a> </li>
+            {% endif %}
+            {% if logged == true %}
                 <li>
-                    <a>
+                    <a href="/logout">
                         Logout
                     </a>
                 </li>
+                <li>
+                    <a href="/request/user">
+                       Requests
+                    </a>
+                </li>
+            {% endif %}
                 <li>
                     <a href="#statistic">
                         About
@@ -58,7 +66,6 @@
                     </button>
                 </li>
             </ul>
-
             <div class="header">
                 <img id="websiteLogo" src="pictures/maxwel_cover(2).jpg" width="100%"/>
                 <img style="top: 0" class="side-menu-button2" id="smButton" onclick="openSideMenu()" src="pictures/menu.png" height="50px" width="100px"/>
@@ -69,23 +76,21 @@
             <div class="content">
                 <div class="main-page">
                     <div class="statistic" id="statistic">
-
-                        <div id="6" onclick="newsBlockOpen(6)" onmouseleave="newsBlockClose(6)">
-                            <h1 id="60"> About Us </h1>
-                            <p id ="61">
+                        <div id="aboutUs" onclick="aboutBlockOpen('aboutUs', 'aboutUsText')" onmouseleave="aboutBlockClose('aboutUs', 'aboutUsText')">
+                            <h1> About Us </h1>
+                            <p id="aboutUsText">
                                 Text
                             </p>
                         </div>
 
-                        <div id="7" onclick="newsBlockOpen(7)" onmouseleave="newsBlockClose(7)">
-                            <h1 id="70"> Requests</h1>
-                            <p> 0 </p>
+                        <div id="aboutRequest" onclick="aboutBlockOpen('aboutRequest', 'aboutRequestText')" onmouseleave="aboutBlockClose('aboutRequest', 'aboutRequestText')">
+                            <h1> Requests</h1>
+                            <p id="aboutRequestText"> 0 </p>
                         </div>
 
-                        <div id="8" onclick="newsBlockOpen(8)" onmouseleave="newsBlockClose(8)">
-                            <h1 id="80"> Rating </h1>
-                            <p id='81'>$rating%  satisfaction rate </p>
-                            <p id='81'> No satisfaction rate </p>
+                        <div id="aboutRating" onclick="aboutBlockOpen('aboutRating', 'aboutRatingText')" onmouseleave="aboutBlockClose('aboutRating', 'aboutRatingText')">
+                            <h1> Rating </h1>
+                            <p id="aboutRatingText">satisfaction rate </p>
                         </div>
                     </div>
                     <div class="spacer">
@@ -93,43 +98,39 @@
                     </div>
                     <div class="news-overlay" id ="news">
                         <div class="news-container">
-                            <div class="news" id="1" onclick="newsBlockOpen(1)" onmouseleave="newsBlockClose(1)">
+                            <div class="news" onclick="newsBlockOpen('image1', 'newsText1')" onmouseleave="newsBlockClose('image1', 'newsText1')">
                                 <div class="news-panel">
-                                    <img id="10" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
+                                    <img id="image1" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
                                     <h1> First Post </h1>
-                                    <p id="11"> Text </p>
+                                    <p id="newsText1"> Text </p>
                                 </div>
                             </div>
-
-                            <div class="news" id="2" onclick="newsBlockOpen(2)" onmouseleave="newsBlockClose(2)">
+                            <div class="news" onclick="newsBlockOpen('image2', 'newsText2')" onmouseleave="newsBlockClose('image2', 'newsText2')">
                                 <div class="news-panel">
-                                    <img id="20" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
+                                    <img id="image2" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
                                     <h1> Second Post </h1>
-                                    <p id="21"> Text </p>
+                                    <p id="newsText2"> Text </p>
                                 </div>
                             </div>
-
-                            <div class="news" id="3" onclick="newsBlockOpen(3)" onmouseleave="newsBlockClose(3)">
+                            <div class="news" onclick="newsBlockOpen('image3', 'newsText3')" onmouseleave="newsBlockClose('image3', 'newsText3')">
                                 <div class="news-panel">
-                                    <img id="30" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
+                                    <img id="image3" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
                                     <h1> Third Post </h1>
-                                    <p id="31"> Text </p>
+                                    <p id="newsText3"> Text </p>
                                 </div>
                             </div>
-
-                            <div class="news" id="4" onclick="newsBlockOpen(4)"onmouseleave="newsBlockClose(4)">
+                            <div class="news" onclick="newsBlockOpen('image4', 'newsText4')" onmouseleave="newsBlockClose('image4', 'newsText4')">
                                 <div class="news-panel">
-                                    <img id="40" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
+                                    <img id="image4" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
                                     <h1> Fourth Post </h1>
-                                    <p id="41"> Text </p>
+                                    <p id="newsText4"> Text </p>
                                 </div>
                             </div>
-
-                            <div class="news" id="5" onclick="newsBlockOpen(5)" onmouseleave="newsBlockClose(5)">
+                            <div class="news" onclick="newsBlockOpen('image5', 'newsText5')" onmouseleave="newsBlockClose('image5', 'newsText5')">
                                 <div class="news-panel">
-                                    <img id="50" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
+                                    <img id="image5" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
                                     <h1> Fifth Post </h1>
-                                    <p id="51"> Text </p>
+                                    <p id="newsText5"> Text </p>
                                 </div>
                             </div>
                         </div>

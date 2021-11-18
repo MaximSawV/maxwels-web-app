@@ -158,7 +158,7 @@ a {
     margin: 3%;
     border: #111213 outset 4px;
     color: #85cbff;
-    transition: 0.5s; }
+    transition: 0.05s; }
     .statistic > div p {
       display: none; }
   .statistic > span {
@@ -182,9 +182,9 @@ a {
   margin: 50px;
   background: #0c2436;
   background: linear-gradient(to bottom, #0c2436 0%, #84cafe 100%);
-  width: 366px;
-  height: 203px;
-  transition: 0.5s; }
+  transition: 0.25s;
+  min-height: fit-content;
+  min-width: fit-content; }
   .news p {
     display: none; }
   .news img {
@@ -212,7 +212,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: absolute;
   top: 10px;
   right: 210px;
   z-index: 10;

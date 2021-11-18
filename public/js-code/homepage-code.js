@@ -1,6 +1,13 @@
+"use strict";
+
 function showLogin() {
     document.getElementById("loginField").style.display = "block";
     document.getElementById("showLoginButton").style.display ="none";
+}
+
+function hideLogin() {
+    document.getElementById("loginField").style.display = "none";
+    document.getElementById("showLoginButton").style.display ="block";
 }
 
 function openSideMenu() {
@@ -40,85 +47,60 @@ function closeSideMenu() {
 
     document.getElementById("smButton2").style.display = "block";
     document.getElementById("smButton").style.display = "block";
+
+    hideLogin();
 }
 
-function newsBlockOpen(id) {
-    const element = (document.getElementById(id));
-    const styles = getComputedStyle(element);
-
-    let width = styles.getPropertyValue('width');
-    let height = styles.getPropertyValue('height');
+function aboutBlockOpen(id, id2) {
+    let elem = document.getElementById(id);
+    let openInt;
+    let size = elem.clientHeight;
     let maxSize = 400;
-    height = parseInt(height, 10);
-    width = parseInt(width, 10);
-    const speed = 5;
-    function showContent() {
-        if(id < 6){
-            document.getElementById(id*10).style.display = "block";
-            document.getElementById(id*10+1).style.display = "block";
-        }else {
-            document.getElementById(id*10).style.display = "none";
-            document.getElementById(id*10+1).style.display = "block";
-        }
-    }
-
-    let int = setInterval(frame, 1);
-    function frame() {
-        if(width<maxSize) {
-            document.getElementById(id).style.width = width;
-            width+=speed;
+    clearInterval(openInt);
+    openInt = setInterval(open, 1);
+    function open() {
+        if (size < maxSize){
+            size += 3;
+            elem.style.height = size + "px";
+            elem.style.width = size + "px";
         }
 
-        if (height<maxSize) {
-            document.getElementById(id).style.height = height;
-            height+=speed;
-        }
-
-        if (height >= maxSize && width >= maxSize) {
-            clearInterval(int);
-            to = setTimeout(showContent, 500);
+        if (size == maxSize){
+            document.getElementById(id2).style.display = "block";
+            clearInterval(openInt);
         }
     }
 }
 
-function newsBlockClose(id) {
-    clearTimeout(to)
-    const element = (document.getElementById(id));
-    const styles = getComputedStyle(element);
+function aboutBlockClose(id, id2) {
+    let elem = document.getElementById(id);
+    let closeInt;
+    let size = elem.clientHeight;
+    let minSize = 250;
+    clearInterval(closeInt);
+    closeInt = setInterval(open, 1);
+    document.getElementById(id2).style.display = "none";
+    function open() {
+        if (size > minSize){
+            size -= 3;
+            elem.style.height = size + "px";
+            elem.style.width = size + "px";
+        }
 
-    let width = styles.getPropertyValue('width');
-    let height = styles.getPropertyValue('height');
-    let maxWidth = 365;
-    let maxHeight = 205;
-    height = parseInt(height, 10);
-    width = parseInt(width, 10);
-    const speed = 5;
-    if (height <=400){
-        if (id < 6) {
-            document.getElementById(id*10).style.display = "none"
-            document.getElementById(id*10+1).style.display = "none"
-        }else{
-            document.getElementById(id*10).style.display = "block"
-            document.getElementById(id*10+1).style.display = "none"
+        if (size == minSize) {
+            clearInterval(closeInt);
         }
     }
+}
 
-    let int = setInterval(frame, 1);
-    function frame() {
-        if(width>maxWidth) {
-            document.getElementById(id).style.width = width;
-            width-=speed;
-        }
+function newsBlockOpen(id, id2) {
+    document.getElementById(id).style.display = "block";
+    document.getElementById(id2).style.display = "block";
+}
 
-        if (height>maxHeight) {
-            document.getElementById(id).style.height = height;
-            height-=speed;
-        }
-
-        if (height <= maxHeight && width <= maxWidth) {
-            clearInterval(int);
-        }
-    }
+function newsBlockClose(id, id2) {
+    document.getElementById(id).style.display = "none";
+    document.getElementById(id2).style.display = "none";
 }
 
 function createClock() {
@@ -144,4 +126,8 @@ function uhrzeit() {
 function fuehrendeNull(zahl) {
     zahl = (zahl < 10 ? '0' : '' )+ zahl;
     return zahl;
+}
+
+function logout() {
+    window.location.replace("/logout");
 }
