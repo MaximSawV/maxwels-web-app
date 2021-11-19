@@ -473,3 +473,12 @@
   background: #000000;
   z-index: 10;
 }
+
+.messsanger-box {
+  width: 500px;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  z-index: 20;
+  right: 0px;
+}

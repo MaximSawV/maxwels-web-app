@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProgrammerRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,51 +18,23 @@ class Programmer
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $U_ID;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $Status;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $Done_Requests;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Positive_Votes;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Request::class, mappedBy="Done_by")
-     */
-    private $requests;
-
-    public function __construct()
-    {
-        $this->requests = new ArrayCollection();
-    }
+    private $Rating;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUID(): ?User
-    {
-        return $this->U_ID;
-    }
-
-    public function setUID(User $U_ID): self
-    {
-        $this->U_ID = $U_ID;
-
-        return $this;
     }
 
     public function getStatus(): ?string
@@ -84,51 +54,21 @@ class Programmer
         return $this->Done_Requests;
     }
 
-    public function setDoneRequests(?int $Done_Requests): self
+    public function setDoneRequests(int $Done_Requests): self
     {
         $this->Done_Requests = $Done_Requests;
 
         return $this;
     }
 
-    public function getPositiveVotes(): ?int
+    public function getRating(): ?string
     {
-        return $this->Positive_Votes;
+        return $this->Rating;
     }
 
-    public function setPositiveVotes(?int $Positive_Votes): self
+    public function setRating(?string $Rating): self
     {
-        $this->Positive_Votes = $Positive_Votes;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Request[]
-     */
-    public function getRequests(): Collection
-    {
-        return $this->requests;
-    }
-
-    public function addRequest(Request $request): self
-    {
-        if (!$this->requests->contains($request)) {
-            $this->requests[] = $request;
-            $request->setDoneBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRequest(Request $request): self
-    {
-        if ($this->requests->removeElement($request)) {
-            // set the owning side to null (unless already changed)
-            if ($request->getDoneBy() === $this) {
-                $request->setDoneBy(null);
-            }
-        }
+        $this->Rating = $Rating;
 
         return $this;
     }

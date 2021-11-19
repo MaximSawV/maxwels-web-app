@@ -51,21 +51,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Request::class, mappedBy="Created_by", orphanRemoval=true)
-     */
-    private $requests;
-
-    public function __construct()
-    {
-        $this->requests = new ArrayCollection();
-    }
 
     public function getId(): int
     {
-        return (int) $this->id;
+        return (string) $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
@@ -165,36 +162,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Request[]
-     */
-    public function getRequests(): Collection
-    {
-        return $this->requests;
-    }
-
-    public function addRequest(Request $request): self
-    {
-        if (!$this->requests->contains($request)) {
-            $this->requests[] = $request;
-            $request->setCreatedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRequest(Request $request): self
-    {
-        if ($this->requests->removeElement($request)) {
-            // set the owning side to null (unless already changed)
-            if ($request->getCreatedBy() === $this) {
-                $request->setCreatedBy(null);
-            }
-        }
 
         return $this;
     }

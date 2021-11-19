@@ -1,9 +1,9 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <link rel="shortcut icon" type="x-icon" href="../pictures/logo_small_icon_only.png"/>
-        <link rel="stylesheet" href="../stylesheets/user_request-style.css"/>
-        <script src="../js-code/user_request-code.js"></script>
+        <link rel="shortcut icon" type="x-icon" href="{{ routing }}pictures/logo_small_icon_only.png"/>
+        <link rel="stylesheet" href="{{ routing }}stylesheets/user_request-style.css"/>
+        <script src="{{ routing }}js-code/user_request-code.js"></script>
         <title>
             Your Requests
         </title>
@@ -11,7 +11,7 @@
     <body class="bg">
         <div class="face">
             <div class="mail-icon" onclick="showMessages('messageBox')">
-                <image src="../pictures/mail_icon.png" style="height: 90"/>
+                <image src="{{ routing }}pictures/mail_icon.png" style="height: 90"/>
             </div>
             <div class="notification">
                 <p class='number' id='number'> $text </p>
@@ -80,72 +80,84 @@
             </div>
             <div class="request-bar">
                 <ul>
-                    <li class="request-list">
+                    <li>
                         <a class="list-face" onclick="showAll()">
                             Show all
                         </a>
                     </li>
-                    <li class="add-request">
+                    <li>
                         <a class="list-face" onclick="addRequests()">
                             Add
                         </a>
                     </li>
-                    <li class="done-requests">
+                    <li>
                         <a class="list-face" onclick="showDone()">
                             Done
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-face" onclick="showMessanger()">
+                            Chat
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="main-screen">
+            {% if showMyRequests %}
                 <div class="all-requests" id="allRequests" style="display: flex">
                     <table class='request-table' id='request-table'>
                         <thead>
                             <tr>
                                 <th> Working on </th>
-                                <th> Topic </th>
-                                <th> Type </th>
-                                <th> Requested on </th>
-                                <th> Deadline </th>
+                                <th> Context </th>
                                 <th> Status </th>
+                                <th> Created on </th>
+                                <th> Deadline </th>
+
                             </tr>
                         </thead>
                         <tbody>
+                        {% for request in myRequests %}
                             <tr>
-                                <td class='requester'> <a style='width=100%; height=100%; color: white;' href=mailto:''> $pName </a> </td>
-                                <td> $topic </td>
-                                <td> $type </td>
-                                <td> $requestedOn </td>
-                                <td> $deadline </td>
-                                <td> $status </td>
+                                <td> {{ request.getWorkingOn.username }} </td>
+                                <td> {{ request.getContext }} </td>
+                                <td> {{ request.getStatus }} </td>
+                                <td> {{ request.getCreatedOn | date("m/d/Y")}}  </td>
+                                <td> {{ request.getDeadline }} </td>
                                 <td>
                                     <div class='edit-icon' id='editIcon'>
-                                        <image class='icon-img' src='../pictures/edit_icon.png' onclick='editRequest($rid, \"edit\")'/>
-                                        <image class='icon-img' src='../pictures/delete-icon.png' onclick='editRequest($rid, \"delete\")'/>
+                                        <image class='icon-img' src='{{ routing }}pictures/edit_icon.png' onclick='editRequest($rid, \"edit\")'/>
+                                        <image class='icon-img' src='{{ routing }}pictures/delete-icon.png' onclick='editRequest($rid, \"delete\")'/>
                                     </div>
                                 </td>
                             </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
+            {% endif %}
+            {% if showDoneRequests %}
                 <div class="all-requests" id="doneRequests">
                     <table class='request-table' id='request-table'>
                         <thead>
                             <tr>
                                 <th> Working on </th>
-                                <th> Topic </th>
-                                <th> Type </th>
+                                <th> Context </th>
+                                <th> Vote </th>
                             </tr>
                         </thead>
                         <tbody>
+                        {% for request in doneRequests %}
                             <tr>
-                                <td id='' class='requester'> <a style='width=100%; height=100%;' href=mailto:''> $pName </a> </td>
-                                <td> $topic </td>
-                                <td> $type </td>
+                                <td> {{ request.getWorkingOn.username }} </td>
+                                <td> {{ request.getContext }} </td>
+                                <td> {{ request.getVote }} </td>
                             </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
+            {% endif %}
                 <div class="all-requests" id="addRequests">
                     <div class="createRequestBG">
                         <form class="createRequest">
@@ -165,6 +177,8 @@
                             <input type='submit' value='Create Request'/>
                         </form>
                     </div>          
+                </div>
+                <div class="messsanger-box" id="messanger">
                 </div>
                 <div class="message-box" id="messageBox">
                     <div class="mb-head">
@@ -190,7 +204,7 @@
                                         <td> $text </td>
                                         <td> $date </td>
                                         <td>
-                                            <image class='icon-img' src='../pictures/submitbutton.png' onclick='setSeenYes($newsId)'/>
+                                            <image class='icon-img' src='{{ routing }}pictures/submitbutton.png' onclick='setSeenYes($newsId)'/>
                                         </td>
                                     </tr>
                                     <tr>

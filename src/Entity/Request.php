@@ -18,15 +18,16 @@ class Request
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="requests")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="created_by")
      */
     private $Created_by;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="working_on")
      */
-    private $Creation_Date;
+    private $Working_on;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -34,24 +35,24 @@ class Request
     private $Status;
 
     /**
+     * @ORM\Column(type="date")
+     */
+    private $Created_on;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $Deadline;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $Context;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Programmer::class, inversedBy="requests")
+     * @ORM\Column(type="integer")
      */
-    private $Done_by;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $Rating;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $Done_on;
+    private $Vote;
 
     public function getId(): ?int
     {
@@ -63,21 +64,21 @@ class Request
         return $this->Created_by;
     }
 
-    public function setCreatedBy(?User $Created_by): self
+    public function setCreatedBy(User $Created_by): self
     {
         $this->Created_by = $Created_by;
 
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getWorkingOn(): ?User
     {
-        return $this->Creation_Date;
+        return $this->Working_on;
     }
 
-    public function setCreationDate(\DateTimeInterface $Creation_Date): self
+    public function setWorkingOn(User $Working_on): self
     {
-        $this->Creation_Date = $Creation_Date;
+        $this->Working_on = $Working_on;
 
         return $this;
     }
@@ -94,6 +95,30 @@ class Request
         return $this;
     }
 
+    public function getCreatedOn(): ?\DateTimeInterface
+    {
+        return $this->Created_on;
+    }
+
+    public function setCreatedOn(\DateTimeInterface $Created_on): self
+    {
+        $this->Created_on = $Created_on;
+
+        return $this;
+    }
+
+    public function getDeadline(): ?\DateTimeInterface
+    {
+        return $this->Deadline;
+    }
+
+    public function setDeadline(?\DateTimeInterface $Deadline): self
+    {
+        $this->Deadline = $Deadline;
+
+        return $this;
+    }
+
     public function getContext(): ?string
     {
         return $this->Context;
@@ -106,38 +131,14 @@ class Request
         return $this;
     }
 
-    public function getDoneBy(): ?Programmer
+    public function getVote(): ?int
     {
-        return $this->Done_by;
+        return $this->Vote;
     }
 
-    public function setDoneBy(?Programmer $Done_by): self
+    public function setVote(int $Vote): self
     {
-        $this->Done_by = $Done_by;
-
-        return $this;
-    }
-
-    public function getRating(): ?string
-    {
-        return $this->Rating;
-    }
-
-    public function setRating(?string $Rating): self
-    {
-        $this->Rating = $Rating;
-
-        return $this;
-    }
-
-    public function getDoneOn(): ?\DateTimeInterface
-    {
-        return $this->Done_on;
-    }
-
-    public function setDoneOn(?\DateTimeInterface $Done_on): self
-    {
-        $this->Done_on = $Done_on;
+        $this->Vote = $Vote;
 
         return $this;
     }
