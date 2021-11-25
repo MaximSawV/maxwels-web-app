@@ -1,15 +1,3 @@
-function showAll() {
-    window.location.replace("http://localhost/request/user/all_requests");
-}
-
-function addRequests() {
-    window.location.replace("http://localhost/request/user/add_requests");
-}
-
-function showDone() {
-    window.location.replace("http://localhost/request/user/done_requests");
-}
-
 function showMessages(id) {
     document.getElementById("addRequests").style.display = "none";
     document.getElementById("doneRequests").style.display = "none";
@@ -55,8 +43,8 @@ function closeSideMenu() {
 }
 
 function editDeadline(rid) {
-    document.getElementById(rid).innerHTML = "<form action=\"all_requests/edit_deadline\" method=\"post\">" +
+    document.getElementById(rid).innerHTML = "<form action=\"all_requests/edit_deadline/"+rid+"\" method=\"post\">" +
         "<input type='date' name='newDeadline'/>" +
-        "<input type='hidden' name='request_id' value={{request.getId}}>" +
+        "<input type='hidden' name='request_id' value=rid>" +
         "<input type='submit' value='Change'/>"
 }

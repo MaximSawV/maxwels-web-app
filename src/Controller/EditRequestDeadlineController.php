@@ -16,30 +16,36 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class EditRequestDeadlineController extends AbstractController
 {
     private $security;
+
     private $requestRepository;
 
-    public function __construct(RequestRepository $requestRepository)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(RequestRepository $requestRepository, EntityManagerInterface $entityManager)
     {
         $this->requestRepository = $requestRepository;
+        $this->entityManager = $entityManager;
     }
 
 
     #[Route('/request/user/all_requests/edit_deadline', name: 'edit_deadline')]
-    public function editDeadline()
+    public function editDeadline(\Symfony\Component\HttpFoundation\Request $request)
     {
-        $newDate = $_POST["newDeadline"];
-        $deadline = new \DateTime($newDate);
-        $requestID = $_POST["request_id"];
+        $deadline = new \DateTime($request->get('newDeadline'));
+        $requestID = $request->get('request_id');
 
-        $query = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->set('r.Deadline', ':deadline')
-            ->where('r.id = :rid')
-            ->setParameter('deadline', $deadline)
-            ->setParameter('rid', $requestID);
-        $result = $query->getQuery()->execute();
+        var_dump($requestID);
+        die();
 
+        $requestEntity = $this->requestRepository->find($requestID);
+
+        $requestEntity
+            ->setDeadline($deadline);
+
+        $this->entityManager->flush();
 
 
         return $this->redirectToRoute("request_user");
