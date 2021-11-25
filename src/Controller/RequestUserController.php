@@ -36,6 +36,7 @@ class RequestUserController extends AbstractController
         return $this->render('request_user/index.html.twig', [
             'showMyRequests' => false,
             'showDoneRequests' => false,
+            'showAddRequests' => false,
             'routing' => '../'
         ]);
     }
@@ -65,21 +66,23 @@ class RequestUserController extends AbstractController
             ->requestRepository
             ->createQueryBuilder('r')
             ->join('r.Created_by', 'u')
-            ->andWhere('u.id = :currentUser')
+            ->where('u.id = :currentUser')
+            ->andWhere('r.Status != \'Done\'')
             ->setParameter('currentUser', $cuID->getId());
 
 
         /** @var Request[] $myRequests */
         $myRequests = $query->getQuery()->getResult();
 
-
         return $this->render('request_user/index.html.twig', [
             'showMyRequests' => true,
             'showDoneRequests' => false,
+            'showAddRequests' => false,
             'routing' => '../../',
             'myRequests' => $myRequests,
         ]);
     }
+
 
     #[Route('/request/user/done_requests', name: 'user_done_requests')]
     public function getDoneRequests()
@@ -100,8 +103,20 @@ class RequestUserController extends AbstractController
         return $this->render('request_user/index.html.twig', [
             'showDoneRequests' => true,
             'showMyRequests' => false,
+            'showAddRequests' => false,
             'routing' => '../../',
             'doneRequests' => $doneRequests,
+        ]);
+    }
+
+    #[Route('/request/user/add_requests', name: 'add_requests')]
+    public function openAddRequest()
+    {
+        return $this->render('request_user/index.html.twig', [
+            'showDoneRequests' => false,
+            'showMyRequests' => false,
+            'showAddRequests' => true,
+            'routing' => '../../',
         ]);
     }
 }

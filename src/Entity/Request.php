@@ -76,7 +76,7 @@ class Request
         return $this->Working_on;
     }
 
-    public function setWorkingOn(User $Working_on): self
+    public function setWorkingOn(?User $Working_on): self
     {
         $this->Working_on = $Working_on;
 
@@ -95,24 +95,24 @@ class Request
         return $this;
     }
 
-    public function getCreatedOn(): ?\DateTimeInterface
+    public function getCreatedOn(): ?\DateTime
     {
         return $this->Created_on;
     }
 
-    public function setCreatedOn(\DateTimeInterface $Created_on): self
+    public function setCreatedOn(?\DateTime $Created_on): self
     {
         $this->Created_on = $Created_on;
 
         return $this;
     }
 
-    public function getDeadline(): ?\DateTimeInterface
+    public function getDeadline(): ?\DateTime
     {
         return $this->Deadline;
     }
 
-    public function setDeadline(?\DateTimeInterface $Deadline): self
+    public function setDeadline(?\DateTime $Deadline): self
     {
         $this->Deadline = $Deadline;
 

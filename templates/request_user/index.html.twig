@@ -119,15 +119,22 @@
                         <tbody>
                         {% for request in myRequests %}
                             <tr>
+                            {% if request.getWorkingOn == null %}
+                                <td> /// </td>
+                            {% else %}
                                 <td> {{ request.getWorkingOn.username }} </td>
+                            {% endif %}
                                 <td> {{ request.getContext }} </td>
                                 <td> {{ request.getStatus }} </td>
                                 <td> {{ request.getCreatedOn | date("m/d/Y")}}  </td>
-                                <td> {{ request.getDeadline }} </td>
+                            {% if request.getDeadline == null %}
+                                <td id="{{ request.getId }}" ondblclick="editDeadline({{ request.getId }})"> /// </td>
+                            {% else %}
+                                <td id="{{ request.getId }}" ondblclick="editDeadline({{ request.getId }})"> {{ request.getDeadline | date("m/d/Y")}} </td>
+                            {% endif %}
                                 <td>
                                     <div class='edit-icon' id='editIcon'>
-                                        <image class='icon-img' src='{{ routing }}pictures/edit_icon.png' onclick='editRequest($rid, \"edit\")'/>
-                                        <image class='icon-img' src='{{ routing }}pictures/delete-icon.png' onclick='editRequest($rid, \"delete\")'/>
+                                        <image class='icon-img' src='{{ routing }}pictures/delete-icon.png' onclick='editRequest({{ request.getId }},"delete")'>delete</image>
                                     </div>
                                 </td>
                             </tr>
@@ -137,7 +144,7 @@
                 </div>
             {% endif %}
             {% if showDoneRequests %}
-                <div class="all-requests" id="doneRequests">
+                <div class="all-requests" id="doneRequests" style="display: flex">
                     <table class='request-table' id='request-table'>
                         <thead>
                             <tr>
@@ -158,26 +165,18 @@
                     </table>
                 </div>
             {% endif %}
-                <div class="all-requests" id="addRequests">
+            {% if showAddRequests %}
+                <div class="all-requests" id="addRequests" style="display: flex">
                     <div class="createRequestBG">
-                        <form class="createRequest">
+                        <form class="createRequest" action="{{ path('create_request') }}">
                             <label for='topic'> What is it about </label><br>
-                            <input type='text' id='topic' name='topic'/><br>
-                            <input type='radio' id='website' name='type' value='Website'/>
-                            <label class='radio-label' for='website'> Website </label><br>
-                            <input type='radio' id='Design' name='type' value='Design'/>
-                            <label class='radio-label' for='Design'>Design</label><br>
-                            <input type='radio' id='Game' name='type' value='Game'/>
-                            <label class='radio-label' for='Game'>Game</label><br>
-                            <input type='radio' id='Database' name='type' value='Database'/>
-                            <label class='radio-label' for='Database'>Database</label><br>
-                            <input type='radio' id='Other' name='type' value='Other'/>
-                            <label class='radio-label' for='Other'>Other</label><br>
+                            <input type='text' id='topic' name='context'/><br>
                             <input class= 'radio-label' type='date' id='Date' name='deadline'/><br>
                             <input type='submit' value='Create Request'/>
                         </form>
                     </div>          
                 </div>
+            {% endif %}
                 <div class="messsanger-box" id="messanger">
                 </div>
                 <div class="message-box" id="messageBox">
@@ -223,8 +222,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
         <div id="popup" class="popup">
             <input type="date" id="newDeadline"/>
             <div class="popup-button" id="popupButton"> Submit </div>

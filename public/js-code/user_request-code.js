@@ -1,21 +1,13 @@
 function showAll() {
     window.location.replace("http://localhost/request/user/all_requests");
-    document.getElementById("addRequests").style.display = "none";
-    document.getElementById("doneRequests").style.display = "none";
-    document.getElementById("allRequests").style.display = "flex";
 }
 
 function addRequests() {
-    document.getElementById("addRequests").style.display = "flex";
-    document.getElementById("doneRequests").style.display = "none";
-    document.getElementById("allRequests").style.display = "none";
+    window.location.replace("http://localhost/request/user/add_requests");
 }
 
 function showDone() {
     window.location.replace("http://localhost/request/user/done_requests");
-    document.getElementById("addRequests").style.display = "none";
-    document.getElementById("doneRequests").style.display = "flex";
-    document.getElementById("allRequests").style.display = "none";
 }
 
 function showMessages(id) {
@@ -60,4 +52,11 @@ function closeSideMenu() {
             elem.style.left = pos + 'px';
         }
     }
+}
+
+function editDeadline(rid) {
+    document.getElementById(rid).innerHTML = "<form action=\"all_requests/edit_deadline\" method=\"post\">" +
+        "<input type='date' name='newDeadline'/>" +
+        "<input type='hidden' name='request_id' value={{request.getId}}>" +
+        "<input type='submit' value='Change'/>"
 }
