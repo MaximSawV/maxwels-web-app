@@ -51,6 +51,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $paymentInformation;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $Subscribed;
+
 
     public function getId(): int
     {
@@ -162,6 +172,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getPaymentInformation(): ?string
+    {
+        return $this->paymentInformation;
+    }
+
+    public function setPaymentInformation(?string $paymentInformation): self
+    {
+        $this->paymentInformation = $paymentInformation;
+
+        return $this;
+    }
+
+    public function getSubscribed(): ?bool
+    {
+        return $this->Subscribed;
+    }
+
+    public function setSubscribed(bool $Subscribed): self
+    {
+        $this->Subscribed = $Subscribed;
 
         return $this;
     }

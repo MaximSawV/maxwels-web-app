@@ -18,11 +18,6 @@ class Subscriber
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="created_by")
-     */
-    private $Created_by;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -36,6 +31,8 @@ class Subscriber
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="email_address", type="string", length=255, unique=true)
+     * @ORM\OneToOne(targetEntity="User")
      */
     private $email;
 
@@ -79,17 +76,6 @@ class Subscriber
         return $this->id;
     }
 
-    public function getCreatedBy(): ?User
-    {
-        return $this->Created_by;
-    }
-
-    public function setCreatedBy(User $Created_by): self
-    {
-        $this->Created_by = $Created_by;
-
-        return $this;
-    }
 
     public function getFirstname(): ?string
     {
@@ -115,14 +101,14 @@ class Subscriber
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): ?User
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(User $user): self
     {
-        $this->email = $email;
+        $this->email = $user->getEmail();
 
         return $this;
     }

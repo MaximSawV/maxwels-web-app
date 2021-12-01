@@ -11,6 +11,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
+
 class SubscriptonController extends AbstractController
 {
     private $security;
@@ -25,41 +26,46 @@ class SubscriptonController extends AbstractController
     #[Route('/subscripton', name: 'subscripton')]
     public function index(Request $request): Response
     {
-        $currentUser = $this->security->getUser()->getUserIdentifier();
+        /** @var User $currentUser */
+        $currentUser = $this->security->getUser();
 
-        $currentUser = $this->security->getUser()->getUserIdentifier();
-        $query1 = $this
-            ->userRepository
-            ->createQueryBuilder('u')
-            ->andWhere('u.username = :currentUser')
-            ->setParameter('currentUser', $currentUser);
+        $userName = $currentUser->getUserIdentifier();
+        $qb = $this->userRepository->createQueryBuilder('u');
+        $setSubTrue = $qb
+            ->update('User', 'u')
+            ->set('u.Subscribe', 1)
+            ->where('u.Username = :username')
+            ->setParameter('username', $userName)
+            ->getQuery();
+        $em = $this->getDoctrine()->getManager();
 
-        /** @var User $cuID */
-        $cuID = $query1->getQuery()->getOneOrNullResult();
-
+        $em->persist($setSubTrue);
+        //$em->flush();
 
         $subscriber = new Subscriber();
-        $subscriber->setCreatedBy($cuID);
         $subscriber->setActive(false);
         $subscriber->setNumberOfDonations(0);
+        $subscriber->setEmail($currentUser);
 
         $form =$this->createForm(SubscriptionType::class, $subscriber, [
             'action' => $this->generateUrl('subscripton')
         ]);
 
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $em = $this->getDoctrine()->getManager();
 
             $em->persist($subscriber);
             $em->flush();
+
+            return $this->redirectToRoute('main_page');
         }
 
         return $this->render('subscripton/index.html.twig', [
             'sub_form' => $form->createView(),
-
         ]);
     }
 }
