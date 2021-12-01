@@ -1,0 +1,230 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <link rel="shortcut icon" type="x-icon" href="{{ routing }}pictures/logo_small_icon_only.png"/>
+        <link rel="stylesheet" href="{{ routing }}stylesheets/user_request-style.css"/>
+        <script src="{{ routing }}js-code/user_request-code.js"></script>
+        <title>
+            Your Requests
+        </title>
+    </head>
+    <body class="bg">
+        <div class="face">
+            <div class="mail-icon" onclick="showMessages('messageBox')">
+                <image src="{{ routing }}pictures/mail_icon.png" style="height: 90"/>
+            </div>
+            <div class="notification">
+                <p class='number' id='number'> $text </p>
+            </div>
+            <div class="programmer-bar">
+                <ul>
+                    <li class="programmers">
+                        <a class="list-face">
+                            Programmer
+                        </a>
+                        <ul>
+                            <li>
+                                <a href='mailto:$mail' id='you' class='programmer-icon' style='background-color: #00ff00; color:black;'>
+                                    $username is $status
+                                </a>
+                            </li>
+                            <li>
+                                <a id='you' class='programmer-icon' style='background-color: #ff0000; color:black;'>
+                                    $username is $status
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="programm-theme">
+                        <a class="list-face">
+                            Programms
+                        </a>
+                        <ul>
+                            <li>
+                                <a>
+                                    Website
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    Design
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    Game
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    Database
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <form class="search-field" method="post">
+                            <input class="type-field" type="test" list ="suggestions"name="search"/>
+                            <datalist id="suggestions" name="search">
+                                <option value='$name | $mail'>
+                            </datalist>
+                            <input class="search-button" type="submit" value="🔎" onclick="search($_GET['search'])"/>
+                        </form>
+                    </li>
+                    <li class="help">
+                        <a href="mailto:maxwels.contacts@gmail.com" class="list-face">
+                            ?
+                        </a>
+                    <li>
+                </ul>
+            </div>
+            <div class="request-bar">
+                <ul>
+                    <li>
+                        <a class="list-face" href="/all_requests">
+                            Show all
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-face" href="/add_requests">
+                            Add
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-face" href="/done_requests">
+                            Done
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-face" onclick="showMessanger()">
+                            Chat
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-screen">
+            {% if showMyRequests %}
+                <div class="all-requests" id="allRequests" style="display: flex">
+                    <table class='request-table' id='request-table'>
+                        <thead>
+                            <tr>
+                                <th> Working on </th>
+                                <th> Context </th>
+                                <th> Status </th>
+                                <th> Created on </th>
+                                <th> Deadline </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for request in myRequests %}
+                            <tr>
+                            {% if request.getWorkingOn == null %}
+                                <td> /// </td>
+                            {% else %}
+                                <td> {{ request.getWorkingOn.username }} </td>
+                            {% endif %}
+                                <td> {{ request.getContext }} </td>
+                                <td> {{ request.getStatus }} </td>
+                                <td> {{ request.getCreatedOn | date("m/d/Y")}}  </td>
+                            {% if request.getDeadline == null %}
+                                <td id="{{ request.getId }}" ondblclick="editDeadline({{ request.getId }})"> /// </td>
+                            {% else %}
+                                <td id="{{ request.getId }}" ondblclick="editDeadline({{ request.getId }})"> {{ request.getDeadline | date("m/d/Y")}} </td>
+                            {% endif %}
+                                <td>
+                                    <div class='edit-icon' id='editIcon'>
+                                        <image class='icon-img' src='{{ routing }}pictures/delete-icon.png' onclick='editRequest({{ request.getId }},"delete")'>delete</image>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            {% if showDoneRequests %}
+                <div class="all-requests" id="doneRequests" style="display: flex">
+                    <table class='request-table' id='request-table'>
+                        <thead>
+                            <tr>
+                                <th> Working on </th>
+                                <th> Context </th>
+                                <th> Vote </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for request in doneRequests %}
+                            <tr>
+                                <td> {{ request.getWorkingOn.username }} </td>
+                                <td> {{ request.getContext }} </td>
+                                <td> {{ request.getVote }} </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            {% if showAddRequests %}
+                <div class="all-requests" id="addRequests" style="display: flex">
+                    <div class="createRequestBG">
+                        <form class="createRequest" action="{{ path('create_request') }}">
+                            <label for='topic'> What is it about </label><br>
+                            <input type='text' id='topic' name='context'/><br>
+                            <input class= 'radio-label' type='date' id='Date' name='deadline'/><br>
+                            <input type='submit' value='Create Request'/>
+                        </form>
+                    </div>          
+                </div>
+            {% endif %}
+                <div class="messsanger-box" id="messanger">
+                </div>
+                <div class="message-box" id="messageBox">
+                    <div class="mb-head">
+                        <div onclick="closeMessageBox('messageBox')">
+                            X 
+                        </div>
+                    </div>
+                    <div class="message-window">
+                        <div>
+                            <table class='request-table' id='request-table'>
+                                <thead>
+                                    <tr>
+                                        <th> From </th>
+                                        <th> Message </th>
+                                        <th> Date </th>
+                                        <th> Rating </th>
+                                        <th> Check </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> $from </td>
+                                        <td> $text </td>
+                                        <td> $date </td>
+                                        <td>
+                                            <image class='icon-img' src='{{ routing }}pictures/submitbutton.png' onclick='setSeenYes($newsId)'/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> $from </td>
+                                        <td> $text </td>
+                                        <td> $date </td>
+                                        <td class=\"rateRequestField\">
+                                            <div class=\"positiveRequest\" onclick=\"rateDoneRequest($rid, 'YES', $newsId)\"></div>
+                                            <div class=\"negativeRequest\" onclick=\"rateDoneRequest($rid, 'NO', $newsId)\"></div>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        <div id="popup" class="popup">
+            <input type="date" id="newDeadline"/>
+            <div class="popup-button" id="popupButton"> Submit </div>
+        </div>
+    </body>
+</html>

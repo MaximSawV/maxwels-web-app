@@ -1,0 +1,389 @@
+@charset "UTF-8";
+@media only screen and (max-width: 1920px) {
+  .status-indicator {
+    position: fixed;
+    top: 100;
+    height: 30px;
+    width: 100px;
+    border-radius: 20%;
+    display: inline-block;
+    transition: 0.5s; } }
+.bg {
+  background: #0c2436;
+  background: linear-gradient(to bottom, #0c2436 0%, #84cafe 100%); }
+  .bg > * {
+    color: #84cafe; }
+
+.face {
+  width: 100%;
+  height: 100%;
+  display: flex; }
+  .face ul {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+
+.programmer-bar {
+  position: fixed;
+  top: 0;
+  left: 100px;
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  z-index: 1; }
+  .programmer-bar > ul {
+    display: flex;
+    flex-direction: row; }
+  .programmer-bar > ul > li {
+    display: flex;
+    width: 20%;
+    height: 100px; }
+    .programmer-bar > ul > li > ul {
+      width: 100%; }
+
+.request-bar {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 100px;
+  height: 100%;
+  background-color: transparent;
+  z-index: 1; }
+  .request-bar > ul {
+    display: flex;
+    flex-direction: column; }
+  .request-bar > ul > li {
+    display: flex;
+    width: 100%;
+    height: 268px; }
+
+.programmers {
+  flex-direction: column; }
+  .programmers > ul {
+    display: flex;
+    flex-direction: column; }
+    .programmers > ul > li {
+      display: none;
+      width: 100%;
+      height: 100px;
+      position: relative; }
+  .programmers:hover > ul {
+    background: #0c2436;
+    background: linear-gradient(to bottom, #0c2436 0%, #84cafe 100%); }
+    .programmers:hover > ul > li {
+      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.25s; }
+      .programmers:hover > ul > li:hover {
+        color: white; }
+
+.programmer-icon {
+  width: 60%;
+  height: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.programm-theme {
+  flex-direction: column; }
+  .programm-theme > ul {
+    display: flex;
+    flex-direction: column; }
+    .programm-theme > ul > li {
+      display: none;
+      width: 100%;
+      height: 100px;
+      position: relative; }
+  .programm-theme:hover > ul {
+    background: #0c2436;
+    background: linear-gradient(to bottom, #0c2436 0%, #84cafe 100%); }
+    .programm-theme:hover > ul > li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.25s; }
+      .programm-theme:hover > ul > li:hover {
+        border-top: 5px solid white;
+        border-bottom: 5px solid white;
+        color: white; }
+
+.search-field {
+  width: 100%;
+  height: 100px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.type-field {
+  height: 40px;
+  width: 80%; }
+
+.search-button {
+  height: 40px;
+  width: 40px; }
+
+.stat-button {
+  width: 50%;
+  min-height: 100%; }
+
+.status-indicator {
+  position: fixed;
+  top: 100;
+  height: 30px;
+  width: 100px;
+  border-radius: 20%;
+  display: inline-block;
+  transition: 0.5s; }
+
+.list-face {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: 0.25s; }
+  .list-face:hover {
+    color: white; }
+
+.main-screen {
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  z-index: auto; }
+
+.all-requests {
+  display: none;
+  width: 100%;
+  margin-left: 5%; }
+
+.request-table {
+  margin-top: 6%;
+  width: 80%;
+  border: #85cbff solid 5px;
+  background: #0c2436;
+  background: linear-gradient(to bottom, #0c2436 0%, #84cafe 100%); }
+  .request-table thead > tr {
+    font-size: xxx-large;
+    color: #85cbff;
+    height: 150px; }
+    .request-table thead > tr > th {
+      border-left: black solid 3px;
+      border-bottom: black solid 3px;
+      margin: 0;
+      padding: 0; }
+  .request-table tbody > tr {
+    font-size: x-large;
+    color: white;
+    height: 100px; }
+    .request-table tbody > tr > td {
+      text-align: center;
+      border-left: black solid 1px;
+      border-bottom: black solid 1px; }
+
+.requester {
+  color: greenyellow; }
+  .requester:hover {
+    border: greenyellow solid 2px; }
+
+.createRequestBG {
+  margin-top: 100px;
+  width: 80%;
+  background: linear-gradient(to bottom, #0c2436 0%, #84cafe 100%); }
+
+.createRequest {
+  max-width: 100%;
+  margin-top: 10px;
+  font-size: xx-large; }
+  .createRequest > input[type="text"] {
+    width: 300px;
+    height: 50px; }
+  .createRequest > input[type="radio"] {
+    position: fixed;
+    width: 0;
+    opacity: 0; }
+  .createRequest > input[type="submit"] {
+    width: 270px;
+    height: 74px;
+    padding: 10px 20px;
+    font-size: xx-large;
+    border: 2px solid #444;
+    background: #0c2436;
+    background: linear-gradient(to top, #0c2436 0%, #84cafe 100%);
+    transition: 0.25s;
+    color: #85cbff; }
+    .createRequest > input[type="submit"]:hover {
+      background: #0c2436;
+      background: linear-gradient(to right, #0c2436 0%, #84cafe 100%); }
+  .createRequest > input[type="radio"]:checked + .radio-label {
+    background: #0c2436;
+    background: linear-gradient(to right, #0c2436 0%, #4c4 100%);
+    border-color: #4c4; }
+
+.radio-label {
+  display: inline-block;
+  width: 270px;
+  height: 74px;
+  padding: 10px 20px;
+  font-size: xx-large;
+  border: 2px solid #444;
+  background: #0c2436;
+  background: linear-gradient(to top, #0c2436 0%, #84cafe 100%);
+  transition: 0.25s; }
+  .radio-label:hover {
+    background: #0c2436;
+    background: linear-gradient(to right, #0c2436 0%, #84cafe 100%); }
+
+.colorPickerWindow {
+  display: none;
+  flex-direction: column;
+  width: 80%;
+  height: 80%; }
+
+.color-preview {
+  display: flex;
+  flex-direction: row; }
+  .color-preview > div {
+    border-radius: 50%;
+    border: 1px black solid;
+    height: 150px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px; }
+    .color-preview > div > label {
+      color: white !important; }
+
+.color-picker {
+  display: flex;
+  flex-direction: column; }
+  .color-picker > input {
+    width: 255px;
+    height: 50px; }
+
+.color-field {
+  height: 200px;
+  width: 300px; }
+
+.edit-icon {
+  position: fixed;
+  width: fit-content;
+  height: fit-content;
+  margin-top: -25;
+  margin-left: 15; }
+
+.icon-img {
+  position: relative;
+  max-height: 50px;
+  transition: 0.25s; }
+  .icon-img:hover {
+    max-height: 70px; }
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 400px;
+  left: 600px;
+  width: 500px;
+  height: 500px;
+  background-color: grey; }
+
+.popup-button {
+  width: 100px;
+  height: 50px;
+  background: white; }
+
+.mail-icon {
+  display: block;
+  position: fixed;
+  top: 10px;
+  left: 0;
+  z-index: 1;
+  height: fit-content;
+  width: fit-content; }
+
+.notification {
+  display: flex;
+  position: fixed;
+  max-height: 25px;
+  width: 25px;
+  top: 2px;
+  left: 104px;
+  background: red;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  border-radius: 50%; }
+
+.message-box {
+  display: none;
+  height: 80%;
+  width: 80%;
+  flex-direction: column;
+  position: fixed;
+  top: 120px;
+  left: 120px;
+  border: black solid 2px;
+  background: linear-gradient(to bottom, #0c2436 0%, #84cafe 100%);
+  align-items: center; }
+
+.mb-head {
+  width: 100%;
+  height: fit-content;
+  background: transparent;
+  border: solid 1px black; }
+  .mb-head > div {
+    color: red;
+    font-size: xxx-large;
+    height: 100%;
+    width: 20%; }
+
+.message-window {
+  height: 90%;
+  width: 80%;
+  overflow: auto; }
+
+.rateRequestField {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }
+
+.positiveRequest {
+  width: 95px;
+  height: 95px;
+  background: #4c4;
+  border: solid black 2px;
+  margin-right: 5px;
+  transition: 0.25s; }
+  .positiveRequest:hover {
+    border-color: white; }
+
+.negativeRequest {
+  width: 95px;
+  height: 95px;
+  background: red;
+  border: solid black 2px;
+  transition: 0.25s; }
+  .negativeRequest:hover {
+    border-color: white; }
+
+.müllding {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #000000;
+  z-index: 10; }
+
+/*# sourceMappingURL=programmer_request-style.css.map */

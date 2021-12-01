@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block head %}
+    <title> Subscribe! </title>
+    <link rel="stylesheet" href="{{ asset('stylesheets/subscription-style.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% form_theme sub_form 'bootstrap_4_horizontal_layout.html.twig' %}
+    {{ form_start(sub_form) }}
+    {{ form_end(sub_form) }}
+{% endblock %}
