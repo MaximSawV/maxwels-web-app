@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Subscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -27,11 +29,9 @@ class SubscriptionType extends AbstractType
                     'placeholder' => 'Doe'
                 ]
             ])
-            ->add('email')
-            ->add('donation',RangeType::class, [
+            ->add('donation',TextType::class, [
                 'attr' => [
-                    'min' => 0,
-                    'max' => 100
+                    'placeholder' => 'Min 5€, Max 100€'
                 ]
             ])
             ->add('donationInterval', ChoiceType::class, [
@@ -39,11 +39,19 @@ class SubscriptionType extends AbstractType
                     'Onetime' => 'O',
                     'Monethly' => 'M',
                     'Yearly' => 'Y',
+
                 ],
             ])
+            ->add('firstDonation', DateType::class,
+                ['data'   => new \DateTime(),
+                'attr'   => [
+                    'min' => ( new \DateTime() )->format('Y-m-d'),
+                    ],
+                'widget' => 'single_text'
+                ])
             ->add('formOfDonation', TextType::class, [
                 'attr' => [
-                    'placeholder'
+                    'placeholder' => 'Paypal, Debit etc.'
                 ]
             ])
 
