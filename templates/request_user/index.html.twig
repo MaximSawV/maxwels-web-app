@@ -3,18 +3,17 @@
         <meta charset="utf-8"/>
         <link rel="shortcut icon" type="x-icon" href="{{ routing }}pictures/logo_small_icon_only.png"/>
         <link rel="stylesheet" href="{{ routing }}stylesheets/user_request-style.css"/>
-        <script src="{{ routing }}js-code/user_request-code.js"></script>
         <title>
             Your Requests
         </title>
     </head>
     <body class="bg">
         <div class="face">
-            <div class="mail-icon" onclick="showMessages('messageBox')">
+            <div class="mail-icon">
                 <image src="{{ routing }}pictures/mail_icon.png" style="height: 90"/>
             </div>
             <div class="notification">
-                <p class='number' id='number'> $text </p>
+                <p class='number' id='number'></p>
             </div>
             <div class="programmer-bar">
                 <ul>
@@ -81,17 +80,17 @@
             <div class="request-bar">
                 <ul>
                     <li>
-                        <a class="list-face" href="/all_requests">
+                        <a class="list-face" href="/request/user/all_requests/1">
                             Show all
                         </a>
                     </li>
                     <li>
-                        <a class="list-face" href="/add_requests">
+                        <a class="list-face" href="/request/user/add_requests">
                             Add
                         </a>
                     </li>
                     <li>
-                        <a class="list-face" href="/done_requests">
+                        <a class="list-face" href="/request/user/done_requests/1">
                             Done
                         </a>
                     </li>
@@ -142,6 +141,33 @@
                         </tbody>
                     </table>
                 </div>
+                {% if nextPage != null and lastPage != null %}
+                    <div class="pageMenu">
+                    <span>
+                        <a class="lastPage" href="/request/user/all_requests/{{ lastPage }}">{{ lastPage }}</a>
+                        <---
+                        <a class="currentPage">{{ currentPage }}</a>
+                        --->
+                        <a class="nextPage" href="/request/user/all_requests/{{ lastPage }}">{{ nextPage }}</a>
+                    </span>
+                    </div>
+                {% elseif nextPage != null %}
+                    <div class="pageMenu">
+                    <span>
+                        <a class="currentPage">{{ currentPage }}</a>
+                        --->
+                        <a class="nextPage" href="/request/user/all_requests/{{ nextPage }}">{{ nextPage }}</a>
+                    </span>
+                    </div>
+                {% elseif nextPage == null %}
+                    <div class="pageMenu">
+                    <span>
+                        <a class="lastPage" href="/request/user/all_requests/{{ lastPage }}">{{ lastPage }}</a>
+                        <---
+                        <a class="currentPage">{{ currentPage }}|</a>
+                    </span>
+                    </div>
+                {% endif %}
             {% endif %}
             {% if showDoneRequests %}
                 <div class="all-requests" id="doneRequests" style="display: flex">
@@ -164,6 +190,33 @@
                         </tbody>
                     </table>
                 </div>
+                {% if nextPage != null and lastPage != null %}
+                    <div class="pageMenu">
+                    <span>
+                        <a class="lastPage" href="/request/user/done_requests/{{ lastPage }}">{{ lastPage }}</a>
+                        <---
+                        <a class="currentPage">{{ currentPage }}</a>
+                        --->
+                        <a class="nextPage" href="/request/user/done_requests/{{ nextPage }}">{{ nextPage }}</a>
+                    </span>
+                    </div>
+                {% elseif nextPage != null %}
+                    <div class="pageMenu">
+                    <span>
+                        <a class="currentPage">{{ currentPage }}</a>
+                        --->
+                        <a class="nextPage" href="/request/user/done_requests/{{ nextPage }}">{{ nextPage }}</a>
+                    </span>
+                    </div>
+                {% elseif nextPage == null %}
+                    <div class="pageMenu">
+                    <span>
+                        <a class="lastPage" href="/request/user/done_requests/{{ lastPage }}">{{ lastPage }}</a>
+                        <---
+                        <a class="currentPage">{{ currentPage }}|</a>
+                    </span>
+                    </div>
+                {% endif %}
             {% endif %}
             {% if showAddRequests %}
                 <div class="all-requests" id="addRequests" style="display: flex">
@@ -177,54 +230,7 @@
                     </div>          
                 </div>
             {% endif %}
-                <div class="messsanger-box" id="messanger">
-                </div>
-                <div class="message-box" id="messageBox">
-                    <div class="mb-head">
-                        <div onclick="closeMessageBox('messageBox')">
-                            X 
-                        </div>
-                    </div>
-                    <div class="message-window">
-                        <div>
-                            <table class='request-table' id='request-table'>
-                                <thead>
-                                    <tr>
-                                        <th> From </th>
-                                        <th> Message </th>
-                                        <th> Date </th>
-                                        <th> Rating </th>
-                                        <th> Check </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> $from </td>
-                                        <td> $text </td>
-                                        <td> $date </td>
-                                        <td>
-                                            <image class='icon-img' src='{{ routing }}pictures/submitbutton.png' onclick='setSeenYes($newsId)'/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> $from </td>
-                                        <td> $text </td>
-                                        <td> $date </td>
-                                        <td class=\"rateRequestField\">
-                                            <div class=\"positiveRequest\" onclick=\"rateDoneRequest($rid, 'YES', $newsId)\"></div>
-                                            <div class=\"negativeRequest\" onclick=\"rateDoneRequest($rid, 'NO', $newsId)\"></div>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        <div id="popup" class="popup">
-            <input type="date" id="newDeadline"/>
-            <div class="popup-button" id="popupButton"> Submit </div>
+            </div>
         </div>
     </body>
 </html>

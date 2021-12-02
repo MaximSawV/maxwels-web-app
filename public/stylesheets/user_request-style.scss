@@ -27,6 +27,16 @@
     background: linear-gradient(to right, #0c2436 0%,#84cafe 100%);
   }
 }
+
+@mixin pageButton($color) {
+  color: $color;
+  transition: 0.25s;
+  text-decoration: none;
+
+  &:hover {
+    color: deepskyblue;
+  }
+}
 @media only screen and (max-width: 1920px) {
   .status-indicator {
     position: fixed;
@@ -217,8 +227,8 @@
 
 .all-requests {
   display: none;
-  width: 100%;
-  margin-left: 5%;
+  width: 90%;
+  margin-left: 10%;
 }
 
 .request-table {
@@ -227,6 +237,7 @@
   border: #85cbff solid 5px;
   background: #0c2436;
   background: linear-gradient(to bottom, #0c2436 0%,#84cafe 100%);
+  overflow: scroll;
 
   & thead > tr {
     font-size: xxx-large;
@@ -241,14 +252,16 @@
     }
   }
 
-  & tbody > tr {
-    font-size: x-large;
-    color: white;
-    height: 100px;
-    & > td {
-      text-align: center;
-      border-left: black solid 1px;
-      border-bottom: black solid 1px;
+  & tbody {
+    & > tr {
+      font-size: x-large;
+      color: white;
+      height: 100px;
+      & > td {
+        text-align: center;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+      }
     }
   }
 }
@@ -481,4 +494,22 @@
   position: fixed;
   z-index: 20;
   right: 0px;
+}
+
+.pageMenu {
+  background: transparent;
+  font-size: 2em;
+  position: fixed;
+}
+
+.lastPage {
+  @include pageButton(red);
+}
+
+.currentPage {
+  color: black;
+}
+
+.nextPage {
+  @include pageButton(lime);
 }

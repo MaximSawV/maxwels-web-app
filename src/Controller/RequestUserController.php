@@ -50,17 +50,19 @@ class RequestUserController extends AbstractController
             ->andWhere('u.username = :currentUser')
             ->setParameter('currentUser', $currentUser);
 
-        /** @var User $cuID */
+        /** @var @var User $cuID */
         $cuID = $query1->getQuery()->getOneOrNullResult();
 
         return $cuID;
     }
 
 
-    #[Route('/request/user/all_requests', name: 'user_all_requests')]
-    public function getMyRequests()
+    #[Route('/request/user/all_requests/{page}', name: 'user_all_requests')]
+    public function getMyRequests(int $page)
     {
         $cuID = $this->getCurrentUser();
+
+        $firstResult = (5*($page-1));
 
         $query = $this
             ->requestRepository
@@ -68,26 +70,66 @@ class RequestUserController extends AbstractController
             ->join('r.Created_by', 'u')
             ->where('u.id = :currentUser')
             ->andWhere('r.Status != \'Done\'')
+            ->setFirstResult($firstResult)
+            ->setMaxResults(5)
             ->setParameter('currentUser', $cuID->getId());
 
-
-        /** @var Request[] $myRequests */
+        /** @var @var Request[] $myRequests */
         $myRequests = $query->getQuery()->getResult();
+
+        $query2 = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->join('r.Created_by', 'u')
+            ->where('u.id = :currentUser')
+            ->andWhere('r.Status != \'Done\'')
+            ->setFirstResult($firstResult)
+            ->setParameter('currentUser', $cuID->getId());
+
+        /** @var @var Request[] $myRequests */
+        $myRequestsTotal = $query2->getQuery()->getResult();
+
+        $numberOfRequests = count($myRequestsTotal);
+
+        if ($numberOfRequests > 5)
+        {
+            $nextPage = $page + 1;
+
+            if ($page > 1)
+            {
+                $lastPage = $page - 1;
+            } else {
+                $lastPage = null;
+            }
+        } else {
+            $nextPage = null;
+            if ($page > 1)
+            {
+                $lastPage = $page - 1;
+            } else {
+                $lastPage = null;
+            }
+        }
 
         return $this->render('request_user/index.html.twig', [
             'showMyRequests' => true,
             'showDoneRequests' => false,
             'showAddRequests' => false,
-            'routing' => '../../',
+            'routing' => '../../../',
             'myRequests' => $myRequests,
+            'nextPage' => $nextPage,
+            'currentPage' => $page,
+            'lastPage' => $lastPage,
+            'test' => $numberOfRequests,
         ]);
     }
 
 
-    #[Route('/request/user/done_requests', name: 'user_done_requests')]
-    public function getDoneRequests()
+    #[Route('/request/user/done_requests/{page}', name: 'user_done_requests')]
+    public function getDoneRequests(int $page)
     {
         $cuID = $this->getCurrentUser();
+        $firstResult = (5*($page-1));
 
         $query = $this
             ->requestRepository
@@ -95,16 +137,58 @@ class RequestUserController extends AbstractController
             ->join('r.Created_by', 'u')
             ->where('u.id = :currentUser')
             ->andWhere('r.Status = \'DONE\'')
+            ->setFirstResult($firstResult)
+            ->setMaxResults(5)
             ->setParameter('currentUser', $cuID);
 
         /** @var @var Request[] $doneRequests */
         $doneRequests = $query->getQuery()->getResult();
 
+
+        $query2 = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->join('r.Created_by', 'u')
+            ->where('u.id = :currentUser')
+            ->andWhere('r.Status = \'DONE\'')
+            ->setFirstResult($firstResult)
+            ->setMaxResults(5)
+            ->setParameter('currentUser', $cuID);
+
+        /** @var @var Request[] $myRequests */
+        $myRequestsTotal = $query2->getQuery()->getResult();
+
+        $numberOfRequests = count($myRequestsTotal);
+
+        if ($numberOfRequests > 5)
+        {
+            $nextPage = $page + 1;
+
+            if ($page > 1)
+            {
+                $lastPage = $page - 1;
+            } else {
+                $lastPage = null;
+            }
+        } else {
+            $nextPage = null;
+            if ($page > 1)
+            {
+                $lastPage = $page - 1;
+            } else {
+                $lastPage = null;
+            }
+        }
+
         return $this->render('request_user/index.html.twig', [
             'showDoneRequests' => true,
             'showMyRequests' => false,
             'showAddRequests' => false,
-            'routing' => '../../',
+            'routing' => '../../../',
+            'nextPage' => $nextPage,
+            'currentPage' => $page,
+            'lastPage' => $lastPage,
+            'test' => $numberOfRequests,
             'doneRequests' => $doneRequests,
         ]);
     }
@@ -116,6 +200,10 @@ class RequestUserController extends AbstractController
             'showDoneRequests' => false,
             'showMyRequests' => false,
             'showAddRequests' => true,
+            'nextPage' => null,
+            'currentPage' => null,
+            'lastPage' => null,
+            'test' => null,
             'routing' => '../../',
         ]);
     }
