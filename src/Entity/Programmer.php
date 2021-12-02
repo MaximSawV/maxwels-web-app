@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProgrammerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Programmer
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Rating;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="Working_on")
+     */
+    private $projects;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,33 @@ class Programmer
     public function setRating(?string $Rating): self
     {
         $this->Rating = $Rating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->addWorkingOn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->removeElement($project)) {
+            $project->removeWorkingOn($this);
+        }
 
         return $this;
     }

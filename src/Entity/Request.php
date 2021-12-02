@@ -54,6 +54,11 @@ class Request
      */
     private $Vote;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="requests")
+     */
+    private $Part_of_Project;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +144,18 @@ class Request
     public function setVote(int $Vote): self
     {
         $this->Vote = $Vote;
+
+        return $this;
+    }
+
+    public function getPartOfProject(): ?Project
+    {
+        return $this->Part_of_Project;
+    }
+
+    public function setPartOfProject(?Project $Part_of_Project): self
+    {
+        $this->Part_of_Project = $Part_of_Project;
 
         return $this;
     }

@@ -61,6 +61,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $Subscribed;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="Requested_by")
+     */
+    private $projects;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+    }
+
 
     public function getId(): int
     {
@@ -196,6 +206,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSubscribed(bool $Subscribed): self
     {
         $this->Subscribed = $Subscribed;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->addRequestedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->removeElement($project)) {
+            $project->removeRequestedBy($this);
+        }
 
         return $this;
     }

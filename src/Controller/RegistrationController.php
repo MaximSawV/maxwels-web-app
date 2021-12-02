@@ -41,6 +41,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setSubscribed(false);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -51,6 +52,7 @@ class RegistrationController extends AbstractController
 
             }
             // generate a signed url and email it to the user
+
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('maxwels.contacts@gmail.com', 'Maxwels MailBot'))

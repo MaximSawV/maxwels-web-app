@@ -10,6 +10,11 @@
     </head>
     <body id="body" onload="createClock()">
         <div class="page">
+        {% if error is defined %}
+            <div class ="errorBlock">
+                Username or Password is wrong
+            </div>
+        {% endif %}
             <ul class="side-menu" id="sideMenu">
             {% if logged == false %}
                 <li class="login-field" id="loginField" style="display: none;">
@@ -45,10 +50,17 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/mailig">
+                        Mail
+                    </a>
+                </li>
+                {% if test is defined and test == 0 %}
+                <li>
                     <a href="/subscripton">
                         Subscribe
                     </a>
                 </li>
+                {% endif %}
             {% endif %}
                 <li>
                     <a href="#statistic">

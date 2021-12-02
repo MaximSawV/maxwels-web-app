@@ -14,12 +14,20 @@ class LoginController extends AbstractController
 
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
-        /*
+
         $error = $authenticationUtils->getLastAuthenticationError();
+        if ($error != null)
+        {
+            $loggedin = false;
+        } else {
+            $loggedin = 0;
+        }
         return $this->render('main_page/index.html.twig', [
             'error' => $error,
             'logged' => $loggedin
-        ]);*/
-        return $this->redirectToRoute('main_page');
+        ]);
+
+        // TODO[maxim] Build Forgot Password Funktion!
+        //return $this->redirectToRoute('main_page');
     }
 }

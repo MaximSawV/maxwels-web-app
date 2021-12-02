@@ -296,3 +296,15 @@ a {
   z-index: 10;
   font-size: 5em;
 }
+
+.errorBlock {
+  display: flex;
+  position: fixed;
+  z-index: 11;
+  width: 300px;
+  height: 200px;
+  background: white;
+  font-size: 2em;
+  top: 10px;
+  left: 40%;
+}
