@@ -16,7 +16,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 
-//TODO[maxim] Rechte statt feste Rollen verteillen
 //TODO[maxim] Base Template statt einzelne Seiten
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

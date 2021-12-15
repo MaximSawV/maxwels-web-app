@@ -1,0 +1,59 @@
+@mixin box($width, $height, $position, $display, $background) {
+  width: $width;
+  height: $height;
+  position: $position;
+  display: $display;
+  background: $background;
+}
+
+@mixin button{
+  @include box(200px, 100px, relative, block, linear-gradient(to bottom, #0c2436 0%, #84cafe 100%));
+
+}
+
+li {
+  list-style: none;
+}
+
+
+.mainpage {
+  @include box(100%, 100%, relative, block, white);
+}
+
+.menu {
+  @include box(100%, 100px, fixed, flex, #0c2436);
+  top: 0;
+  left: 0;
+  color: white;
+  & > div {
+    @include box(200px, 100%, relative, flex, transparent);
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.dropdown {
+  margin: 0;
+  @include box(200px, 100%, relative, flex, transparent);
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  flex-direction: column;
+  & > li {
+    @include box(fit-content, fit-content, relative, none, linear-gradient(to bottom, #0c2436 0%, #84cafe 100%));
+
+    & > a {
+      @include button;
+      background: transparent;
+    }
+  }
+
+  &:hover {
+    color: #84cafe;
+
+    & > li {
+      display: block;
+    }
+  }
+}

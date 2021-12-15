@@ -33,11 +33,10 @@ class RequestUserController extends AbstractController
     public function index(): Response
     {
 
-        return $this->render('request_user/index.html.twig', [
+        return $this->render('request_page/index.html.twig', [
             'showMyRequests' => false,
             'showDoneRequests' => false,
             'showAddRequests' => false,
-            'routing' => '../'
         ]);
     }
 
@@ -111,11 +110,10 @@ class RequestUserController extends AbstractController
             }
         }
 
-        return $this->render('request_user/index.html.twig', [
+        return $this->render('request_page/index.html.twig', [
             'showMyRequests' => true,
             'showDoneRequests' => false,
             'showAddRequests' => false,
-            'routing' => '../../../',
             'myRequests' => $myRequests,
             'nextPage' => $nextPage,
             'currentPage' => $page,
@@ -180,11 +178,10 @@ class RequestUserController extends AbstractController
             }
         }
 
-        return $this->render('request_user/index.html.twig', [
+        return $this->render('request_page/index.html.twig', [
             'showDoneRequests' => true,
             'showMyRequests' => false,
             'showAddRequests' => false,
-            'routing' => '../../../',
             'nextPage' => $nextPage,
             'currentPage' => $page,
             'lastPage' => $lastPage,
@@ -196,7 +193,7 @@ class RequestUserController extends AbstractController
     #[Route('/request/user/add_requests', name: 'add_requests')]
     public function openAddRequest()
     {
-        return $this->render('request_user/index.html.twig', [
+        return $this->render('request_page/index.html.twig', [
             'showDoneRequests' => false,
             'showMyRequests' => false,
             'showAddRequests' => true,
@@ -204,7 +201,6 @@ class RequestUserController extends AbstractController
             'currentPage' => null,
             'lastPage' => null,
             'test' => null,
-            'routing' => '../../',
         ]);
     }
 }

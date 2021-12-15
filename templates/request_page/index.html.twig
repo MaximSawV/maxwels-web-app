@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <title>Maxwels Requests</title>
+    <link rel="stylesheet" href="stylesheets/requestpage-style.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="mainpage">
+        <div class="menu">
+            <div style="display: flex; flex-direction: column; align-items: center">
+                <a>
+                    Show all
+                </a>
+                <ul class="dropdown">
+                    <li>
+                        <ul class="dropdown">
+                            Status
+                            <li>
+                                <a class="buttons">
+                                    Online
+                                </a>
+                                <a>
+                                    Busy
+                                </a>
+                                <a>
+                                    Offline
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            Options
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            Conntacts
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <-Back
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <a>
+                    Show all
+                </a>
+            </div>
+            <div>
+                <a>
+                    Show in Progress
+                </a>
+            </div>
+            {% if is_granted('ROLE_MANAGE_OWN_REQUESTS') or is_granted('ROLE_ADMIN')%}
+            <div>
+                <a>
+                    Create Request
+                </a>
+            </div>
+            {% endif %}
+            <div>
+                <a>
+                    Change to <br>
+                    Customer/Programmer
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
