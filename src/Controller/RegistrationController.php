@@ -71,6 +71,10 @@ class RegistrationController extends AbstractController
                 } catch (\PDOException $e){
 
                 }
+
+                $user->setRoles(["ROLE_MANAGE_OWN_REQUESTS"]);
+                $entityManager->persist($user);
+                $entityManager->flush();
             }
 
             if ($form->get('customer_or_programmer')->getData() == 'programmer' or $form->get('customer_or_programmer')->getData() == 'both')
@@ -89,6 +93,10 @@ class RegistrationController extends AbstractController
                 } catch (\PDOException $e){
 
                 }
+
+                $user->setRoles(["ROLE_TAKE_REQUESTS"]);
+                $entityManager->persist($user);
+                $entityManager->flush();
             }
             // generate a signed url and email it to the user
 
