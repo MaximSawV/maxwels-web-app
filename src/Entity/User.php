@@ -16,10 +16,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 
-//TODO[maxim] Neue User gruppe erstellen: Custommer
 //TODO[maxim] Rechte statt feste Rollen verteillen
 //TODO[maxim] Base Template statt einzelne Seiten
-//TODO[maxim] 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -67,14 +65,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $Subscribed;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="Requested_by")
+     * @ORM\Column(type="string", length=255)
      */
-    private $projects;
-
-    public function __construct()
-    {
-        $this->projects = new ArrayCollection();
-    }
+    private $customer_or_programmer;
 
 
     public function getId(): int
@@ -211,6 +204,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSubscribed(bool $Subscribed): self
     {
         $this->Subscribed = $Subscribed;
+
+        return $this;
+    }
+
+    public function getCustomerOrProgrammer(): ?string
+    {
+        return $this->customer_or_programmer;
+    }
+
+    public function setCustomerOrProgrammer(string $customer_or_programmer): self
+    {
+        $this->customer_or_programmer = $customer_or_programmer;
 
         return $this;
     }

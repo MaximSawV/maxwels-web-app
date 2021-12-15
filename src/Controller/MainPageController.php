@@ -28,7 +28,7 @@ class MainPageController extends AbstractController
     public function index(?Profiler $profiler): Response
     {
         $user = $this->security->getUser();
-        $cuID = 0;
+        $isSubscriber = 1;
         if (isset($user) or $user != null){
             $loggedin = true;
             $currentUser = $user->getUserIdentifier();
@@ -39,15 +39,15 @@ class MainPageController extends AbstractController
                 ->andWhere('u.username = :currentUser')
                 ->setParameter('currentUser', $currentUser);
 
-            /** @var User $cuID */
-            $cuID = $query1->getQuery()->getOneOrNullResult();
+            $isSubscriber = $query1->getQuery()->getOneOrNullResult();
+
         } else {
             $loggedin = false;
         }
 
         return $this->render('main_page/index.html.twig', [
             'logged' => $loggedin,
-            'test' => $cuID
+            'isSubscriber' => $isSubscriber
         ]);
     }
 }

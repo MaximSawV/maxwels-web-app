@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Customer;
+use App\Entity\Programmer;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -14,11 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 class RegistrationController extends AbstractController
 {
+    /** @EmailVerifier $emailVerifier */
     private EmailVerifier $emailVerifier;
 
     public function __construct(EmailVerifier $emailVerifier)
@@ -51,6 +55,41 @@ class RegistrationController extends AbstractController
             } catch (\PDOException $e){
 
             }
+
+            if ($form->get('customer_or_programmer')->getData() == 'customer' or $form->get('customer_or_programmer')->getData() == 'both')
+            {
+                $customer = new Customer();
+                $customer->setUserId($user);
+                $customer->setStatus('OFFLINE');
+                $customer->setNumberOfRequests(0);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($customer);
+
+                try {
+                    $entityManager->flush();
+                } catch (\PDOException $e){
+
+                }
+            }
+
+            if ($form->get('customer_or_programmer')->getData() == 'programmer' or $form->get('customer_or_programmer')->getData() == 'both')
+            {
+                $programmer = new Programmer();
+                $programmer->setUser($user);
+                $programmer->setStatus('OFFLINE');
+                $programmer->setDoneRequests(0);
+                $programmer->setRating(null);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($programmer);
+
+                try {
+                    $entityManager->flush();
+                } catch (\PDOException $e){
+
+                }
+            }
             // generate a signed url and email it to the user
 
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
@@ -73,6 +112,27 @@ class RegistrationController extends AbstractController
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
     {
+        $id = $request->get('id');
 
+        if (null === $id) {
+            return $this->redirectToRoute('app_register');
+        }
+
+        $user = $userRepository->find($id);
+
+        if (null === $user) {
+            return $this->redirectToRoute('app_register');
+        }
+
+        // validate email confirmation link, sets User::isVerified=true and persists
+        try {
+            $this->emailVerifier->handleEmailConfirmation($request, $user);
+        } catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlash('verify_email_error', $exception->getReason());
+
+            return $this->redirectToRoute('app_register');
+        }
+
+        return $this->redirectToRoute('main_page');
     }
 }

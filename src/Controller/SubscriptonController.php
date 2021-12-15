@@ -47,6 +47,7 @@ class SubscriptonController extends AbstractController
         $subscriber->setActive(false);
         $subscriber->setNumberOfDonations(0);
         $subscriber->setEmail($currentUser);
+        $subscriber->setUser($userEntity);
 
         $form =$this->createForm(SubscriptionType::class, $subscriber, [
             'action' => $this->generateUrl('subscripton')

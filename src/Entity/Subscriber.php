@@ -71,6 +71,11 @@ class Subscriber
      */
     private $number_of_donations;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -193,6 +198,18 @@ class Subscriber
     public function setNumberOfDonations(int $number_of_donations): self
     {
         $this->number_of_donations = $number_of_donations;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

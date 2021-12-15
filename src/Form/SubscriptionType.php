@@ -34,9 +34,9 @@ class SubscriptionType extends AbstractType
             ])
             ->add('donationInterval', ChoiceType::class, [
                 'choices' => [
-                    'Onetime' => 'O',
-                    'Monethly' => 'M',
-                    'Yearly' => 'Y',
+                    'Onetime' => 'Onetime',
+                    'Monthly' => 'Monthly',
+                    'Yearly' => 'Yearly',
 
                 ],
             ])
@@ -53,7 +53,7 @@ class SubscriptionType extends AbstractType
                 ]
             ])
 
-            ->add('Subscibe', SubmitType::class)
+            ->add('Subscribe', SubmitType::class)
         ;
     }
 

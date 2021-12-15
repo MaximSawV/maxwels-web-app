@@ -18,7 +18,7 @@ class Request
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="created_by")
      */
     private $Created_by;
@@ -53,11 +53,6 @@ class Request
      * @ORM\Column(type="integer")
      */
     private $Vote;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="requests")
-     */
-    private $Part_of_Project;
 
     public function getId(): ?int
     {
