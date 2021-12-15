@@ -27,7 +27,6 @@ class LoginController extends AbstractController
             'logged' => $loggedin
         ]);
 
-        // TODO[maxim] Build Forgot Password Funktion!
         //return $this->redirectToRoute('main_page');
     }
 }

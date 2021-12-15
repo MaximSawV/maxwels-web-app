@@ -15,6 +15,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="`user`")
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
+
+//TODO[maxim] Neue User gruppe erstellen: Custommer
+//TODO[maxim] Rechte statt feste Rollen verteillen
+//TODO[maxim] Base Template statt einzelne Seiten
+//TODO[maxim] 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -206,33 +211,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSubscribed(bool $Subscribed): self
     {
         $this->Subscribed = $Subscribed;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Project[]
-     */
-    public function getProjects(): Collection
-    {
-        return $this->projects;
-    }
-
-    public function addProject(Project $project): self
-    {
-        if (!$this->projects->contains($project)) {
-            $this->projects[] = $project;
-            $project->addRequestedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProject(Project $project): self
-    {
-        if ($this->projects->removeElement($project)) {
-            $project->removeRequestedBy($this);
-        }
 
         return $this;
     }

@@ -308,3 +308,15 @@ a {
   top: 10px;
   left: 40%;
 }
+
+.forgot-password-form {
+  display: flex;
+  background: white;
+  position: fixed;
+  top: 200px;
+  left: 300px;
+  padding: 30px;
+  justify-content: center;
+  font-size: 1.5em;
+  z-index: 12;
+}

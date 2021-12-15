@@ -147,16 +147,4 @@ class Request
 
         return $this;
     }
-
-    public function getPartOfProject(): ?Project
-    {
-        return $this->Part_of_Project;
-    }
-
-    public function setPartOfProject(?Project $Part_of_Project): self
-    {
-        $this->Part_of_Project = $Part_of_Project;
-
-        return $this;
-    }
 }

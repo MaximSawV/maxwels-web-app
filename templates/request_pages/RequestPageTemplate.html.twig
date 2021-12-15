@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <link rel="shortcut icon" type="x-icon" href="{{ routing }}pictures/logo_small_icon_only.png"/>
+        <link rel="shortcut icon" type="x-icon" href="/pictures/logo_small_icon_only.png"/>
         <link rel="stylesheet" href="{{ routing }}stylesheets/user_request-style.css"/>
         <title>
             Your Requests
@@ -84,19 +84,16 @@
                             Show all
                         </a>
                     </li>
+                    {% if is_granted('ROLE_MANAGE') %}
                     <li>
                         <a class="list-face" href="/request/user/add_requests">
                             Add
                         </a>
                     </li>
+                    {% endif %}
                     <li>
                         <a class="list-face" href="/request/user/done_requests/1">
                             Done
-                        </a>
-                    </li>
-                    <li>
-                        <a class="list-face" onclick="showMessanger()">
-                            Chat
                         </a>
                     </li>
                 </ul>
@@ -131,11 +128,13 @@
                             {% else %}
                                 <td id="{{ request.getId }}" ondblclick="editDeadline({{ request.getId }})"> {{ request.getDeadline | date("m/d/Y")}} </td>
                             {% endif %}
+                                {% if is_granted('ROLE_MANAGE') %}
                                 <td>
                                     <div class='edit-icon' id='editIcon'>
                                         <image class='icon-img' src='{{ routing }}pictures/delete-icon.png' onclick='editRequest({{ request.getId }},"delete")'>delete</image>
                                     </div>
                                 </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -218,7 +217,7 @@
                     </div>
                 {% endif %}
             {% endif %}
-            {% if showAddRequests %}
+            {% if showAddRequests and is_granted('ROLE_CREATE_REQUEST')%}
                 <div class="all-requests" id="addRequests" style="display: flex">
                     <div class="createRequestBG">
                         <form class="createRequest" action="{{ path('create_request') }}">

@@ -9,6 +9,30 @@
         <meta charset="utf-8"/>
     </head>
     <body id="body" onload="createClock()">
+    {% if forgotPw is defined and forgotPw == true %}
+        <div class="forgot-password-form">
+
+            {% if fromEmail == false %}
+                {{ form_start(newPw_form) }}
+                {{ form_row(newPw_form.Username) }}
+                {{ form_row(newPw_form.Email) }}
+                {{ form_row(newPw_form.Submit) }}
+                {{ form_end(newPw_form) }}
+            {% endif %}
+
+            {% if fromEmail == true %}
+                {{ form_start(newPw_form) }}
+                {{ form_row(newPw_form.New_Password) }}
+                {{ form_row(newPw_form.Confirm_new_Password) }}
+                {{ form_row(newPw_form.Submit) }}
+                {{ form_end(newPw_form) }}
+            {% endif %}
+
+            {% if userExists is defined and userExists == false and userError != 0 %}
+                <p>{{ userError }}</p>
+            {% endif %}
+        </div>
+    {% endif %}
         <div class="page">
         {% if error is defined %}
             <div class ="errorBlock">
@@ -25,6 +49,9 @@
                             <input type="submit" value="Login"/>
                             <input type="button" value="Cancel" onclick="hideLogin()"/>
                         </span>
+                    </form>
+                    <form class="login" action="/forgot_password">
+                        <input type="submit" value="Forgot Password"/>
                     </form>
                 </li>
                 <li>
@@ -47,11 +74,6 @@
                 <li>
                     <a href="/request/user">
                        Requests
-                    </a>
-                </li>
-                <li>
-                    <a href="/mailig">
-                        Mail
                     </a>
                 </li>
                 {% if test is defined and test == 0 %}
