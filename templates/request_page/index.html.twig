@@ -1,28 +1,35 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+{% endblock %}
 {% block head %}
     <title>Maxwels Requests</title>
-    <link rel="stylesheet" href="stylesheets/requestpage-style.css"/>
+    <link rel="stylesheet" href="/stylesheets/requestpage-style.css"/>
 {% endblock %}
 
 {% block body %}
     <div class="mainpage">
         <div class="menu">
-            <div style="display: flex; flex-direction: column; align-items: center">
+            <div class="dropdown">
                 <a>
-                    Show all
+                    {{ username }}
                 </a>
-                <ul class="dropdown">
-                    <li>
-                        <ul class="dropdown">
+                <ul>
+                    <li class="status-menu">
+                        <a>
                             Status
+                        </a>
+                        <ul>
                             <li>
-                                <a class="buttons">
+                                <a>
                                     Online
                                 </a>
+                            </li>
+                            <li>
                                 <a>
                                     Busy
                                 </a>
+                            </li>
+                            <li>
                                 <a>
                                     Offline
                                 </a>
@@ -40,7 +47,7 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="{{ path('main_page') }}">
                             <-Back
                         </a>
                     </li>
@@ -52,28 +59,34 @@
                 </ul>
             </div>
             <div>
-                <a>
+                <a href="/request/customer/all_requests/1">
                     Show all
                 </a>
             </div>
             <div>
-                <a>
-                    Show in Progress
+                <a href="/request/customer/done_requests/1">
+                    Show Done
                 </a>
             </div>
             {% if is_granted('ROLE_MANAGE_OWN_REQUESTS') or is_granted('ROLE_ADMIN')%}
             <div>
-                <a>
+                <a href="/request/customer/createRequest">
                     Create Request
                 </a>
             </div>
             {% endif %}
+            {%  if is_granted('ROLE_CHANGE_CURRENT_ROLE') %}
             <div>
                 <a>
                     Change to <br>
                     Customer/Programmer
                 </a>
             </div>
+            {% endif %}
+        </div>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

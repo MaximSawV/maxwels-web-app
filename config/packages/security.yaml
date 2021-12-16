@@ -1,5 +1,7 @@
 security:
     enable_authenticator_manager: true
+    access-decision-manager:
+        strategy: unanimous
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
@@ -35,5 +37,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/request/customer/createRequest, roles: [ROLE_ADMIN] }
+        - { path: ^/request/customer/createRequest, roles: [ROLE_MANAGE_OWN_REQUESTS, IS_AUTHENTICATED_FULLY] }

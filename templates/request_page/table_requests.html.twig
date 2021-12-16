@@ -1,0 +1,79 @@
+{% extends 'request_page/index.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/stylesheets/table-style.css"/>
+{% endblock %}
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Working on
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Context
+                </th>
+                <th>
+                    Created on
+                </th>
+                <th>
+                    Deadline
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for req in requests %}
+            <tr>
+                <td>
+                    {% if req.WorkingOn is null %}
+
+                    {% else %}
+                    {{ req.WorkingOn.getUsername() }}
+                    {% endif %}
+                </td>
+                <td>
+                    {{ req.status }}
+                </td>
+                <td>
+                    {{ req.context }}
+                </td>
+                <td>
+                    {{ req.CreatedOn|date('m-d-Y') }}
+                </td>
+                <td>
+                    {% if req.deadline is null %}
+
+                    {% else %}
+                        {{ req.deadline|date('m-d-Y') }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <div class="page-navigator">
+            <div>
+                {% if lastPage is null %}
+                <a class="arrow left">
+                </a>
+                {% else %}
+                    <a class="arrow left" href="{{ lastPageUrl }}">
+                    </a>
+                {% endif %}
+            </div>
+            <h3>
+               {{ currentPage }}
+            </h3>
+            <div>
+                {% if nextPage is null %}
+                    <a class="arrow right">
+                    </a>
+                {% else %}
+                    <a class="arrow right" href="{{ nextPageUrl }}">
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </table>
+{% endblock %}

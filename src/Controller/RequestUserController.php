@@ -2,16 +2,15 @@
 
 namespace App\Controller;
 
+use App\Form\CreateRequestsType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
-use App\Entity\User;
-use App\Entity\Programmer;
-use App\Repository\ProgrammerRepository;
-use App\Entity\Request;
 use App\Repository\RequestRepository;
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RequestUserController extends AbstractController
 {
@@ -29,20 +28,14 @@ class RequestUserController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route('/request/user', name: 'request_user')]
-    public function index(): Response
+    private function getCurrentUserName()
     {
-
-        return $this->render('request_page/index.html.twig', [
-            'showMyRequests' => false,
-            'showDoneRequests' => false,
-            'showAddRequests' => false,
-        ]);
+        return $this->security->getUser()->getUserIdentifier();
     }
 
     private function getCurrentUser()
     {
-        $currentUser = $this->security->getUser()->getUserIdentifier();
+        $currentUser = $this->getCurrentUsername();
         $query1 = $this
             ->userRepository
             ->createQueryBuilder('u')
@@ -56,7 +49,7 @@ class RequestUserController extends AbstractController
     }
 
 
-    #[Route('/request/user/all_requests/{page}', name: 'user_all_requests')]
+    #[Route('/request/customer/all_requests/{page}', name: 'customer_all_requests')]
     public function getMyRequests(int $page)
     {
         $cuID = $this->getCurrentUser();
@@ -110,23 +103,22 @@ class RequestUserController extends AbstractController
             }
         }
 
-        return $this->render('request_page/index.html.twig', [
-            'showMyRequests' => true,
-            'showDoneRequests' => false,
-            'showAddRequests' => false,
-            'myRequests' => $myRequests,
+        return $this->render('request_page/table_requests.html.twig', [
+            'requests' => $myRequests,
             'nextPage' => $nextPage,
+            'nextPageUrl' => '/request/customer/all_requests/'.(string)$nextPage,
             'currentPage' => $page,
+            'lastPageUrl' => '/request/customer/all_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
-            'test' => $numberOfRequests,
+            'username' => $this->getCurrentUsername()
         ]);
     }
 
 
-    #[Route('/request/user/done_requests/{page}', name: 'user_done_requests')]
+    #[Route('/request/customer/done_requests/{page}', name: 'customer_done_requests')]
     public function getDoneRequests(int $page)
     {
-        $cuID = $this->getCurrentUser();
+        $cuID = $this->getCurrentUser()->getId();
         $firstResult = (5*($page-1));
 
         $query = $this
@@ -178,29 +170,48 @@ class RequestUserController extends AbstractController
             }
         }
 
-        return $this->render('request_page/index.html.twig', [
-            'showDoneRequests' => true,
-            'showMyRequests' => false,
-            'showAddRequests' => false,
+        return $this->render('request_page/table_requests.html.twig', [
+            'requests' => $doneRequests,
             'nextPage' => $nextPage,
+            'nextPageUrl' => '/request/customer/done_requests/'.(string)$nextPage,
             'currentPage' => $page,
+            'lastPageUrl' => '/request/customer/done_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
-            'test' => $numberOfRequests,
-            'doneRequests' => $doneRequests,
+            'username' => $this->getCurrentUsername()
         ]);
     }
 
-    #[Route('/request/user/add_requests', name: 'add_requests')]
-    public function openAddRequest()
+
+    #[Route('/request/customer/createRequest', name: 'customer_create_request')]
+    public function createRequest(Request $request, EntityManagerInterface $entityManager)
     {
-        return $this->render('request_page/index.html.twig', [
-            'showDoneRequests' => false,
-            'showMyRequests' => false,
-            'showAddRequests' => true,
-            'nextPage' => null,
-            'currentPage' => null,
-            'lastPage' => null,
-            'test' => null,
+        $customerRequest = new \App\Entity\Request();
+        $customerRequest->setCreatedBy($this->getCurrentUser());
+        $customerRequest->setStatus('Requested');
+        $customerRequest->setCreatedOn(new \DateTime());
+        $customerRequest->setWorkingOn(null);
+        $customerRequest->setVote(0);
+
+        $form =$this->createForm(CreateRequestsType::class, $customerRequest, [
+            'action' => $this->generateUrl('customer_create_request')
+        ]);
+
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+            $entityManager->persist($customerRequest);
+            $entityManager->flush();
+
+            return $this->redirect('all_requests/1');
+        }
+
+        return $this->render('request_page/create_request_form.html.twig', [
+            'req_form' => $form->createView(),
+            'username' => $this->getCurrentUserName()
         ]);
     }
 }
