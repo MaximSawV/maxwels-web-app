@@ -59,27 +59,26 @@
                 </ul>
             </div>
             <div>
-                <a href="/request/customer/all_requests/1">
-                    Show all
+                <a href="/request/all_requests/1">
+                    Show My
                 </a>
             </div>
             <div>
-                <a href="/request/customer/done_requests/1">
+                <a href="/request/done_requests/1">
                     Show Done
                 </a>
             </div>
             {% if is_granted('ROLE_MANAGE_OWN_REQUESTS') or is_granted('ROLE_ADMIN')%}
             <div>
-                <a href="/request/customer/createRequest">
+                <a href="/request/createRequest">
                     Create Request
                 </a>
             </div>
             {% endif %}
-            {%  if is_granted('ROLE_CHANGE_CURRENT_ROLE') %}
+            {% if is_granted('ROLE_TAKE_REQUEST') or is_granted('ROLE_ADMIN') %}
             <div>
-                <a>
-                    Change to <br>
-                    Customer/Programmer
+                <a href="/request/all_open_requests/1">
+                    Show all
                 </a>
             </div>
             {% endif %}

@@ -17,17 +17,9 @@ class RequestPageController extends AbstractController
         $user = $security->getUser();
         $username = $user->getUserIdentifier();
 
-        $query = $userRepository->createQueryBuilder('u')
-            ->select('u.current_Role')
-            ->where('u.username = :username')
-            ->setParameter('username', $username);
-
-        $currentRole = $query->getQuery()->getOneOrNullResult();
-
 
         return $this->render('request_page/index.html.twig', [
             'username' => $username,
-            'currentRole' => $currentRole,
         ]);
     }
 }

@@ -68,11 +68,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $customer_or_programmer;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $current_Role;
-
 
     public function getId(): int
     {
@@ -220,18 +215,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCustomerOrProgrammer(string $customer_or_programmer): self
     {
         $this->customer_or_programmer = $customer_or_programmer;
-
-        return $this;
-    }
-
-    public function getCurrentRole(): ?string
-    {
-        return $this->current_Role;
-    }
-
-    public function setCurrentRole(string $current_Role): self
-    {
-        $this->current_Role = $current_Role;
 
         return $this;
     }

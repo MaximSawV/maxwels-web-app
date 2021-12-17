@@ -49,9 +49,10 @@ class RequestUserController extends AbstractController
     }
 
 
-    #[Route('/request/customer/all_requests/{page}', name: 'customer_all_requests')]
+    #[Route('/request/all_requests/{page}', name: 'all_requests')]
     public function getMyRequests(int $page)
     {
+        $tableContent = ['Working on', 'Status', 'Context', 'Created on', 'Deadline'];
         $cuID = $this->getCurrentUser();
 
         $firstResult = (5*($page-1));
@@ -106,16 +107,17 @@ class RequestUserController extends AbstractController
         return $this->render('request_page/table_requests.html.twig', [
             'requests' => $myRequests,
             'nextPage' => $nextPage,
-            'nextPageUrl' => '/request/customer/all_requests/'.(string)$nextPage,
+            'nextPageUrl' => '/request/all_requests/'.(string)$nextPage,
             'currentPage' => $page,
-            'lastPageUrl' => '/request/customer/all_requests/'.(string)$lastPage,
+            'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
+            'tableContent' => $tableContent,
             'username' => $this->getCurrentUsername()
         ]);
     }
 
 
-    #[Route('/request/customer/done_requests/{page}', name: 'customer_done_requests')]
+    #[Route('/request/done_requests/{page}', name: 'done_requests')]
     public function getDoneRequests(int $page)
     {
         $cuID = $this->getCurrentUser()->getId();
@@ -173,16 +175,15 @@ class RequestUserController extends AbstractController
         return $this->render('request_page/table_requests.html.twig', [
             'requests' => $doneRequests,
             'nextPage' => $nextPage,
-            'nextPageUrl' => '/request/customer/done_requests/'.(string)$nextPage,
+            'nextPageUrl' => '/request/done_requests/'.(string)$nextPage,
             'currentPage' => $page,
-            'lastPageUrl' => '/request/customer/done_requests/'.(string)$lastPage,
+            'lastPageUrl' => '/request/done_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
             'username' => $this->getCurrentUsername()
         ]);
     }
 
-
-    #[Route('/request/customer/createRequest', name: 'customer_create_request')]
+    #[Route('/request/createRequest', name: 'create_request')]
     public function createRequest(Request $request, EntityManagerInterface $entityManager)
     {
         $customerRequest = new \App\Entity\Request();
@@ -193,7 +194,7 @@ class RequestUserController extends AbstractController
         $customerRequest->setVote(0);
 
         $form =$this->createForm(CreateRequestsType::class, $customerRequest, [
-            'action' => $this->generateUrl('customer_create_request')
+            'action' => $this->generateUrl('create_request')
         ]);
 
 
@@ -212,6 +213,68 @@ class RequestUserController extends AbstractController
         return $this->render('request_page/create_request_form.html.twig', [
             'req_form' => $form->createView(),
             'username' => $this->getCurrentUserName()
+        ]);
+    }
+
+    #[Route('/request/all_open_requests/{page}', name: 'all_open_requests')]
+    public function getAllOpenRequests(int $page)
+    {
+        $firstResult = (5*($page-1));
+
+        $query = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->where('r.Created_by != :currentUser')
+            ->andWhere('r.Status = \'Requested\'')
+            ->setParameter('currentUser', $this->getCurrentUser())
+            ->setFirstResult($firstResult)
+            ->setMaxResults(5);
+
+        /** @var @var Request[] $myRequests */
+        $allOpenRequests = $query->getQuery()->getResult();
+
+        $query = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->where('r.Created_by != :currentUser')
+            ->andWhere('r.Status = \'Requested\'')
+            ->setParameter('currentUser', $this->getCurrentUser())
+            ->setFirstResult($firstResult);
+
+        /** @var @var Request[] $myRequests */
+        $leftResults = $query->getQuery()->getResult();
+
+
+        $numberOfRequests = count($leftResults);
+
+        if ($numberOfRequests > 5)
+        {
+            $nextPage = $page + 1;
+
+            if ($page > 1)
+            {
+                $lastPage = $page - 1;
+            } else {
+                $lastPage = null;
+            }
+        } else {
+            $nextPage = null;
+            if ($page > 1)
+            {
+                $lastPage = $page - 1;
+            } else {
+                $lastPage = null;
+            }
+        }
+
+        return $this->render('request_page/table_requests.html.twig', [
+            'requests' => $allOpenRequests,
+            'nextPage' => $nextPage,
+            'nextPageUrl' => '/request/all_open_requests/'.(string)$nextPage,
+            'currentPage' => $page,
+            'lastPageUrl' => '/request/all_open_requests/'.(string)$lastPage,
+            'lastPage' => $lastPage,
+            'username' => $this->getCurrentUsername()
         ]);
     }
 }

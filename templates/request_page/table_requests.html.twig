@@ -6,26 +6,17 @@
     <table>
         <thead>
             <tr>
+                {% for item in tableContent %}
                 <th>
-                    Working on
+                    {{ item }}
                 </th>
-                <th>
-                    Status
-                </th>
-                <th>
-                    Context
-                </th>
-                <th>
-                    Created on
-                </th>
-                <th>
-                    Deadline
-                </th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
         {% for req in requests %}
             <tr>
+                {% if 'Working on' in tableContent %}
                 <td>
                     {% if req.WorkingOn is null %}
 
@@ -33,15 +24,33 @@
                     {{ req.WorkingOn.getUsername() }}
                     {% endif %}
                 </td>
+                {% endif %}
+
+                {% if 'Created by' in tableContent %}
+                <td>
+                    {{ req.CreatedBy.getUsername() }}
+                </td>
+                {% endif %}
+
+                {% if 'Status' in tableContent %}
                 <td>
                     {{ req.status }}
                 </td>
+                {% endif %}
+
+                {% if 'Context' in tableContent %}
                 <td>
                     {{ req.context }}
                 </td>
+                {% endif %}
+
+                {% if 'Created on' in tableContent %}
                 <td>
                     {{ req.CreatedOn|date('m-d-Y') }}
                 </td>
+                {% endif %}
+
+                {% if 'Deadline' in tableContent %}
                 <td>
                     {% if req.deadline is null %}
 
@@ -49,6 +58,7 @@
                         {{ req.deadline|date('m-d-Y') }}
                     {% endif %}
                 </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

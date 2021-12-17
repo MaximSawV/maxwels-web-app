@@ -9,6 +9,8 @@ use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\DBAL\Driver\PDO\Exception;
+use Doctrine\ORM\EntityManagerInterface;
+use function Sodium\add;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -118,7 +120,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
+    public function verifyUserEmail(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
         $id = $request->get('id');
 
@@ -140,6 +142,12 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_register');
         }
+        $newRoles = $user->getRoles();
+        array_push($newRoles, 'IS_VERIFIED');
+        $user->setRoles($newRoles);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
 
         return $this->redirectToRoute('main_page');
     }
