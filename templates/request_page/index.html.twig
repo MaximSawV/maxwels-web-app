@@ -4,15 +4,32 @@
 {% block head %}
     <title>Maxwels Requests</title>
     <link rel="stylesheet" href="/stylesheets/requestpage-style.css"/>
+    <link rel="stylesheet" href="/stylesheets/arrow-style.css"/>
 {% endblock %}
 
 {% block body %}
     <div class="mainpage">
         <div class="menu">
             <div class="dropdown">
-                <a>
-                    {{ username }}
+                {% if app.user.status == 'online' %}
+                <a style="color: #3adb76">
+                    {{ app.user.username }}
+                    <div class="arrow right in-menu">
+                    </div>
                 </a>
+                {% elseif app.user.status == 'busy' %}
+                <a style="color: orange">
+                    {{ app.user.username }}
+                    <div class="arrow right in-menu">
+                    </div>
+                </a>
+                {% elseif app.user.status == 'offline' %}
+                <a style="color: red">
+                    {{ app.user.username }}
+                    <div class="arrow right in-menu">
+                    </div>
+                </a>
+                {% endif %}
                 <ul>
                     <li class="status-menu">
                         <a>
@@ -20,17 +37,17 @@
                         </a>
                         <ul>
                             <li>
-                                <a>
+                                <a href="/user/status_update/online" style="color: #3adb76">
                                     Online
                                 </a>
                             </li>
                             <li>
-                                <a>
+                                <a href="/user/status_update/busy" style="color: orange">
                                     Busy
                                 </a>
                             </li>
                             <li>
-                                <a>
+                                <a href="/user/status_update/offline" style="color: red">
                                     Offline
                                 </a>
                             </li>

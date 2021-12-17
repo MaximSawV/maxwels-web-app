@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\CreateRequestsType;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -16,16 +17,18 @@ class RequestUserController extends AbstractController
 {
     private $userRepository;
     private $requestRepository;
-
+    private $entityManager;
     private $security;
 
     public function __construct(UserRepository $userRepository,
                                 RequestRepository $requestRepository,
-                                Security $security)
+                                Security $security,
+                                EntityManagerInterface $entityManager)
     {
         $this->userRepository = $userRepository;
         $this->requestRepository = $requestRepository;
         $this->security = $security;
+        $this->entityManager = $entityManager;
     }
 
     private function getCurrentUserName()
@@ -120,6 +123,7 @@ class RequestUserController extends AbstractController
     #[Route('/request/done_requests/{page}', name: 'done_requests')]
     public function getDoneRequests(int $page)
     {
+        $tableContent = ['Working on', 'Context', 'Created on', 'Deadline'];
         $cuID = $this->getCurrentUser()->getId();
         $firstResult = (5*($page-1));
 
@@ -179,12 +183,13 @@ class RequestUserController extends AbstractController
             'currentPage' => $page,
             'lastPageUrl' => '/request/done_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
+            'tableContent' => $tableContent,
             'username' => $this->getCurrentUsername()
         ]);
     }
 
     #[Route('/request/createRequest', name: 'create_request')]
-    public function createRequest(Request $request, EntityManagerInterface $entityManager)
+    public function createRequest(Request $request)
     {
         $customerRequest = new \App\Entity\Request();
         $customerRequest->setCreatedBy($this->getCurrentUser());
@@ -204,8 +209,8 @@ class RequestUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
 
-            $entityManager->persist($customerRequest);
-            $entityManager->flush();
+            $this->entityManager->persist($customerRequest);
+            $this->entityManager->flush();
 
             return $this->redirect('all_requests/1');
         }
@@ -219,6 +224,7 @@ class RequestUserController extends AbstractController
     #[Route('/request/all_open_requests/{page}', name: 'all_open_requests')]
     public function getAllOpenRequests(int $page)
     {
+        $tableContent = ['Created by', 'Context', 'Created on', 'Deadline'];
         $firstResult = (5*($page-1));
 
         $query = $this
@@ -274,7 +280,21 @@ class RequestUserController extends AbstractController
             'currentPage' => $page,
             'lastPageUrl' => '/request/all_open_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
+            'tableContent' => $tableContent,
             'username' => $this->getCurrentUsername()
         ]);
     }
+
+    #[Route('/user/status_update/{status}', name: 'user_status_update')]
+
+    public function updateUserStatus(string $status): Response
+    {
+        $user = $this->userRepository->find($this->getCurrentUser());
+        $user->setStatus($status);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('request_page');
+    }
 }
+

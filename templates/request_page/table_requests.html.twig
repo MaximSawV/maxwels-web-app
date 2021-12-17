@@ -1,6 +1,7 @@
 {% extends 'request_page/index.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="/stylesheets/table-style.css"/>
+    <link rel="stylesheet" href="/stylesheets/arrow-style.css"/>
 {% endblock %}
 {% block content %}
     <table>
@@ -68,7 +69,7 @@
                 <a class="arrow left">
                 </a>
                 {% else %}
-                    <a class="arrow left" href="{{ lastPageUrl }}">
+                    <a class="arrow left" href="{{ lastPageUrl }}" style="border-color: red">
                     </a>
                 {% endif %}
             </div>
@@ -80,7 +81,7 @@
                     <a class="arrow right">
                     </a>
                 {% else %}
-                    <a class="arrow right" href="{{ nextPageUrl }}">
+                    <a class="arrow right" href="{{ nextPageUrl }}" style="border-color: #3adb76">
                     </a>
                 {% endif %}
             </div>

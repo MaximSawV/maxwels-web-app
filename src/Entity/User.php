@@ -68,6 +68,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $customer_or_programmer;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
 
     public function getId(): int
     {
@@ -215,6 +220,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCustomerOrProgrammer(string $customer_or_programmer): self
     {
         $this->customer_or_programmer = $customer_or_programmer;
+
+        return $this;
+    }
+
+    public function getFoo (): string
+    {
+        return "bae";
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
