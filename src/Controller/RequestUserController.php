@@ -286,7 +286,6 @@ class RequestUserController extends AbstractController
     }
 
     #[Route('/user/status_update/{status}', name: 'user_status_update')]
-
     public function updateUserStatus(string $status): Response
     {
         $user = $this->userRepository->find($this->getCurrentUser());
@@ -298,3 +297,9 @@ class RequestUserController extends AbstractController
     }
 }
 
+//TODO[maxim] Optionsmenü erstellen
+//TODO[maxim] Kontaktmenü erstellen
+//TODO[maxim] Logout vernünftig machen
+//TODO[maxim] Funktion TakeRequest erstellen
+//TODO[maxim] Funktion EditRequest erstellen
+//TODO[maxim] Mailfunktion von Usern untereinander Erstellen
