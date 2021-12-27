@@ -6,6 +6,7 @@ use App\Form\CreateRequestsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use App\Repository\RequestRepository;
@@ -295,11 +296,16 @@ class RequestUserController extends AbstractController
 
         return $this->redirectToRoute('request_page');
     }
+
+    #[Route('/user/logout', name: 'user_logout')]
+    public function logout(): Response
+    {
+        return $this->redirect('/logout');
+    }
 }
 
 //TODO[maxim] Optionsmenü erstellen
 //TODO[maxim] Kontaktmenü erstellen
-//TODO[maxim] Logout vernünftig machen
 //TODO[maxim] Funktion TakeRequest erstellen
 //TODO[maxim] Funktion EditRequest erstellen
 //TODO[maxim] Mailfunktion von Usern untereinander Erstellen
