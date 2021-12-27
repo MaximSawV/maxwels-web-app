@@ -67,6 +67,13 @@
                        </a>
                     </td>
                 {% endif %}
+                {% if doneable is defined%}
+                    <td>
+                        <a href="/request/done_request/{{ req.id }}">
+                            Done
+                        </a>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

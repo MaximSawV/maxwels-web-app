@@ -64,56 +64,33 @@ class RequestUserController extends AbstractController
         if(in_array('ROLE_TAKE_REQUESTS',($this->getUser()->getRoles())) or in_array('ROLE_ADMIN',($this->getUser()->getRoles())))
         {
             $tableContent = ['Working on', 'Created by', 'Status', 'Context', 'Created on', 'Deadline'];
-            $query = $this
-                ->requestRepository
-                ->createQueryBuilder('r')
-                ->where('r.Created_by = :currentUser')
-                ->orWhere('r.Working_on = :currentUser')
-                ->andWhere('r.Status != \'Done\'')
-                ->setFirstResult($firstResult)
-                ->setMaxResults(5)
-                ->setParameter('currentUser', $cuID->getId());
-
-            /** @var @var Request[] $myRequests */
-            $myRequests = $query->getQuery()->getResult();
-
-            $query2 = $this
-                ->requestRepository
-                ->createQueryBuilder('r')
-                ->where('r.Created_by = :currentUser')
-                ->orWhere('r.Working_on = :currentUser')
-                ->andWhere('r.Status != \'Done\'')
-                ->setFirstResult($firstResult)
-                ->setParameter('currentUser', $cuID->getId());
-
-            /** @var @var Request[] $myRequests */
-            $myRequestsTotal = $query2->getQuery()->getResult();
-        } else {
-            $query = $this
-                ->requestRepository
-                ->createQueryBuilder('r')
-                ->join('r.Created_by', 'u')
-                ->where('u.id = :currentUser')
-                ->andWhere('r.Status != \'Done\'')
-                ->setFirstResult($firstResult)
-                ->setMaxResults(5)
-                ->setParameter('currentUser', $cuID->getId());
-
-            /** @var @var Request[] $myRequests */
-            $myRequests = $query->getQuery()->getResult();
-
-            $query2 = $this
-                ->requestRepository
-                ->createQueryBuilder('r')
-                ->join('r.Created_by', 'u')
-                ->where('u.id = :currentUser')
-                ->andWhere('r.Status != \'Done\'')
-                ->setFirstResult($firstResult)
-                ->setParameter('currentUser', $cuID->getId());
-
-            /** @var @var Request[] $myRequests */
-            $myRequestsTotal = $query2->getQuery()->getResult();
         }
+        $query = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->where('r.Created_by = :currentUser')
+            ->orWhere('r.Working_on = :currentUser')
+            ->andWhere('r.Status != \'Done\'')
+            ->setFirstResult($firstResult)
+            ->setMaxResults(5)
+            ->setParameter('currentUser', $cuID->getId());
+
+        /** @var @var Request[] $myRequests */
+        $myRequests = $query->getQuery()->getResult();
+
+        $query2 = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->where('r.Created_by = :currentUser')
+            ->orWhere('r.Working_on = :currentUser')
+            ->andWhere('r.Status != \'Done\'')
+            ->setFirstResult($firstResult)
+            ->setParameter('currentUser', $cuID->getId());
+
+        /** @var @var Request[] $myRequests */
+        $myRequestsTotal = $query2->getQuery()->getResult();
+
+
 
         $numberOfRequests = count($myRequestsTotal);
 
@@ -137,16 +114,31 @@ class RequestUserController extends AbstractController
             }
         }
 
-        return $this->render('request_page/table_requests.html.twig', [
-            'requests' => $myRequests,
-            'nextPage' => $nextPage,
-            'nextPageUrl' => '/request/all_requests/'.(string)$nextPage,
-            'currentPage' => $page,
-            'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
-            'lastPage' => $lastPage,
-            'tableContent' => $tableContent,
-            'username' => $this->getCurrentUsername()
-        ]);
+        if (in_array('ROLE_TAKE_REQUESTS',($this->getUser()->getRoles())) or in_array('ROLE_ADMIN',($this->getUser()->getRoles())))
+        {
+            return $this->render('request_page/table_requests.html.twig', [
+                'requests' => $myRequests,
+                'nextPage' => $nextPage,
+                'nextPageUrl' => '/request/all_requests/'.(string)$nextPage,
+                'currentPage' => $page,
+                'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
+                'lastPage' => $lastPage,
+                'tableContent' => $tableContent,
+                'username' => $this->getCurrentUsername(),
+                'doneable' => true,
+            ]);
+        } else {
+            return $this->render('request_page/table_requests.html.twig', [
+                'requests' => $myRequests,
+                'nextPage' => $nextPage,
+                'nextPageUrl' => '/request/all_requests/'.(string)$nextPage,
+                'currentPage' => $page,
+                'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
+                'lastPage' => $lastPage,
+                'tableContent' => $tableContent,
+                'username' => $this->getCurrentUsername()
+            ]);
+        }
     }
 
 
@@ -154,14 +146,18 @@ class RequestUserController extends AbstractController
     public function getDoneRequests(int $page)
     {
         $tableContent = ['Working on', 'Context', 'Created on', 'Deadline'];
+        if(in_array('ROLE_TAKE_REQUESTS',($this->getUser()->getRoles())) or in_array('ROLE_ADMIN',($this->getUser()->getRoles())))
+        {
+            $tableContent = ['Working on', 'Created by', 'Context', 'Created on', 'Deadline'];
+        }
         $cuID = $this->getCurrentUser()->getId();
         $firstResult = (5*($page-1));
 
         $query = $this
             ->requestRepository
             ->createQueryBuilder('r')
-            ->join('r.Created_by', 'u')
-            ->where('u.id = :currentUser')
+            ->where('r.Created_by = :currentUser')
+            ->orWhere('r.Working_on = :currentUser')
             ->andWhere('r.Status = \'DONE\'')
             ->setFirstResult($firstResult)
             ->setMaxResults(5)
@@ -174,8 +170,8 @@ class RequestUserController extends AbstractController
         $query2 = $this
             ->requestRepository
             ->createQueryBuilder('r')
-            ->join('r.Created_by', 'u')
-            ->where('u.id = :currentUser')
+            ->where('r.Created_by = :currentUser')
+            ->orWhere('r.Working_on = :currentUser')
             ->andWhere('r.Status = \'DONE\'')
             ->setFirstResult($firstResult)
             ->setMaxResults(5)
@@ -330,6 +326,10 @@ class RequestUserController extends AbstractController
     #[Route('/user/logout', name: 'user_logout')]
     public function logout(): Response
     {
+        $user = $this->userRepository->find($this->getCurrentUser());
+        $user->setStatus('Offline');
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
         return $this->redirect('/logout');
     }
 
@@ -343,6 +343,18 @@ class RequestUserController extends AbstractController
         $this->entityManager->persist($request);
         $this->entityManager->flush();
         return $this->redirect('/request/all_open_requests/1');
+    }
+
+    #[Route('/request/done_request/{id}', name: 'done_request')]
+    public function doneRequest(int $id ,RequestRepository $requestRepository): Response
+    {
+        $request = $requestRepository->find($id);
+        $request->setStatus('Done');
+        $request->setWorkingOn($this->getCurrentUser());
+
+        $this->entityManager->persist($request);
+        $this->entityManager->flush();
+        return $this->redirect('/request/all_requests/1');
     }
 }
 
