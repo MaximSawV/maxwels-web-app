@@ -73,6 +73,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $status;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ProfileOptions::class, mappedBy="User", cascade={"persist", "remove"})
+     */
+    private $profileOptions;
+
 
     public function getId(): int
     {
@@ -224,11 +229,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getFoo (): string
-    {
-        return "bae";
-    }
-
     public function getStatus(): ?string
     {
         return $this->status;
@@ -237,6 +237,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getProfileOptions(): ?ProfileOptions
+    {
+        return $this->profileOptions;
+    }
+
+    public function setProfileOptions(ProfileOptions $profileOptions): self
+    {
+        // set the owning side of the relation if necessary
+        if ($profileOptions->getUser() !== $this) {
+            $profileOptions->setUser($this);
+        }
+
+        $this->profileOptions = $profileOptions;
 
         return $this;
     }

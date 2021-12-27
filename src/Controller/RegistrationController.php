@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
+use App\Entity\ProfileOptions;
 use App\Entity\Programmer;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -57,6 +58,17 @@ class RegistrationController extends AbstractController
             } catch (\PDOException $e){
 
             }
+
+            $profileOptions = new ProfileOptions();
+            $profileOptions->setUser($user);
+            $profileOptions->setPublicContact(true);
+            $profileOptions->setShowStatus(true);
+            $profileOptions->setHidden(false);
+            $profileOptions->setDarkmode(false);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($profileOptions);
+
 
             if ($form->get('customer_or_programmer')->getData() == 'customer' or $form->get('customer_or_programmer')->getData() == 'both')
             {

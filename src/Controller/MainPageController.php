@@ -52,4 +52,3 @@ class MainPageController extends AbstractController
     }
 }
 //TODO[maxim] Uhr zu php machen
-//TODO[maxim] CreatePost funktion erstellen
