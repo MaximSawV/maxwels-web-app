@@ -49,6 +49,7 @@ class RequestUserController extends AbstractController
         /** @var @var User $cuID */
         $cuID = $query1->getQuery()->getOneOrNullResult();
 
+
         return $cuID;
     }
 
