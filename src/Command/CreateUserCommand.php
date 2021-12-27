@@ -18,6 +18,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 class CreateUserCommand extends Command
 {
@@ -49,18 +50,19 @@ class CreateUserCommand extends Command
     {
         $userRoles = [];
         $helper = $this->getHelper('question');
+        $progressBar = new ProgressBar($output, 12);
 
         #Setting up questions
-        $questionUsername = new Question('*Username: ');
-        $questionRoles = new Question('Roles [null]: ', null);
-        $questionProceedAddingRoles = new ConfirmationQuestion('Adding another role? [no]', false, '/^(y|j)/i');
+        $questionUsername = new Question('*Username : ');
+        $questionRoles = new Question('Roles <fg=green>[null]</>: ', null);
+        $questionProceedAddingRoles = new ConfirmationQuestion('Adding another role? <fg=green>[no]</>', false, '/^(y|j)/i');
         $questionPlainPassword = new Question('*Password: ');
         $questionEmail = new Question('*Email: ');
-        $questionIsVerified = new ConfirmationQuestion('Verified: [no]', false, '/^(y|j)/i');
-        $questionPaymentInformation = new Question('Payment information: [null]', null);
-        $questionSubscribed = new ConfirmationQuestion('Subscribed: [no]', false, '/^(y|j)/i');
-        $questionCustomerProgrammer = new ChoiceQuestion('Customer, Programmer or both: [customer]', ['customer', 'programmer', 'both'], 'customer');
-        $questionStatus = new ChoiceQuestion('Status: [Offline]', ['Online', 'Busy', 'Offline'], 'Offline');
+        $questionIsVerified = new ConfirmationQuestion('Verified: <fg=green>[no]</> ', false, '/^(y|j)/i');
+        $questionPaymentInformation = new Question('Payment information: <fg=green>[null]</> ', null);
+        $questionSubscribed = new ConfirmationQuestion('Subscribed: <fg=green>[no]</> ', false, '/^(y|j)/i');
+        $questionCustomerProgrammer = new ChoiceQuestion('Customer, Programmer or both: <fg=green>[customer]</> ', ['customer', 'programmer', 'both'], 'customer');
+        $questionStatus = new ChoiceQuestion('Status: <fg=green>[Offline]</> ', ['Online', 'Busy', 'Offline'], 'Offline');
 
 
 
@@ -95,18 +97,31 @@ class CreateUserCommand extends Command
         #Create User
 
         $user = new User();
+        $progressBar->advance();
         $user->setUsername($userName);
+        $progressBar->advance();
         $user->setRoles($userRoles);
+        $progressBar->advance();
         $user->setPassword($userPassword);
+        $progressBar->advance();
         $user->setEmail($userEmail);
+        $progressBar->advance();
         $user->setIsVerified($userVerified);
+        $progressBar->advance();
         $user->setPaymentInformation($userPaymentInfo);
+        $progressBar->advance();
         $user->setSubscribed($userSubscribed);
+        $progressBar->advance();
         $user->setCustomerOrProgrammer($userCoP);
+        $progressBar->advance();
         $user->setStatus($userStatus);
+        $progressBar->advance();
 
         $this->entityManager->persist($user);
+        $progressBar->advance();
         $this->entityManager->flush();
+        $progressBar->advance();
+        $progressBar->finish();
 
         $output->writeln($userName . " Erstellt");
 
