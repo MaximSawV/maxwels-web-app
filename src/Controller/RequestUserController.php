@@ -61,30 +61,59 @@ class RequestUserController extends AbstractController
 
         $firstResult = (5*($page-1));
 
-        $query = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->join('r.Created_by', 'u')
-            ->where('u.id = :currentUser')
-            ->andWhere('r.Status != \'Done\'')
-            ->setFirstResult($firstResult)
-            ->setMaxResults(5)
-            ->setParameter('currentUser', $cuID->getId());
+        if(in_array('ROLE_TAKE_REQUESTS',($this->getUser()->getRoles())) or in_array('ROLE_ADMIN',($this->getUser()->getRoles())))
+        {
+            $tableContent = ['Working on', 'Created by', 'Status', 'Context', 'Created on', 'Deadline'];
+            $query = $this
+                ->requestRepository
+                ->createQueryBuilder('r')
+                ->where('r.Created_by = :currentUser')
+                ->orWhere('r.Working_on = :currentUser')
+                ->andWhere('r.Status != \'Done\'')
+                ->setFirstResult($firstResult)
+                ->setMaxResults(5)
+                ->setParameter('currentUser', $cuID->getId());
 
-        /** @var @var Request[] $myRequests */
-        $myRequests = $query->getQuery()->getResult();
+            /** @var @var Request[] $myRequests */
+            $myRequests = $query->getQuery()->getResult();
 
-        $query2 = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->join('r.Created_by', 'u')
-            ->where('u.id = :currentUser')
-            ->andWhere('r.Status != \'Done\'')
-            ->setFirstResult($firstResult)
-            ->setParameter('currentUser', $cuID->getId());
+            $query2 = $this
+                ->requestRepository
+                ->createQueryBuilder('r')
+                ->where('r.Created_by = :currentUser')
+                ->orWhere('r.Working_on = :currentUser')
+                ->andWhere('r.Status != \'Done\'')
+                ->setFirstResult($firstResult)
+                ->setParameter('currentUser', $cuID->getId());
 
-        /** @var @var Request[] $myRequests */
-        $myRequestsTotal = $query2->getQuery()->getResult();
+            /** @var @var Request[] $myRequests */
+            $myRequestsTotal = $query2->getQuery()->getResult();
+        } else {
+            $query = $this
+                ->requestRepository
+                ->createQueryBuilder('r')
+                ->join('r.Created_by', 'u')
+                ->where('u.id = :currentUser')
+                ->andWhere('r.Status != \'Done\'')
+                ->setFirstResult($firstResult)
+                ->setMaxResults(5)
+                ->setParameter('currentUser', $cuID->getId());
+
+            /** @var @var Request[] $myRequests */
+            $myRequests = $query->getQuery()->getResult();
+
+            $query2 = $this
+                ->requestRepository
+                ->createQueryBuilder('r')
+                ->join('r.Created_by', 'u')
+                ->where('u.id = :currentUser')
+                ->andWhere('r.Status != \'Done\'')
+                ->setFirstResult($firstResult)
+                ->setParameter('currentUser', $cuID->getId());
+
+            /** @var @var Request[] $myRequests */
+            $myRequestsTotal = $query2->getQuery()->getResult();
+        }
 
         $numberOfRequests = count($myRequestsTotal);
 
@@ -282,7 +311,8 @@ class RequestUserController extends AbstractController
             'lastPageUrl' => '/request/all_open_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
             'tableContent' => $tableContent,
-            'username' => $this->getCurrentUsername()
+            'username' => $this->getCurrentUsername(),
+            'takeable' => true
         ]);
     }
 
@@ -302,10 +332,21 @@ class RequestUserController extends AbstractController
     {
         return $this->redirect('/logout');
     }
+
+    #[Route('/request/take_request/{id}', name: 'take_request')]
+    public function takeRequest(int $id ,RequestRepository $requestRepository): Response
+    {
+        $request = $requestRepository->find($id);
+        $request->setStatus('In Progress');
+        $request->setWorkingOn($this->getCurrentUser());
+
+        $this->entityManager->persist($request);
+        $this->entityManager->flush();
+        return $this->redirect('/request/all_open_requests/1');
+    }
 }
 
 //TODO[maxim] Optionsmenü erstellen
 //TODO[maxim] Kontaktmenü erstellen
-//TODO[maxim] Funktion TakeRequest erstellen
 //TODO[maxim] Funktion EditRequest erstellen
 //TODO[maxim] Mailfunktion von Usern untereinander Erstellen

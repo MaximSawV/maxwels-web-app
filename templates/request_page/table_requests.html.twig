@@ -60,6 +60,13 @@
                     {% endif %}
                 </td>
                 {% endif %}
+                {% if takeable is defined%}
+                    <td>
+                       <a href="/request/take_request/{{ req.id }}">
+                           Take
+                       </a>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

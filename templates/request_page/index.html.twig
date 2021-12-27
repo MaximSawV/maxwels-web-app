@@ -92,7 +92,7 @@
                 </a>
             </div>
             {% endif %}
-            {% if is_granted('ROLE_TAKE_REQUEST') or is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_TAKE_REQUESTS') or is_granted('ROLE_ADMIN') %}
             <div>
                 <a href="/request/all_open_requests/1">
                     Show all
