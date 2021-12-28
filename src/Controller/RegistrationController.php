@@ -49,6 +49,7 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setSubscribed(false);
+            $user->setStatus('Offline');
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

@@ -34,17 +34,29 @@
                 {% endif %}
 
                 {% if 'Status' in tableContent %}
-                <td>
-                    {{ req.status }}
-                </td>
+                    {% if req_form is defined %}
+                        {{ form_start(req_form) }}
+                        <td>
+                            {{ form_row(req_form.Status) }}
+                        </td>
+                    {% else %}
+                    <td>
+                        {{ req.status }}
+                    </td>
+                    {% endif %}
                 {% endif %}
 
                 {% if 'Context' in tableContent %}
-                <td>
-                    {{ req.context }}
-                </td>
+                    {% if req_form is defined %}
+                        <td>
+                            {{ form_row(req_form.Context) }}
+                        </td>
+                    {% else %}
+                        <td>
+                            {{ req.context }}
+                        </td>
+                    {% endif %}
                 {% endif %}
-
                 {% if 'Created on' in tableContent %}
                 <td>
                     {{ req.CreatedOn|date('m-d-Y') }}
@@ -52,31 +64,52 @@
                 {% endif %}
 
                 {% if 'Deadline' in tableContent %}
-                <td>
-                    {% if req.deadline is null %}
-
+                    {% if req_form is defined %}
+                        <td>
+                            {{ form_row(req_form.Deadline) }}
+                        </td>
                     {% else %}
-                        {{ req.deadline|date('m-d-Y') }}
+                        <td>
+                            {% if req.deadline is null %}
+
+                            {% else %}
+                                {{ req.deadline|date('m-d-Y') }}
+                            {% endif %}
+                        </td>
                     {% endif %}
-                </td>
                 {% endif %}
-                {% if takeable is defined%}
+                {% if req_form is defined %}
                     <td>
-                       <a href="/request/take_request/{{ req.id }}">
-                           Take
-                       </a>
+                        <button type="submit" class="btn">Create Request</button>
+                        {{ form_end(req_form) }}
                     </td>
-                {% endif %}
-                {% if doneable is defined%}
-                    <td>
-                        <a href="/request/done_request/{{ req.id }}">
-                            Done
-                        </a>
-                    </td>
+                {% else %}
+                    {% if takeable is defined%}
+                        <td>
+                           <a href="/request/take_request/{{ req.id }}">
+                               Take
+                           </a>
+                        </td>
+                    {% endif %}
+                    {% if req.WorkingOn.getId() is defined and req.WorkingOn.getId()  == app.user.id %}
+                        <td>
+                            <a href="/request/done_request/{{ req.id }}">
+                                Done
+                            </a>
+                        </td>
+                    {% endif %}
+                    {% if req.CreatedBy.getId() is defined and req.CreatedBy.getId() == app.user.id %}
+                        <td>
+                            <a href="/request/edit_request/{{ req.id }}">
+                                Edit
+                            </a>
+                        </td>
+                    {% endif %}
                 {% endif %}
             </tr>
         {% endfor %}
         </tbody>
+        {% if currentPage is defined %}
         <div class="page-navigator">
             <div>
                 {% if lastPage is null %}
@@ -100,5 +133,6 @@
                 {% endif %}
             </div>
         </div>
+        {% endif %}
     </table>
 {% endblock %}

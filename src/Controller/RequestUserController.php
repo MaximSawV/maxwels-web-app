@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\CreateRequestsType;
+use App\Form\EditRequestType;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,6 +33,9 @@ class RequestUserController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+
+//Funktions---------------------------------------------{
+
     private function getCurrentUserName()
     {
         return $this->security->getUser()->getUserIdentifier();
@@ -53,6 +57,9 @@ class RequestUserController extends AbstractController
         return $cuID;
     }
 
+//------------------------------------------------------}
+
+//Show Request Tables-----------------------------------{
 
     #[Route('/request/all_requests/{page}', name: 'all_requests')]
     public function getMyRequests(int $page)
@@ -142,7 +149,6 @@ class RequestUserController extends AbstractController
         }
     }
 
-
     #[Route('/request/done_requests/{page}', name: 'done_requests')]
     public function getDoneRequests(int $page)
     {
@@ -215,39 +221,6 @@ class RequestUserController extends AbstractController
         ]);
     }
 
-    #[Route('/request/createRequest', name: 'create_request')]
-    public function createRequest(Request $request)
-    {
-        $customerRequest = new \App\Entity\Request();
-        $customerRequest->setCreatedBy($this->getCurrentUser());
-        $customerRequest->setStatus('Requested');
-        $customerRequest->setCreatedOn(new \DateTime());
-        $customerRequest->setWorkingOn(null);
-        $customerRequest->setVote(0);
-
-        $form =$this->createForm(CreateRequestsType::class, $customerRequest, [
-            'action' => $this->generateUrl('create_request')
-        ]);
-
-
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-
-            $this->entityManager->persist($customerRequest);
-            $this->entityManager->flush();
-
-            return $this->redirect('all_requests/1');
-        }
-
-        return $this->render('request_page/create_request_form.html.twig', [
-            'req_form' => $form->createView(),
-            'username' => $this->getCurrentUserName()
-        ]);
-    }
-
     #[Route('/request/all_open_requests/{page}', name: 'all_open_requests')]
     public function getAllOpenRequests(int $page)
     {
@@ -313,6 +286,10 @@ class RequestUserController extends AbstractController
         ]);
     }
 
+//------------------------------------------------------}
+
+//User Options------------------------------------------{
+
     #[Route('/user/status_update/{status}', name: 'user_status_update')]
     public function updateUserStatus(string $status): Response
     {
@@ -332,6 +309,43 @@ class RequestUserController extends AbstractController
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         return $this->redirect('/logout');
+    }
+
+//------------------------------------------------------}
+
+//Request Options---------------------------------------{
+
+    #[Route('/request/createRequest', name: 'create_request')]
+    public function createRequest(Request $request)
+    {
+        $customerRequest = new \App\Entity\Request();
+        $customerRequest->setCreatedBy($this->getCurrentUser());
+        $customerRequest->setStatus('Requested');
+        $customerRequest->setCreatedOn(new \DateTime());
+        $customerRequest->setWorkingOn(null);
+        $customerRequest->setVote(0);
+
+        $form =$this->createForm(CreateRequestsType::class, $customerRequest, [
+            'action' => $this->generateUrl('create_request')
+        ]);
+
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+            $this->entityManager->persist($customerRequest);
+            $this->entityManager->flush();
+
+            return $this->redirect('all_requests/1');
+        }
+
+        return $this->render('request_page/create_request_form.html.twig', [
+            'req_form' => $form->createView(),
+            'username' => $this->getCurrentUserName()
+        ]);
     }
 
     #[Route('/request/take_request/{id}', name: 'take_request')]
@@ -357,6 +371,52 @@ class RequestUserController extends AbstractController
         $this->entityManager->flush();
         return $this->redirect('/request/all_requests/1');
     }
+
+    #[Route('/request/edit_request/{id}', name: 'edit_request')]
+    public function editRequest(int $id, RequestRepository $requestRepository, Request $request): Response
+    {
+        $tableContent = ['Working on', 'Status', 'Context', 'Created on', 'Deadline'];
+
+        $query = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->where('r.id = :currentRequest')
+            ->setParameter('currentRequest', $id);
+
+        /** @var @var Request[] $myRequests */
+        $myRequests = $query->getQuery()->getResult();
+
+        $customerRequest=$requestRepository->find($id);
+
+        $form =$this->createForm(EditRequestType::class,$customerRequest, [
+            'action' => $this->generateUrl('create_request')
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+            $customerRequest->setStatus($form->getData()['Status']);
+            $customerRequest->setContext($form->getData()['Context']);
+            $customerRequest->setDeadline($form->getData()['Deadline']);
+
+            $this->entityManager->persist($customerRequest);
+            $this->entityManager->flush();
+
+            return $this->redirect('all_requests/1');
+        }
+
+        return $this->render('request_page/table_requests.html.twig', [
+            'requests' => $myRequests,
+            'tableContent' => $tableContent,
+            'username' => $this->getCurrentUsername(),
+            'req_form' => $form->createView(),
+            ]);
+    }
+
+//------------------------------------------------------}
+
 }
 
 //TODO[maxim] Optionsmenü erstellen
