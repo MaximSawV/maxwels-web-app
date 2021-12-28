@@ -133,7 +133,6 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
         } else {
             $pwerror = true;
         }
-        //TODO[maxim] fix stylesheet on link form email
         return $this->render('main_page/index.html.twig', [
             'newPw_form' => $form->createView(),
             'userError' => true,

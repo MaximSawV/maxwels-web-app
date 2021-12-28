@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
+use App\Entity\ProfileOptions;
 use App\Entity\Programmer;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\DBAL\Driver\PDO\Exception;
+use Doctrine\ORM\EntityManagerInterface;
+use function Sodium\add;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,6 +59,17 @@ class RegistrationController extends AbstractController
 
             }
 
+            $profileOptions = new ProfileOptions();
+            $profileOptions->setUser($user);
+            $profileOptions->setPublicContact(true);
+            $profileOptions->setShowStatus(true);
+            $profileOptions->setHidden(false);
+            $profileOptions->setDarkmode(false);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($profileOptions);
+
+
             if ($form->get('customer_or_programmer')->getData() == 'customer' or $form->get('customer_or_programmer')->getData() == 'both')
             {
                 $customer = new Customer();
@@ -71,6 +85,10 @@ class RegistrationController extends AbstractController
                 } catch (\PDOException $e){
 
                 }
+
+                $user->setRoles(["ROLE_MANAGE_OWN_REQUESTS"]);
+                $entityManager->persist($user);
+                $entityManager->flush();
             }
 
             if ($form->get('customer_or_programmer')->getData() == 'programmer' or $form->get('customer_or_programmer')->getData() == 'both')
@@ -89,6 +107,10 @@ class RegistrationController extends AbstractController
                 } catch (\PDOException $e){
 
                 }
+
+                $user->setRoles(["ROLE_TAKE_REQUESTS"]);
+                $entityManager->persist($user);
+                $entityManager->flush();
             }
             // generate a signed url and email it to the user
 
@@ -110,7 +132,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
+    public function verifyUserEmail(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
         $id = $request->get('id');
 
@@ -132,6 +154,12 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_register');
         }
+        $newRoles = $user->getRoles();
+        array_push($newRoles, 'IS_VERIFIED');
+        $user->setRoles($newRoles);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
 
         return $this->redirectToRoute('main_page');
     }

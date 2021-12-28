@@ -16,7 +16,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 
-//TODO[maxim] Rechte statt feste Rollen verteillen
 //TODO[maxim] Base Template statt einzelne Seiten
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -68,6 +67,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $customer_or_programmer;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToOne(targetEntity=ProfileOptions::class, mappedBy="User", cascade={"persist", "remove"})
+     */
+    private $profileOptions;
 
 
     public function getId(): int
@@ -216,6 +225,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCustomerOrProgrammer(string $customer_or_programmer): self
     {
         $this->customer_or_programmer = $customer_or_programmer;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getProfileOptions(): ?ProfileOptions
+    {
+        return $this->profileOptions;
+    }
+
+    public function setProfileOptions(ProfileOptions $profileOptions): self
+    {
+        // set the owning side of the relation if necessary
+        if ($profileOptions->getUser() !== $this) {
+            $profileOptions->setUser($this);
+        }
+
+        $this->profileOptions = $profileOptions;
 
         return $this;
     }

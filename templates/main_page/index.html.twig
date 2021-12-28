@@ -67,12 +67,12 @@
             {% endif %}
             {% if logged == true %}
                 <li>
-                    <a href="/logout">
+                    <a href="{{ path('user_logout') }}">
                         Logout
                     </a>
                 </li>
                 <li>
-                    <a href="/request/user">
+                    <a href="/request">
                        Requests
                     </a>
                 </li>

@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+{% endblock %}
+{% block head %}
+    <title>Maxwels Requests</title>
+    <link rel="stylesheet" href="/stylesheets/requestpage-style.css"/>
+    <link rel="stylesheet" href="/stylesheets/arrow-style.css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="mainpage">
+        <div class="menu">
+            <div class="dropdown">
+                {% if app.user.status == 'online' %}
+                <a style="color: #3adb76">
+                    {{ app.user.username }}
+                    <div class="arrow right in-menu">
+                    </div>
+                </a>
+                {% elseif app.user.status == 'busy' %}
+                <a style="color: orange">
+                    {{ app.user.username }}
+                    <div class="arrow right in-menu">
+                    </div>
+                </a>
+                {% elseif app.user.status == 'offline' %}
+                <a style="color: red">
+                    {{ app.user.username }}
+                    <div class="arrow right in-menu">
+                    </div>
+                </a>
+                {% endif %}
+                <ul>
+                    <li class="status-menu">
+                        <a>
+                            Status
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/user/status_update/online" style="color: #3adb76">
+                                    Online
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/user/status_update/busy" style="color: orange">
+                                    Busy
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/user/status_update/offline" style="color: red">
+                                    Offline
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            Options
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            Conntacts
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('main_page') }}">
+                            <-Back
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('user_logout') }}">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <a href="/request/all_requests/1">
+                    Show My
+                </a>
+            </div>
+            <div>
+                <a href="/request/done_requests/1">
+                    Show Done
+                </a>
+            </div>
+            {% if is_granted('ROLE_MANAGE_OWN_REQUESTS') or is_granted('ROLE_ADMIN')%}
+            <div>
+                <a href="/request/createRequest">
+                    Create Request
+                </a>
+            </div>
+            {% endif %}
+            {% if is_granted('ROLE_TAKE_REQUESTS') or is_granted('ROLE_ADMIN') %}
+            <div>
+                <a href="/request/all_open_requests/1">
+                    Show all
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

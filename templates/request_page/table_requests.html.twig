@@ -1,0 +1,104 @@
+{% extends 'request_page/index.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/stylesheets/table-style.css"/>
+    <link rel="stylesheet" href="/stylesheets/arrow-style.css"/>
+{% endblock %}
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                {% for item in tableContent %}
+                <th>
+                    {{ item }}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for req in requests %}
+            <tr>
+                {% if 'Working on' in tableContent %}
+                <td>
+                    {% if req.WorkingOn is null %}
+
+                    {% else %}
+                    {{ req.WorkingOn.getUsername() }}
+                    {% endif %}
+                </td>
+                {% endif %}
+
+                {% if 'Created by' in tableContent %}
+                <td>
+                    {{ req.CreatedBy.getUsername() }}
+                </td>
+                {% endif %}
+
+                {% if 'Status' in tableContent %}
+                <td>
+                    {{ req.status }}
+                </td>
+                {% endif %}
+
+                {% if 'Context' in tableContent %}
+                <td>
+                    {{ req.context }}
+                </td>
+                {% endif %}
+
+                {% if 'Created on' in tableContent %}
+                <td>
+                    {{ req.CreatedOn|date('m-d-Y') }}
+                </td>
+                {% endif %}
+
+                {% if 'Deadline' in tableContent %}
+                <td>
+                    {% if req.deadline is null %}
+
+                    {% else %}
+                        {{ req.deadline|date('m-d-Y') }}
+                    {% endif %}
+                </td>
+                {% endif %}
+                {% if takeable is defined%}
+                    <td>
+                       <a href="/request/take_request/{{ req.id }}">
+                           Take
+                       </a>
+                    </td>
+                {% endif %}
+                {% if doneable is defined%}
+                    <td>
+                        <a href="/request/done_request/{{ req.id }}">
+                            Done
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+        <div class="page-navigator">
+            <div>
+                {% if lastPage is null %}
+                <a class="arrow left">
+                </a>
+                {% else %}
+                    <a class="arrow left" href="{{ lastPageUrl }}" style="border-color: red">
+                    </a>
+                {% endif %}
+            </div>
+            <h3>
+               {{ currentPage }}
+            </h3>
+            <div>
+                {% if nextPage is null %}
+                    <a class="arrow right">
+                    </a>
+                {% else %}
+                    <a class="arrow right" href="{{ nextPageUrl }}" style="border-color: #3adb76">
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </table>
+{% endblock %}
