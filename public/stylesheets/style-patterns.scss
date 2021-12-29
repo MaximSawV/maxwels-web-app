@@ -1,0 +1,7 @@
+@mixin box($width, $height, $position, $display, $background) {
+  width: $width;
+  height: $height;
+  position: $position;
+  display: $display;
+  background: $background;
+}

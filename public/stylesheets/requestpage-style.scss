@@ -1,10 +1,4 @@
-@mixin box($width, $height, $position, $display, $background) {
-  width: $width;
-  height: $height;
-  position: $position;
-  display: $display;
-  background: $background;
-}
+@import "style-patterns";
 
 @mixin button{
   @include box(200px, 100px, relative, block, linear-gradient(to bottom, #0c2436 0%, #84cafe 100%));
