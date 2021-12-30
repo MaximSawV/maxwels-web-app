@@ -168,33 +168,9 @@ class RequestUserController extends AbstractController
     public function getAllOpenRequests(int $page)
     {
         $tableContent = ['Created by', 'Context', 'Created on', 'Deadline'];
-        $firstResult = (5*($page-1));
+        $allOpenRequests = $this->requestManager->getRequestedRequests($page);
+        $numberOfRequests = $this->requestManager->getNumberOfRequestedRequests($page);
 
-        $query = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->where('r.Created_by != :currentUser')
-            ->andWhere('r.Status = \'Requested\'')
-            ->setParameter('currentUser', $this->getCurrentUser())
-            ->setFirstResult($firstResult)
-            ->setMaxResults(5);
-
-        /** @var @var Request[] $myRequests */
-        $allOpenRequests = $query->getQuery()->getResult();
-
-        $query = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->where('r.Created_by != :currentUser')
-            ->andWhere('r.Status = \'Requested\'')
-            ->setParameter('currentUser', $this->getCurrentUser())
-            ->setFirstResult($firstResult);
-
-        /** @var @var Request[] $myRequests */
-        $leftResults = $query->getQuery()->getResult();
-
-
-        $numberOfRequests = count($leftResults);
 
         if ($numberOfRequests > 5)
         {

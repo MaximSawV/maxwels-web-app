@@ -151,4 +151,45 @@ class CustomerRequestManager
 
         return $numberOfRequests;
     }
+
+    public function getRequestedRequests(int $page)
+    {
+        $cuID = $this->currentUser->getId();
+        $firstResult = (5*($page-1));
+
+        $query = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->where('r.Created_by != :currentUser')
+            ->andWhere('r.Status = \'Requested\'')
+            ->setParameter('currentUser', $cuID)
+            ->setFirstResult($firstResult)
+            ->setMaxResults(5);
+
+        /** @var @var Request[] $myRequests */
+        $allOpenRequests = $query->getQuery()->getResult();
+
+        return $allOpenRequests;
+    }
+
+    public function getNumberOfRequestedRequests(int $page)
+    {
+        $cuID = $this->currentUser->getId();
+        $firstResult = (5 * ($page - 1));
+        $query = $this
+            ->requestRepository
+            ->createQueryBuilder('r')
+            ->where('r.Created_by = :currentUser')
+            ->orWhere('r.Working_on = :currentUser')
+            ->andWhere('r.Status = \'Done\'')
+            ->setFirstResult($firstResult)
+            ->setParameter('currentUser', $cuID);
+
+        /** @var @var Request[] $myRequests */
+        $myRequestsTotal = $query->getQuery()->getResult();
+
+        $numberOfRequests = count($myRequestsTotal);
+
+        return $numberOfRequests;
+    }
 }
