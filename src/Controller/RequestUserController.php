@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\CreateRequestsType;
 use App\Form\EditRequestType;
+use App\myPHPClasses\MaxwelsUserManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -103,7 +104,6 @@ class RequestUserController extends AbstractController
                 'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
                 'lastPage' => $lastPage,
                 'tableContent' => $tableContent,
-                'username' => $this->getCurrentUsername(),
                 'doneable' => true,
             ]);
         } else {
@@ -115,8 +115,6 @@ class RequestUserController extends AbstractController
                 'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
                 'lastPage' => $lastPage,
                 'tableContent' => $tableContent,
-                //TODO[maxim] that \/ to twig
-                'username' => $this->getCurrentUsername()
             ]);
         }
     }
@@ -161,7 +159,6 @@ class RequestUserController extends AbstractController
             'lastPageUrl' => '/request/done_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
             'tableContent' => $tableContent,
-            'username' => $this->getCurrentUsername()
         ]);
     }
 
@@ -201,7 +198,6 @@ class RequestUserController extends AbstractController
             'lastPageUrl' => '/request/all_open_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
             'tableContent' => $tableContent,
-            'username' => $this->getCurrentUsername(),
             'takeable' => true
         ]);
     }
@@ -211,23 +207,16 @@ class RequestUserController extends AbstractController
 //User Options------------------------------------------{
 
     #[Route('/user/status_update/{status}', name: 'user_status_update')]
-    public function updateUserStatus(string $status): Response
+    public function updateUserStatus(string $status, MaxwelsUserManager $userManager): Response
     {
-        $user = $this->userRepository->find($this->getCurrentUser());
-        $user->setStatus($status);
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-
+        $userManager->updateStatus($status);
         return $this->redirectToRoute('request_page');
     }
 
     #[Route('/user/logout', name: 'user_logout')]
-    public function logout(): Response
+    public function logout(MaxwelsUserManager $userManager): Response
     {
-        $user = $this->userRepository->find($this->getCurrentUser());
-        $user->setStatus('Offline');
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $userManager->updateStatus('offline');
         return $this->redirect('/logout');
     }
 

@@ -10,6 +10,8 @@ namespace App\myPHPClasses;
 
 
 use App\Entity\User;
+use App\Repository\UserRepository;
+use App\Session\SessionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -17,12 +19,18 @@ class MaxwelsUserManager
 {
     private $hasher;
     private $entityManager;
+    private $userRepository;
+    private $sessionManager;
 
     public function __construct(UserPasswordHasherInterface $hasher,
-                                EntityManagerInterface $entityManager)
+                                EntityManagerInterface $entityManager,
+                                UserRepository $userRepository,
+                                SessionManager $sessionManager)
     {
         $this->hasher = $hasher;
         $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
+        $this->sessionManager = $sessionManager;
     }
 
     public function createUser(string $username, array $roles, string $plainPassword, string $email, bool $isVerified = false,
@@ -40,6 +48,14 @@ class MaxwelsUserManager
         $newUser->setStatus($status);
 
         $this->entityManager->persist($newUser);
+        $this->entityManager->flush();
+    }
+
+    public function updateStatus(string $status)
+    {
+        $user = $this->sessionManager->getUser();
+        $user->setStatus($status);
+        $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
 }
