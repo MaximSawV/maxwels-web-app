@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96bb2656-97b6-4769-962d-f2bfd16edac2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/Controller/RequestUserController.php" afterPath="$PROJECT_DIR$/src/Controller/RequestUserController.php" />
-      <change beforePath="$PROJECT_DIR$/src/myPHPClasses/CustomerRequestManager.php" afterPath="$PROJECT_DIR$/src/myPHPClasses/CustomerRequestManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -63,11 +63,12 @@
       <file leaf-file-name="RequestUserController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/RequestUserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="166" column="39" lean-forward="false" selection-start-line="166" selection-start-column="22" selection-end-line="166" selection-end-column="39" />
+            <state relative-caret-position="585">
+              <caret line="121" column="5" lean-forward="true" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
               <folding>
-                <element signature="e#2172#4145#0#PHP" expanded="false" />
-                <element signature="e#4220#5672#0#PHP" expanded="false" />
+                <element signature="e#2172#4191#0#PHP" expanded="false" />
+                <element signature="e#4266#5718#0#PHP" expanded="false" />
+                <element signature="e#5801#7066#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -94,8 +95,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>canc</find>
-      <find>submitbutt</find>
       <find>setsee</find>
       <find>onclick</find>
       <find>closeMes</find>
@@ -124,6 +123,8 @@
       <find>enabled</find>
       <find>disable</find>
       <find>UserPasswordHasherInterface</find>
+      <find>getCurrentUserName</find>
+      <find>getCurrentUser</find>
     </findStrings>
     <replaceStrings>
       <replace>{{ routing }}</replace>
@@ -591,7 +592,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="347288000" />
+    <option name="totallyTimeSpent" value="347596000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -683,7 +684,7 @@
           <line>441</line>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="14" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1058,11 +1059,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/RequestUserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="166" column="39" lean-forward="false" selection-start-line="166" selection-start-column="22" selection-end-line="166" selection-end-column="39" />
+        <state relative-caret-position="585">
+          <caret line="121" column="5" lean-forward="true" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
           <folding>
-            <element signature="e#2172#4145#0#PHP" expanded="false" />
-            <element signature="e#4220#5672#0#PHP" expanded="false" />
+            <element signature="e#2172#4191#0#PHP" expanded="false" />
+            <element signature="e#4266#5718#0#PHP" expanded="false" />
+            <element signature="e#5801#7066#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>

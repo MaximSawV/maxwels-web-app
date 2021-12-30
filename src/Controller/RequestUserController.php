@@ -115,6 +115,7 @@ class RequestUserController extends AbstractController
                 'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
                 'lastPage' => $lastPage,
                 'tableContent' => $tableContent,
+                //TODO[maxim] that \/ to twig
                 'username' => $this->getCurrentUsername()
             ]);
         }
