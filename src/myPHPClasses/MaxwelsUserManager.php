@@ -19,8 +19,9 @@ class MaxwelsUserManager
 {
     private $hasher;
     private $entityManager;
-    private $userRepository;
     private $sessionManager;
+    private $userRepository;
+
 
     public function __construct(UserPasswordHasherInterface $hasher,
                                 EntityManagerInterface $entityManager,
@@ -53,7 +54,7 @@ class MaxwelsUserManager
 
     public function updateStatus(string $status)
     {
-        $user = $this->sessionManager->getUser();
+        $user = $this->userRepository->find($this->sessionManager->getUser()->getId());
         $user->setStatus($status);
         $this->entityManager->persist($user);
         $this->entityManager->flush();

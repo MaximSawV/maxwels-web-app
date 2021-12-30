@@ -104,6 +104,7 @@ class RequestUserController extends AbstractController
                 'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
                 'lastPage' => $lastPage,
                 'tableContent' => $tableContent,
+                'username' => $this->getCurrentUsername(),
                 'doneable' => true,
             ]);
         } else {
@@ -115,6 +116,8 @@ class RequestUserController extends AbstractController
                 'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
                 'lastPage' => $lastPage,
                 'tableContent' => $tableContent,
+                //TODO[maxim] that \/ to twig
+                'username' => $this->getCurrentUsername()
             ]);
         }
     }
@@ -159,6 +162,7 @@ class RequestUserController extends AbstractController
             'lastPageUrl' => '/request/done_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
             'tableContent' => $tableContent,
+            'username' => $this->getCurrentUsername()
         ]);
     }
 
@@ -198,6 +202,7 @@ class RequestUserController extends AbstractController
             'lastPageUrl' => '/request/all_open_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
             'tableContent' => $tableContent,
+            'username' => $this->getCurrentUsername(),
             'takeable' => true
         ]);
     }
