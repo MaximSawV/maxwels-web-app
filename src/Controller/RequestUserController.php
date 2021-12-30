@@ -15,7 +15,7 @@ use App\Repository\RequestRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\myPHPClasses\CustomerRequestManager;
+use App\myPHPClasses\MaxwelsRequestManager;
 
 class RequestUserController extends AbstractController
 {
@@ -29,7 +29,7 @@ class RequestUserController extends AbstractController
                                 RequestRepository $requestRepository,
                                 Security $security,
                                 EntityManagerInterface $entityManager,
-                                CustomerRequestManager $requestManager)
+                                MaxwelsRequestManager $requestManager)
     {
         $this->userRepository = $userRepository;
         $this->requestRepository = $requestRepository;
@@ -233,7 +233,8 @@ class RequestUserController extends AbstractController
     public function createRequest(Request $request)
     {
 
-        $form =$this->createForm(CreateRequestsType::class,  [
+        $newRequest = new \App\Entity\Request();
+        $form =$this->createForm(CreateRequestsType::class, null,  [
             'action' => $this->generateUrl('create_request')
         ]);
 
@@ -241,9 +242,10 @@ class RequestUserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $context = $request->request->get('Context');
-            $deadline = $request->request->get('Deadline');
-            $this->requestManager->createRequest(null,'offline',null, $deadline, $context, false);
+            $context = $form->get('Context')->getData();
+            $deadline = $form->get('Deadline')->getData();
+
+            $this->requestManager->createRequest(null, null,'offline',null, $deadline, $context, false);
             return $this->redirect('all_requests/1');
         }
 

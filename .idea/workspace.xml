@@ -7,7 +7,7 @@
     <list default="true" id="96bb2656-97b6-4769-962d-f2bfd16edac2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/Controller/RequestUserController.php" afterPath="$PROJECT_DIR$/src/Controller/RequestUserController.php" />
-      <change beforePath="$PROJECT_DIR$/src/myPHPClasses/MaxwelsUserManager.php" afterPath="$PROJECT_DIR$/src/myPHPClasses/MaxwelsUserManager.php" />
+      <change beforePath="$PROJECT_DIR$/src/myPHPClasses/CustomerRequestManager.php" afterPath="$PROJECT_DIR$/src/myPHPClasses/MaxwelsRequestManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,43 +64,45 @@
       <file leaf-file-name="RequestUserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/RequestUserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="223" column="46" lean-forward="true" selection-start-line="223" selection-start-column="46" selection-end-line="223" selection-end-column="46" />
+            <state relative-caret-position="289">
+              <caret line="236" column="64" lean-forward="false" selection-start-line="236" selection-start-column="64" selection-end-line="236" selection-end-column="64" />
               <folding>
                 <element signature="e#34#66#0#PHP" expanded="true" />
-                <element signature="e#2213#4232#0#PHP" expanded="false" />
-                <element signature="e#4307#5759#0#PHP" expanded="false" />
-                <element signature="e#5842#7107#0#PHP" expanded="false" />
+                <element signature="e#2211#4230#0#PHP" expanded="false" />
+                <element signature="e#4305#5757#0#PHP" expanded="false" />
+                <element signature="e#5840#7105#0#PHP" expanded="false" />
+                <element signature="e#7302#7505#0#PHP" expanded="false" />
+                <element signature="e#7561#7728#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/request_page/index.html.twig">
+      <file leaf-file-name="Request.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Request.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="36" column="20" lean-forward="false" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+            <state relative-caret-position="420">
+              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MaxwelsUserManager.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/myPHPClasses/MaxwelsUserManager.php">
+      <file leaf-file-name="CreateRequestsType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Form/CreateRequestsType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="59" column="38" lean-forward="true" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+            <state relative-caret-position="108">
+              <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SessionManager.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Session/SessionManager.php">
+      <file leaf-file-name="MaxwelsRequestManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/myPHPClasses/MaxwelsRequestManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state relative-caret-position="174">
+              <caret line="42" column="215" lean-forward="false" selection-start-line="42" selection-start-column="215" selection-end-line="42" selection-end-column="215" />
               <folding />
             </state>
           </provider>
@@ -160,14 +162,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Controller/SubscriptonController.php" />
-        <option value="$PROJECT_DIR$/src/Form/SubscriptionType.php" />
         <option value="$PROJECT_DIR$/src/Controller/RequestProgrammerController.php" />
         <option value="$PROJECT_DIR$/templates/request_page/request-base.html.twig" />
         <option value="$PROJECT_DIR$/templates/request_page/request-page.html.twig" />
         <option value="$PROJECT_DIR$/templates/request_page/table_all_requests.html.twig" />
         <option value="$PROJECT_DIR$/templates/base.html.twig" />
-        <option value="$PROJECT_DIR$/src/Entity/Request.php" />
         <option value="$PROJECT_DIR$/var/cache/dev/ContainerAQAgOqn/App_KernelDevDebugContainer.php" />
         <option value="$PROJECT_DIR$/templates/request_page/create_request_form.html.twig" />
         <option value="$PROJECT_DIR$/vendor/symfony/framework-bundle/Routing/Router.php" />
@@ -203,14 +202,17 @@
         <option value="$PROJECT_DIR$/templates/profile_option/index.html.twig" />
         <option value="$PROJECT_DIR$/templates/request_page/index.html.twig" />
         <option value="$PROJECT_DIR$/app/docker/docker-compose.yml" />
-        <option value="$PROJECT_DIR$/src/Entity/User.php" />
         <option value="$PROJECT_DIR$/src/Session/SessionManager.php" />
         <option value="$PROJECT_DIR$/src/Controller/RegistrationController.php" />
         <option value="$PROJECT_DIR$/templates/request_page/table_requests.html.twig" />
         <option value="$PROJECT_DIR$/app/src/Controller/RegistrationController.php" />
         <option value="$PROJECT_DIR$/src/myPHPClasses/CustomerRequestManager.php" />
-        <option value="$PROJECT_DIR$/src/Controller/RequestUserController.php" />
         <option value="$PROJECT_DIR$/src/myPHPClasses/MaxwelsUserManager.php" />
+        <option value="$PROJECT_DIR$/migrations/Version20211230133253.php" />
+        <option value="$PROJECT_DIR$/src/Entity/User.php" />
+        <option value="$PROJECT_DIR$/src/myPHPClasses/MaxwelsRequestManager.php" />
+        <option value="$PROJECT_DIR$/src/Controller/RequestUserController.php" />
+        <option value="$PROJECT_DIR$/src/Entity/Request.php" />
       </list>
     </option>
   </component>
@@ -507,30 +509,13 @@
               <item name="maxwels-web-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="maxwels-web-app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controller" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Entity" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="maxwels-web-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="maxwels-web-app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="myPHPClasses" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="maxwels-web-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="maxwels-web-app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Session" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="maxwels-web-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="maxwels-web-app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="maxwels-web-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="maxwels-web-app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="request_page" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -631,7 +616,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="349069000" />
+    <option name="totallyTimeSpent" value="353714000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -646,20 +631,21 @@
     <frame x="4480" y="27" width="2560" height="1413" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23367834" sideWeight="0.4952381" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746196" sideWeight="0.49840763" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298639" sideWeight="0.4968153" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2810248" sideWeight="0.5143312" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.109474525" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298639" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2810248" sideWeight="0.51592356" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746196" sideWeight="0.4888535" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298639" sideWeight="0.49840763" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27622098" sideWeight="0.48407644" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23367834" sideWeight="0.4952381" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298639" sideWeight="0.4968153" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.109474525" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746196" sideWeight="0.49840763" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2810248" sideWeight="0.48566878" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25408497" sideWeight="0.50476193" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746196" sideWeight="0.49840763" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298639" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2810248" sideWeight="0.5127388" order="8" side_tool="true" content_ui="tabs" />
@@ -674,7 +660,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2316879" sideWeight="0.4952381" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298639" sideWeight="0.4968153" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746196" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.109474525" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -722,7 +707,7 @@
           <line>441</line>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="15" />
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -736,90 +721,6 @@
     <select />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docker/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="39" column="43" lean-forward="false" selection-start-line="39" selection-start-column="29" selection-end-line="39" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/packages/doctrine.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env.local">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="44" lean-forward="false" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/todoDings.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repository/ProfileOptionsRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="30" column="36" lean-forward="true" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e82d4cad-1918-4e9a-b3dd-754b3b0f7143/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/ProfileOptions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="28" column="26" lean-forward="false" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/subscription-style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/table-style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="34" column="17" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/requestpage-style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="49" lean-forward="false" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/main_page/index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="67" column="35" lean-forward="false" selection-start-line="67" selection-start-column="35" selection-end-line="67" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/style-patterns.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -856,13 +757,6 @@
       </provider>
     </entry>
     <entry file="das://table:/d058ee47/e82d4cad-1918-4e9a-b3dd-754b3b0f7143/maxwels.profile_options">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/d058ee47/e82d4cad-1918-4e9a-b3dd-754b3b0f7143/maxwels.request">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -944,14 +838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="171" column="20" lean-forward="false" selection-start-line="171" selection-start-column="20" selection-end-line="171" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/docker/docker-compose.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="648">
@@ -963,14 +849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Session/SessionManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -999,13 +877,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form/CreateRequestsType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -1074,24 +945,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/myPHPClasses/CustomerRequestManager.php">
+    <entry file="file://$PROJECT_DIR$/src/Session/SessionManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="169" column="59" lean-forward="false" selection-start-line="169" selection-start-column="59" selection-end-line="169" selection-end-column="59" />
+        <state relative-caret-position="744">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/RequestUserController.php">
+    <entry file="file://$PROJECT_DIR$/src/myPHPClasses/MaxwelsUserManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="223" column="46" lean-forward="true" selection-start-line="223" selection-start-column="46" selection-end-line="223" selection-end-column="46" />
-          <folding>
-            <element signature="e#34#66#0#PHP" expanded="true" />
-            <element signature="e#2213#4232#0#PHP" expanded="false" />
-            <element signature="e#4307#5759#0#PHP" expanded="false" />
-            <element signature="e#5842#7107#0#PHP" expanded="false" />
-          </folding>
+        <state relative-caret-position="756">
+          <caret line="59" column="38" lean-forward="false" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1103,10 +969,158 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/myPHPClasses/MaxwelsUserManager.php">
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211230133052.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="59" column="38" lean-forward="true" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+        <state relative-caret-position="432">
+          <caret line="25" column="100" lean-forward="true" selection-start-line="25" selection-start-column="100" selection-end-line="25" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211230133253.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211230133940.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211230134457.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211227131950.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1640611231057" expanded="true" signature="501:908" ph="CREATE TABLE... profile_options" />
+            <marker date="1640611231057" expanded="true" signature="935:1041" ph="ALTER TABLE profile_options... " />
+            <marker date="1640611231057" expanded="true" signature="1211:1237" ph="DROP TABLE p... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211227133044.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1640611861254" expanded="true" signature="501:553" ph="ALTER TABLE profile_options... " />
+            <marker date="1640611861254" expanded="true" signature="723:919" ph="ALTER TABLE profile_options... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211230134518.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211230135006.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/d058ee47/e82d4cad-1918-4e9a-b3dd-754b3b0f7143/maxwels.request">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211230135112.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="13" column="1" lean-forward="true" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="33" />
+          <folding>
+            <marker date="1640872272730" expanded="true" signature="501:557" ph="ALTER TABLE request... " />
+            <marker date="1640872272730" expanded="true" signature="653:727" ph="ALTER TABLE request... " />
+            <marker date="1640872272730" expanded="true" signature="754:821" ph="ALTER TABLE request... " />
+            <marker date="1640872272730" expanded="true" signature="991:1056" ph="ALTER TABLE request... " />
+            <marker date="1640872272730" expanded="true" signature="1083:1223" ph="ALTER TABLE request... " />
+            <marker date="1640872272730" expanded="true" signature="1334:1401" ph="ALTER TABLE request... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/maker-bundle/tests/Util/fixtures/add_many_to_one_relation/User_empty_other_namespace.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-816">
+          <caret line="14" column="26" lean-forward="true" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://src:table:/d058ee47/e82d4cad-1918-4e9a-b3dd-754b3b0f7143/maxwels.request">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myPHPClasses/MaxwelsRequestManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="42" column="215" lean-forward="false" selection-start-line="42" selection-start-column="215" selection-end-line="42" selection-end-column="215" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Form/CreateRequestsType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/RequestUserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="236" column="64" lean-forward="false" selection-start-line="236" selection-start-column="64" selection-end-line="236" selection-end-column="64" />
+          <folding>
+            <element signature="e#34#66#0#PHP" expanded="true" />
+            <element signature="e#2211#4230#0#PHP" expanded="false" />
+            <element signature="e#4305#5757#0#PHP" expanded="false" />
+            <element signature="e#5840#7105#0#PHP" expanded="false" />
+            <element signature="e#7302#7505#0#PHP" expanded="false" />
+            <element signature="e#7561#7728#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Request.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>

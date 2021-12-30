@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class CustomerRequestManager
+class MaxwelsRequestManager
 {
 
     private $requestRepository;
@@ -40,7 +40,7 @@ class CustomerRequestManager
     }
 
 
-    public function createRequest($createdBy = null, User $workingOn, string $status = 'offline', \DateTime $createdOn = null, \DateTime $deadline = null, string $context, bool $vote = false)
+    public function createRequest(User $createdBy = null, User $workingOn = null, string $status = 'offline', \DateTime $createdOn = null, \DateTime $deadline = null, string $context = "missing", bool $vote = false)
     {
         if ($createdBy == null)
         {
