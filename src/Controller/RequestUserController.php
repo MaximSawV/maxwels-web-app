@@ -128,37 +128,9 @@ class RequestUserController extends AbstractController
         {
             $tableContent = ['Working on', 'Created by', 'Context', 'Created on', 'Deadline'];
         }
-        $cuID = $this->getCurrentUser()->getId();
-        $firstResult = (5*($page-1));
 
-        $query = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->where('r.Created_by = :currentUser')
-            ->orWhere('r.Working_on = :currentUser')
-            ->andWhere('r.Status = \'DONE\'')
-            ->setFirstResult($firstResult)
-            ->setMaxResults(5)
-            ->setParameter('currentUser', $cuID);
-
-        /** @var @var Request[] $doneRequests */
-        $doneRequests = $query->getQuery()->getResult();
-
-
-        $query2 = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->where('r.Created_by = :currentUser')
-            ->orWhere('r.Working_on = :currentUser')
-            ->andWhere('r.Status = \'DONE\'')
-            ->setFirstResult($firstResult)
-            ->setMaxResults(5)
-            ->setParameter('currentUser', $cuID);
-
-        /** @var @var Request[] $myRequests */
-        $myRequestsTotal = $query2->getQuery()->getResult();
-
-        $numberOfRequests = count($myRequestsTotal);
+        $doneRequests = $this->requestManager->getDoneRequests($page);
+        $numberOfRequests = $this->requestManager->getNumberOfDoneRequests($page);
 
         if ($numberOfRequests > 5)
         {
