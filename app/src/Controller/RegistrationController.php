@@ -19,7 +19,7 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
+    private $emailVerifier;
 
     public function __construct(EmailVerifier $emailVerifier)
     {

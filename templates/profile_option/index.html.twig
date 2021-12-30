@@ -9,17 +9,112 @@
                 Options
             </h1>
             <hr>
-            <h3>
-                Security
-            </h3>
-            <h4>
-                Show contact details
-            </h4>
-            <a>
-                {{ publicContact }}
-            </a>
-            <a href="/request">
-                cancel
+            <div>
+                <h2>
+                    Security
+                </h2>
+                <div>
+                    <h3>
+                        Show contact details:
+                    </h3>
+                    <div class="button-space">
+                    {% if publicContact == true %}
+                        <h4>
+                            Enabled
+                        </h4>
+                        <div class="spacer"></div>
+                        <a class="menu-button" href="{{ app.user.profileOptions.id }}/PublicContact/false">
+                            Disable
+                        </a>
+                    {% else %}
+                        <a class="menu-button" href="{{ app.user.profileOptions.id }}/PublicContact/true">
+                            Enable
+                        </a>
+                        <div class="spacer"></div>
+                        <h4>
+                            Disabled
+                        </h4>
+                    {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <h3>
+                        Show Status:
+                    </h3>
+                    <div class="button-space">
+                    {% if showStatus == true %}
+                        <h4>
+                            Enabled
+                        </h4>
+                        <div class="spacer"></div>
+                        <a class="menu-button" href="{{ app.user.profileOptions.id }}/ShowStatus/false">
+                            Disable
+                        </a>
+                    {% else %}
+                        <a class="menu-button" href="{{ app.user.profileOptions.id }}/ShowStatus/true">
+                            Enable
+                        </a>
+                        <div class="spacer"></div>
+                        <h4>
+                            Disabled
+                        </h4>
+                    {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <h3>
+                        Hidden in Userlist:
+                    </h3>
+                    <div class="button-space">
+                    {% if hidden == true %}
+                        <h4>
+                            Enabled
+                        </h4>
+                        <div class="spacer"></div>
+                        <a class="menu-button" href="{{ app.user.profileOptions.id }}/Hidden/false">
+                            Disable
+                        </a>
+                    {% else %}
+                        <a class="menu-button" href="{{ app.user.profileOptions.id }}/Hidden/true">
+                            Enable
+                        </a>
+                        <div class="spacer"></div>
+                        <h4>
+                            Disabled
+                        </h4>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2>
+                    Style
+                </h2>
+                <h3>
+                    Darkmode
+                </h3>
+                <div class="button-space">
+                {% if darkmode == true %}
+                    <h4>
+                        Enabled
+                    </h4>
+                    <div class="spacer"></div>
+                    <a class="menu-button" href="{{ app.user.profileOptions.id }}/Darkmode/false">
+                        Disable
+                    </a>
+                {% else %}
+                    <a class="menu-button" href="{{ app.user.profileOptions.id }}/Darkmode/true">
+                        Enable
+                    </a>
+                    <div class="spacer"></div>
+                    <h4>
+                        Disabled
+                    </h4>
+                {% endif %}
+                </div>
+            </div>
+            <a class="menu-button" href="/request" style="right: 10px; position: absolute; bottom: 10px">
+                close
             </a>
         </div>
     </div>

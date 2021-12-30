@@ -22,7 +22,6 @@ services:
             args:
                 uid: 1000
                 gid: 1000
-
         volumes:
             - ../:/app
         working_dir: /app

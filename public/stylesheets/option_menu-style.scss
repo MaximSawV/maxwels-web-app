@@ -1,13 +1,34 @@
 @import "style-patterns";
 
-.profile-menu {
-  @include box(500px, 800px, fixed, flex, #0c2436);
-  left: 10%;
-  top: 10%;
-}
-
 .layer {
   @include box(100%, 100%, fixed, block, #00000050);
   top: 0;
   left: 0;
+}
+
+.profile-menu {
+  @include box(500px, 800px, fixed, flex, transparent);
+  left: 10%;
+  top: 10%;
+  padding-left: 10px;
+  color: white;
+  flex-direction: column;
+
+  & > hr {
+    width: 100%;
+  }
+}
+
+.menu-button {
+  @include menu-button;
+}
+
+.button-space {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.spacer {
+  width: 50px;
 }

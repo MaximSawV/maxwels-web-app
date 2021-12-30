@@ -6,9 +6,15 @@
     <link rel="stylesheet" href="/stylesheets/requestpage-style.css"/>
     <link rel="stylesheet" href="/stylesheets/arrow-style.css"/>
 {% endblock %}
-
 {% block body %}
-    <div class="mainpage">
+    {% if app.user.profileOptions.darkmode == true %}
+        {% set color = '#0c2436' %}
+        {% set colorWords = 'white' %}
+    {% else %}
+        {% set color = 'white' %}
+        {% set colorWords = 'black' %}
+    {% endif %}
+    <div class="mainpage" style="background: {{ color }}">
         <div class="menu">
             <div class="dropdown">
                 {% if app.user.status == 'online' %}

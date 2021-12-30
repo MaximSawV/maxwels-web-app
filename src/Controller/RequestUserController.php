@@ -14,6 +14,7 @@ use App\Repository\RequestRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\myPHPClasses\CustomerRequestManager;
 
 class RequestUserController extends AbstractController
 {
@@ -21,16 +22,19 @@ class RequestUserController extends AbstractController
     private $requestRepository;
     private $entityManager;
     private $security;
+    private $requestManager;
 
     public function __construct(UserRepository $userRepository,
                                 RequestRepository $requestRepository,
                                 Security $security,
-                                EntityManagerInterface $entityManager)
+                                EntityManagerInterface $entityManager,
+                                CustomerRequestManager $requestManager)
     {
         $this->userRepository = $userRepository;
         $this->requestRepository = $requestRepository;
         $this->security = $security;
         $this->entityManager = $entityManager;
+        $this->requestManager = $requestManager;
     }
 
 
@@ -65,42 +69,9 @@ class RequestUserController extends AbstractController
     public function getMyRequests(int $page)
     {
         $tableContent = ['Working on', 'Status', 'Context', 'Created on', 'Deadline'];
-        $cuID = $this->getCurrentUser();
 
-        $firstResult = (5*($page-1));
-
-        if(in_array('ROLE_TAKE_REQUESTS',($this->getUser()->getRoles())) or in_array('ROLE_ADMIN',($this->getUser()->getRoles())))
-        {
-            $tableContent = ['Working on', 'Created by', 'Status', 'Context', 'Created on', 'Deadline'];
-        }
-        $query = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->where('r.Created_by = :currentUser')
-            ->orWhere('r.Working_on = :currentUser')
-            ->andWhere('r.Status != \'Done\'')
-            ->setFirstResult($firstResult)
-            ->setMaxResults(5)
-            ->setParameter('currentUser', $cuID->getId());
-
-        /** @var @var Request[] $myRequests */
-        $myRequests = $query->getQuery()->getResult();
-
-        $query2 = $this
-            ->requestRepository
-            ->createQueryBuilder('r')
-            ->where('r.Created_by = :currentUser')
-            ->orWhere('r.Working_on = :currentUser')
-            ->andWhere('r.Status != \'Done\'')
-            ->setFirstResult($firstResult)
-            ->setParameter('currentUser', $cuID->getId());
-
-        /** @var @var Request[] $myRequests */
-        $myRequestsTotal = $query2->getQuery()->getResult();
-
-
-
-        $numberOfRequests = count($myRequestsTotal);
+        $myRequests = $this->requestManager->getMyRequestsPerPage($page);
+        $numberOfRequests = $this->requestManager->getNumberOfRequests($page);
 
         if ($numberOfRequests > 5)
         {
@@ -318,26 +289,17 @@ class RequestUserController extends AbstractController
     #[Route('/request/createRequest', name: 'create_request')]
     public function createRequest(Request $request)
     {
-        $customerRequest = new \App\Entity\Request();
-        $customerRequest->setCreatedBy($this->getCurrentUser());
-        $customerRequest->setStatus('Requested');
-        $customerRequest->setCreatedOn(new \DateTime());
-        $customerRequest->setWorkingOn(null);
-        $customerRequest->setVote(0);
 
-        $form =$this->createForm(CreateRequestsType::class, $customerRequest, [
+        $form =$this->createForm(CreateRequestsType::class,  [
             'action' => $this->generateUrl('create_request')
         ]);
-
-
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            $context = $form->get;
 
-            $this->entityManager->persist($customerRequest);
-            $this->entityManager->flush();
 
             return $this->redirect('all_requests/1');
         }
@@ -423,3 +385,4 @@ class RequestUserController extends AbstractController
 //TODO[maxim] Kontaktmenü erstellen
 //TODO[maxim] Funktion EditRequest erstellen
 //TODO[maxim] Mailfunktion von Usern untereinander Erstellen
+//TODO[maxim] sql, generelle funktionen auslagern, sodass der Controller nur kominikation ist

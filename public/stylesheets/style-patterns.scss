@@ -5,3 +5,12 @@
   display: $display;
   background: $background;
 }
+
+@mixin menu-button() {
+  color: white;
+  border: solid white 2px;
+  text-decoration: none;
+  @include box(60px, 40px, relative, flex, transparent);
+  justify-content: center;
+  align-items: center;
+}
