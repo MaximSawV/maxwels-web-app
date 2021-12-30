@@ -298,9 +298,9 @@ class RequestUserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $context = $form->get;
-
-
+            $context = $request->request->get('Context');
+            $deadline = $request->request->get('Deadline');
+            $this->requestManager->createRequest(null,'offline',null, $deadline, $context, false);
             return $this->redirect('all_requests/1');
         }
 

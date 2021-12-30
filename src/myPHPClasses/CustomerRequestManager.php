@@ -40,7 +40,7 @@ class CustomerRequestManager
     }
 
 
-    public function createRequest($createdBy = null, User $workingOn, string $status, \DateTime $createdOn = null, \DateTime $deadline = null, string $context, bool $vote = false)
+    public function createRequest($createdBy = null, User $workingOn, string $status = 'offline', \DateTime $createdOn = null, \DateTime $deadline = null, string $context, bool $vote = false)
     {
         if ($createdBy == null)
         {
