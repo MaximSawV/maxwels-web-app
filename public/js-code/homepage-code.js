@@ -128,6 +128,3 @@ function fuehrendeNull(zahl) {
     return zahl;
 }
 
-function logout() {
-    window.location.replace("/logout");
-}
