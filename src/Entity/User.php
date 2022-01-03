@@ -53,11 +53,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $paymentInformation;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $Subscribed;
@@ -76,6 +71,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToOne(targetEntity=ProfileOptions::class, mappedBy="User", cascade={"persist", "remove"})
      */
     private $profileOptions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserRelationship::class, mappedBy="User1")
+     */
+    private $userRelationships;
+
+    public function __construct()
+    {
+        $this->userRelationships = new ArrayCollection();
+    }
 
 
     public function getId(): int
@@ -192,18 +197,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPaymentInformation(): ?string
-    {
-        return $this->paymentInformation;
-    }
-
-    public function setPaymentInformation(?string $paymentInformation): self
-    {
-        $this->paymentInformation = $paymentInformation;
-
-        return $this;
-    }
-
     public function getSubscribed(): ?bool
     {
         return $this->Subscribed;
@@ -253,6 +246,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->profileOptions = $profileOptions;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserRelationship[]
+     */
+    public function getUserRelationships(): Collection
+    {
+        return $this->userRelationships;
+    }
+
+    public function addUserRelationship(UserRelationship $userRelationship): self
+    {
+        if (!$this->userRelationships->contains($userRelationship)) {
+            $this->userRelationships[] = $userRelationship;
+            $userRelationship->setUser1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRelationship(UserRelationship $userRelationship): self
+    {
+        if ($this->userRelationships->removeElement($userRelationship)) {
+            // set the owning side to null (unless already changed)
+            if ($userRelationship->getUser1() === $this) {
+                $userRelationship->setUser1(null);
+            }
+        }
 
         return $this;
     }

@@ -20,18 +20,19 @@ final class Version2022010301 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE request DROP FOREIGN KEY FK_3B978F9F93863CAE');
-        $this->addSql('DROP INDEX IDX_3B978F9F93863CAE ON request');
-        $this->addSql('ALTER TABLE request CHANGE working_on working_on VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE request RENAME INDEX created_by TO IDX_3B978F9FDE12AB56');
+        $this->addSql('CREATE TABLE user_relationship (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)');
+        $this->addSql('ALTER TABLE user_relationship ADD referingUser INT NOT NULL');
+        $this->addSql('ALTER TABLE user_relationship ADD referencedUser INT NOT NULL');
+        $this->addSql('ALTER TABLE user_relationship ADD isFriend TINYINT NOT NULL DEFAULT 0');
+        $this->addSql('ALTER TABLE user_relationship ADD isBlocked TINYINT NOT NULL DEFAULT 0');
+        $this->addSql('ALTER TABLE user_relationship ADD priority INT NOT NULL DEFAULT  1');
+        $this->addSql('ALTER TABLE user_relationship ADD CONSTRAINT referingUser_userId FOREIGN KEY (referingUser) REFERENCES `user` (id)');
+        $this->addSql('ALTER TABLE user_relationship ADD CONSTRAINT referencedUser_userId FOREIGN KEY (referencedUser) REFERENCES `user` (id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE request CHANGE working_on working_on INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE request ADD CONSTRAINT FK_3B978F9F93863CAE FOREIGN KEY (working_on) REFERENCES user (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
-        $this->addSql('CREATE INDEX IDX_3B978F9F93863CAE ON request (working_on)');
-        $this->addSql('ALTER TABLE request RENAME INDEX idx_3b978f9fde12ab56 TO created_by');
+        $this->addSql('DROP TABLE user_relationship');
     }
 }
