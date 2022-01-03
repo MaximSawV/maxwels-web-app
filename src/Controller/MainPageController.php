@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MainPageController extends AbstractController
 {

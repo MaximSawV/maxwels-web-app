@@ -110,65 +110,65 @@
                 <img style="top: 0" class="side-menu-button2" id="smButton" onclick="openSideMenu()" src="pictures/menu.png" height="50px" width="100px"/>
             </div>
             <div class="spacer">
-                <p> Programmer you can trust! </p>
+                <p> {% trans %}Spacer.Headline{% endtrans %}!</p>
             </div>
             <div class="content">
                 <div class="main-page">
                     <div class="statistic" id="statistic">
                         <div id="aboutUs" onclick="aboutBlockOpen('aboutUs', 'aboutUsText')" onmouseleave="aboutBlockClose('aboutUs', 'aboutUsText')">
-                            <h1> About Us </h1>
+                            <h1> {% trans %}About Us {% endtrans %} </h1>
                             <p id="aboutUsText">
                                 Text
                             </p>
                         </div>
 
                         <div id="aboutRequest" onclick="aboutBlockOpen('aboutRequest', 'aboutRequestText')" onmouseleave="aboutBlockClose('aboutRequest', 'aboutRequestText')">
-                            <h1> Requests</h1>
+                            <h1> {% trans %}Requests{% endtrans %}</h1>
                             <p id="aboutRequestText"> 0 </p>
                         </div>
 
                         <div id="aboutRating" onclick="aboutBlockOpen('aboutRating', 'aboutRatingText')" onmouseleave="aboutBlockClose('aboutRating', 'aboutRatingText')">
-                            <h1> Rating </h1>
-                            <p id="aboutRatingText">satisfaction rate </p>
+                            <h1> {% trans %}Rating{% endtrans %}</h1>
+                            <p id="aboutRatingText">{% trans %}satisfaction rate{% endtrans %}</p>
                         </div>
                     </div>
                     <div class="spacer">
-                        <p> What happend and What will happen </p>
+                        <p>{% trans %}Spacer.News{% endtrans %}</p>
                     </div>
                     <div class="news-overlay" id ="news">
                         <div class="news-container">
                             <div class="news" onclick="newsBlockOpen('image1', 'newsText1')" onmouseleave="newsBlockClose('image1', 'newsText1')">
                                 <div class="news-panel">
                                     <img id="image1" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
-                                    <h1> First Post </h1>
+                                    <h1>Post 1</h1>
                                     <p id="newsText1"> Text </p>
                                 </div>
                             </div>
                             <div class="news" onclick="newsBlockOpen('image2', 'newsText2')" onmouseleave="newsBlockClose('image2', 'newsText2')">
                                 <div class="news-panel">
                                     <img id="image2" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
-                                    <h1> Second Post </h1>
+                                    <h1>Post 2</h1>
                                     <p id="newsText2"> Text </p>
                                 </div>
                             </div>
                             <div class="news" onclick="newsBlockOpen('image3', 'newsText3')" onmouseleave="newsBlockClose('image3', 'newsText3')">
                                 <div class="news-panel">
                                     <img id="image3" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
-                                    <h1> Third Post </h1>
+                                    <h1>Post 3</h1>
                                     <p id="newsText3"> Text </p>
                                 </div>
                             </div>
                             <div class="news" onclick="newsBlockOpen('image4', 'newsText4')" onmouseleave="newsBlockClose('image4', 'newsText4')">
                                 <div class="news-panel">
                                     <img id="image4" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
-                                    <h1> Fourth Post </h1>
+                                    <h1>Post 4</h1>
                                     <p id="newsText4"> Text </p>
                                 </div>
                             </div>
                             <div class="news" onclick="newsBlockOpen('image5', 'newsText5')" onmouseleave="newsBlockClose('image5', 'newsText5')">
                                 <div class="news-panel">
                                     <img id="image5" src="pictures/logo_icon_inverted.png" height="100px" width="100px"/>
-                                    <h1> Fifth Post </h1>
+                                    <h1>Post 5</h1>
                                     <p id="newsText5"> Text </p>
                                 </div>
                             </div>
@@ -177,7 +177,7 @@
                 </div>
             </div>
             <div class="spacer">
-                <p> How You can contact me </p>
+                <p> {% trans %}Spacer.Contact{% endtrans %} </p>
             </div>
             <div class="footer">
                 <img src="pictures/smaller_icon.png" width="200" height="200" />

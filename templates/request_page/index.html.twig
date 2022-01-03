@@ -39,71 +39,71 @@
                 <ul>
                     <li class="status-menu">
                         <a>
-                            Status
+                            {% trans %} Menu.Status {% endtrans %}
                         </a>
                         <ul>
                             <li>
                                 <a href="/user/status_update/online" style="color: #3adb76">
-                                    Online
+                                    {% trans %} Online {% endtrans %}
                                 </a>
                             </li>
                             <li>
                                 <a href="/user/status_update/busy" style="color: orange">
-                                    Busy
+                                    {% trans %} Busy {% endtrans %}
                                 </a>
                             </li>
                             <li>
                                 <a href="/user/status_update/offline" style="color: red">
-                                    Offline
+                                    {% trans %} Offline {% endtrans %}
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="/user/{{ app.user.id }}/profile/option">
-                            Options
+                            {% trans %} Menu.Option {% endtrans %}
                         </a>
                     </li>
                     <li>
                         <a>
-                            Conntacts
+                            {% trans %} Menu.Contact {% endtrans %}
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('main_page') }}">
-                            <-Back
+                            {% trans %} Menu.Home {% endtrans %}
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('user_logout') }}">
-                            Logout
+                            {% trans %} Menu.Logout {% endtrans %}
                         </a>
                     </li>
                 </ul>
             </div>
             <div>
                 <a href="/request/all_requests/1">
-                    Show My
+                    {% trans %} Header.My {% endtrans %}
                 </a>
             </div>
             <div>
                 <a href="/request/done_requests/1">
-                    Show Done
+                    {% trans %} Header.Done {% endtrans %}
                 </a>
             </div>
-            {% if is_granted('ROLE_MANAGE_OWN_REQUESTS') or is_granted('ROLE_ADMIN')%}
-            <div>
-                <a href="/request/createRequest">
-                    Create Request
-                </a>
-            </div>
-            {% endif %}
             {% if is_granted('ROLE_TAKE_REQUESTS') or is_granted('ROLE_ADMIN') %}
             <div>
                 <a href="/request/all_open_requests/1">
-                    Show all
+                    {% trans %} Header.All {% endtrans %}
                 </a>
             </div>
+            {% endif %}
+            {% if is_granted('ROLE_MANAGE_OWN_REQUESTS') or is_granted('ROLE_ADMIN')%}
+                <div>
+                    <a href="/request/createRequest">
+                        {% trans %} Header.Create {% endtrans %}
+                    </a>
+                </div>
             {% endif %}
         </div>
         <div class="content">

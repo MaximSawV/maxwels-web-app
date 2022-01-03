@@ -1,0 +1,27 @@
+# translation/messages.de.yaml
+About Us: Über uns
+Requests: Aufträge
+Rating: Bewertung
+satisfaction rate: Zufriedenheits Rate
+
+Spacer:
+    Headline: Programmierer ihres Vertrauens
+    News: Was war und Was kommt
+    Contact: So erreichen sie mich
+
+Header:
+    My: Meine Aufträge
+    Done: Erledigte Aufträge
+    Create: Auftrag erstellen
+    All: Offene Aufträge
+
+Menu:
+    Status: Status
+    Option: Optionen
+    Contact: Kontakte
+    Home: Home
+    Logout: Ausloggen
+
+Offline: offline
+Online: online
+Busy: beschäftigt

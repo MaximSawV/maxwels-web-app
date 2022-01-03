@@ -1,0 +1,27 @@
+# translation/messages.en.yaml
+About Us: About Us
+Requests: Requests
+Rating: Rating
+satisfaction rate: satisfaction rate
+
+Spacer:
+    Headline: Programmer you can trust
+    News: What was and what will be
+    Contact: How You can contact me
+
+Header:
+    My: My open Requests
+    Done: My done Requests
+    Create: Create Request
+    All: All open Requests
+
+Menu:
+    Status: Status
+    Option: Options
+    Contact: Contacts
+    Home: Home
+    Logout: Logout
+
+Offline: offline
+Online: online
+Busy: busy
