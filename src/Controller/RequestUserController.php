@@ -104,7 +104,6 @@ class RequestUserController extends AbstractController
                 'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
                 'lastPage' => $lastPage,
                 'tableContent' => $tableContent,
-                'username' => $this->getCurrentUsername(),
                 'doneable' => true,
             ]);
         } else {
@@ -116,8 +115,6 @@ class RequestUserController extends AbstractController
                 'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
                 'lastPage' => $lastPage,
                 'tableContent' => $tableContent,
-                //TODO[maxim] that \/ to twig
-                'username' => $this->getCurrentUsername()
             ]);
         }
     }
@@ -162,7 +159,6 @@ class RequestUserController extends AbstractController
             'lastPageUrl' => '/request/done_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
             'tableContent' => $tableContent,
-            'username' => $this->getCurrentUsername()
         ]);
     }
 
@@ -202,7 +198,6 @@ class RequestUserController extends AbstractController
             'lastPageUrl' => '/request/all_open_requests/'.(string)$lastPage,
             'lastPage' => $lastPage,
             'tableContent' => $tableContent,
-            'username' => $this->getCurrentUsername(),
             'takeable' => true
         ]);
     }
@@ -251,7 +246,6 @@ class RequestUserController extends AbstractController
 
         return $this->render('request_page/create_request_form.html.twig', [
             'req_form' => $form->createView(),
-            'username' => $this->getCurrentUserName()
         ]);
     }
 
@@ -317,7 +311,6 @@ class RequestUserController extends AbstractController
         return $this->render('request_page/table_requests.html.twig', [
             'requests' => $myRequests,
             'tableContent' => $tableContent,
-            'username' => $this->getCurrentUsername(),
             'req_form' => $form->createView(),
             ]);
     }
@@ -326,8 +319,4 @@ class RequestUserController extends AbstractController
 
 }
 
-//TODO[maxim] Optionsmenü erstellen
-//TODO[maxim] Kontaktmenü erstellen
-//TODO[maxim] Funktion EditRequest erstellen
 //TODO[maxim] Mailfunktion von Usern untereinander Erstellen
-//TODO[maxim] sql, generelle funktionen auslagern, sodass der Controller nur kominikation ist
