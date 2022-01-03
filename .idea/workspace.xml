@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96bb2656-97b6-4769-962d-f2bfd16edac2" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/migrations/Version2022010302.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211215084258.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211215093636.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211215100848.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211216082103.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211217084353.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211217084814.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211217100050.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211227131950.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211227133044.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20211230135112.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version2022010301.php" afterPath="$PROJECT_DIR$/migrations/Version2022010301.php" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" afterPath="$PROJECT_DIR$/src/Entity/User.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,53 +51,7 @@
     <favorites_list name="maxwels-web-app" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Version2022010302.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/migrations/Version2022010302.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="22" column="71" lean-forward="true" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
-              <folding>
-                <marker date="1641217974759" expanded="true" signature="497:542" ph="ALTER TABLE `user`... " />
-                <marker date="1641217974759" expanded="true" signature="712:752" ph="ALTER TABLE user... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractMigration.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/doctrine/migrations/lib/Doctrine/Migrations/AbstractMigration.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Version2022010301.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/migrations/Version2022010301.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="22" column="101" lean-forward="false" selection-start-line="22" selection-start-column="101" selection-end-line="22" selection-end-column="101" />
-              <folding>
-                <marker date="1641218482479" expanded="true" signature="497:527" ph="CREATE TABLE... user_relationship" />
-                <marker date="1641218482479" expanded="true" signature="497:572" ph="CREATE TABLE... user_relationship" />
-                <marker date="1641218482479" expanded="true" signature="497:1035" ph="CREATE TABLE... user_relationship" />
-                <marker date="1641218482479" expanded="true" signature="599:658" ph="ALTER TABLE user_relationship... " />
-                <marker date="1641218482479" expanded="true" signature="685:746" ph="ALTER TABLE user_relationship... " />
-                <marker date="1641218482479" expanded="true" signature="773:842" ph="ALTER TABLE user_relationship... " />
-                <marker date="1641218482479" expanded="true" signature="869:939" ph="ALTER TABLE user_relationship... " />
-                <marker date="1641218482479" expanded="true" signature="966:1032" ph="ALTER TABLE user_relationship... " />
-                <marker date="1641218482479" expanded="true" signature="1059:1173" ph="ALTER TABLE customer... " />
-                <marker date="1641218482479" expanded="true" signature="1200:1318" ph="ALTER TABLE user_relationship... " />
-                <marker date="1641218482479" expanded="true" signature="1488:1516" ph="DROP TABLE u... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -206,7 +147,6 @@
         <option value="$PROJECT_DIR$/src/Controller/MainPageController.php" />
         <option value="$PROJECT_DIR$/templates/request_page/index.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/RequestUserController.php" />
-        <option value="$PROJECT_DIR$/src/Entity/User.php" />
         <option value="$PROJECT_DIR$/templates/main_page/index.html.twig" />
         <option value="$PROJECT_DIR$/translations/messages.de.yaml" />
         <option value="$PROJECT_DIR$/config/packages/translation.yaml" />
@@ -215,6 +155,7 @@
         <option value="$PROJECT_DIR$/src/Entity/UserRelationship.php" />
         <option value="$PROJECT_DIR$/migrations/Version2022010302.php" />
         <option value="$PROJECT_DIR$/migrations/Version2022010301.php" />
+        <option value="$PROJECT_DIR$/src/Entity/User.php" />
       </list>
     </option>
   </component>
@@ -619,12 +560,12 @@
       <workItem from="1640770904534" duration="3859000" />
       <workItem from="1640774854263" duration="11772000" />
       <workItem from="1640848283679" duration="9077000" />
-      <workItem from="1641191871096" duration="23892000" />
+      <workItem from="1641191871096" duration="24601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="378225000" />
+    <option name="totallyTimeSpent" value="378934000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -979,14 +920,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="52" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/UserRelationship.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="774">
@@ -1051,6 +984,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version20211215084258.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="23" column="70" lean-forward="true" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrations/Version2022010302.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="22" column="71" lean-forward="true" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
+          <folding>
+            <marker date="1641217974759" expanded="true" signature="497:542" ph="ALTER TABLE `user`... " />
+            <marker date="1641217974759" expanded="true" signature="712:752" ph="ALTER TABLE user... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="52" column="32" lean-forward="false" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/doctrine/migrations/lib/Doctrine/Migrations/AbstractMigration.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -1075,25 +1035,6 @@
             <marker date="1641218482479" expanded="true" signature="1059:1173" ph="ALTER TABLE customer... " />
             <marker date="1641218482479" expanded="true" signature="1200:1318" ph="ALTER TABLE user_relationship... " />
             <marker date="1641218482479" expanded="true" signature="1488:1516" ph="DROP TABLE u... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/migrations/Version20211215084258.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="23" column="70" lean-forward="true" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/migrations/Version2022010302.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="22" column="71" lean-forward="true" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
-          <folding>
-            <marker date="1641217974759" expanded="true" signature="497:542" ph="ALTER TABLE `user`... " />
-            <marker date="1641217974759" expanded="true" signature="712:752" ph="ALTER TABLE user... " />
           </folding>
         </state>
       </provider>
