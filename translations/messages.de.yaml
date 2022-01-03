@@ -4,6 +4,12 @@ Requests: Aufträge
 Rating: Bewertung
 satisfaction rate: Zufriedenheits Rate
 
+Login:
+    Error: Nutzername oder Password ist falsch
+    Login: Einloggen
+    SignUp: Registrieren
+    Logout: Ausloggen
+
 Spacer:
     Headline: Programmierer ihres Vertrauens
     News: Was war und Was kommt
@@ -21,7 +27,24 @@ Menu:
     Contact: Kontakte
     Home: Home
     Logout: Ausloggen
+    News: Neuigkeiten
+    About: Über uns
+    Sub: Abonnieren
 
 Offline: offline
 Online: online
 Busy: beschäftigt
+
+Option:
+    Security: Sicherheit
+    Contact: Kontaktdaten teilen
+    Status: Status teilen
+    Hide: In Nutzerliste verstecken
+    Style: Aussehen
+    Darkmode: Darkmode
+    Enable: Aktivieren
+    Disable: Deaktivieren
+    Enabled: Aktiviert
+    Disabled: Deaktiviert
+    Close: Schließen
+

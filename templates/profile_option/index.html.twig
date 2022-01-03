@@ -6,81 +6,81 @@
     <div class="layer">
         <div class="profile-menu">
             <h1>
-                Options
+                {% trans %} Menu.Option {% endtrans %}
             </h1>
             <hr>
             <div>
                 <h2>
-                    Security
+                    {% trans %} Option.Security {% endtrans %}
                 </h2>
                 <div>
                     <h3>
-                        Show contact details:
+                        {% trans %} Option.Contact {% endtrans %}
                     </h3>
                     <div class="button-space">
                     {% if publicContact == true %}
                         <h4>
-                            Enabled
+                            {% trans %} Option.Enabled {% endtrans %}
                         </h4>
                         <div class="spacer"></div>
                         <a class="menu-button" href="{{ app.user.profileOptions.id }}/PublicContact/false">
-                            Disable
+                            {% trans %} Option.Disable {% endtrans %}
                         </a>
                     {% else %}
                         <a class="menu-button" href="{{ app.user.profileOptions.id }}/PublicContact/true">
-                            Enable
+                            {% trans %} Option.Enable {% endtrans %}
                         </a>
                         <div class="spacer"></div>
                         <h4>
-                            Disabled
+                            {% trans %} Option.Disabled {% endtrans %}
                         </h4>
                     {% endif %}
                     </div>
                 </div>
                 <div>
                     <h3>
-                        Show Status:
+                        {% trans %} Option.Status {% endtrans %}
                     </h3>
                     <div class="button-space">
                     {% if showStatus == true %}
                         <h4>
-                            Enabled
+                            {% trans %} Option.Enable {% endtrans %}
                         </h4>
                         <div class="spacer"></div>
                         <a class="menu-button" href="{{ app.user.profileOptions.id }}/ShowStatus/false">
-                            Disable
+                            {% trans %} Option.Disable {% endtrans %}
                         </a>
                     {% else %}
                         <a class="menu-button" href="{{ app.user.profileOptions.id }}/ShowStatus/true">
-                            Enable
+                            {% trans %} Option.Enable {% endtrans %}
                         </a>
                         <div class="spacer"></div>
                         <h4>
-                            Disabled
+                            {% trans %} Option.Hide {% endtrans %}
                         </h4>
                     {% endif %}
                     </div>
                 </div>
                 <div>
                     <h3>
-                        Hidden in Userlist:
+                        {% trans %} Option.Hide {% endtrans %}
                     </h3>
                     <div class="button-space">
                     {% if hidden == true %}
                         <h4>
-                            Enabled
+                            {% trans %} Option.Enabled {% endtrans %}
                         </h4>
                         <div class="spacer"></div>
                         <a class="menu-button" href="{{ app.user.profileOptions.id }}/Hidden/false">
-                            Disable
+                            {% trans %} Option.Disable {% endtrans %}
                         </a>
                     {% else %}
                         <a class="menu-button" href="{{ app.user.profileOptions.id }}/Hidden/true">
-                            Enable
+                            {% trans %} Option.Enable {% endtrans %}
                         </a>
                         <div class="spacer"></div>
                         <h4>
-                            Disabled
+                            {% trans %} Option.Disabled {% endtrans %}
                         </h4>
                     {% endif %}
                     </div>
@@ -88,33 +88,33 @@
             </div>
             <div>
                 <h2>
-                    Style
+                    {% trans %} Option.Style {% endtrans %}
                 </h2>
                 <h3>
-                    Darkmode
+                    {% trans %} Option.Darkmode {% endtrans %}
                 </h3>
                 <div class="button-space">
                 {% if darkmode == true %}
                     <h4>
-                        Enabled
+                        {% trans %} Option.Enabled {% endtrans %}
                     </h4>
                     <div class="spacer"></div>
                     <a class="menu-button" href="{{ app.user.profileOptions.id }}/Darkmode/false">
-                        Disable
+                        {% trans %} Option.Disable {% endtrans %}
                     </a>
                 {% else %}
                     <a class="menu-button" href="{{ app.user.profileOptions.id }}/Darkmode/true">
-                        Enable
+                        {% trans %} Option.Enable {% endtrans %}
                     </a>
                     <div class="spacer"></div>
                     <h4>
-                        Disabled
+                        {% trans %} Option.Disabled {% endtrans %}
                     </h4>
                 {% endif %}
                 </div>
             </div>
             <a class="menu-button" href="/request" style="right: 10px; position: absolute; bottom: 10px">
-                close
+                {% trans %} Option.Close {% endtrans %}
             </a>
         </div>
     </div>

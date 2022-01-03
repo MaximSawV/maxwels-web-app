@@ -4,6 +4,12 @@ Requests: Requests
 Rating: Rating
 satisfaction rate: satisfaction rate
 
+Login:
+    Error: Username or Password is wrong
+    Login: Login
+    SignUp: Sign up
+    Logout: Logout
+
 Spacer:
     Headline: Programmer you can trust
     News: What was and what will be
@@ -21,7 +27,24 @@ Menu:
     Contact: Contacts
     Home: Home
     Logout: Logout
+    News: News
+    About: About Us
+    Sub: Subscribe
 
 Offline: offline
 Online: online
 Busy: busy
+
+
+Option:
+    Security: Security
+    Contact: Share contact information
+    Status: Share status
+    Hide: Hidden in Userlist
+    Style: Aussehen
+    Darkmode: Darkmode
+    Enable: Enable
+    Disable: Disable
+    Enabled: Enabled
+    Disabled: Disabled
+    Close: Close

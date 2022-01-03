@@ -36,7 +36,7 @@
         <div class="page">
         {% if error is defined %}
             <div class ="errorBlock">
-                Username or Password is wrong
+                {% trans %} Login.Error {% endtrans %}
             </div>
         {% endif %}
             <ul class="side-menu" id="sideMenu">
@@ -56,47 +56,47 @@
                 </li>
                 <li>
                     <a onclick="showLogin()" id="showLoginButton">
-                        Login
+                        {% trans %} Login.Login {% endtrans %}
                     </a>
                 </li>
                 <li>
                     <a href="/register">
-                        Sign up
+                        {% trans %} Login.SignUp {% endtrans %}
                     </a>
                 </li>
             {% endif %}
             {% if logged == true %}
                 <li>
                     <a href="{{ path('user_logout') }}">
-                        Logout
+                        {% trans %} Login.Logout {% endtrans %}
                     </a>
                 </li>
                 <li>
                     <a href="/request">
-                       Requests
+                        {% trans %} Requests {% endtrans %}
                     </a>
                 </li>
                 {% if isSubscriber['Subscribed'] == false %}
                 <li>
                     <a href="/subscripton">
-                        Subscribe
+                        {% trans %} Sub {% endtrans %}
                     </a>
                 </li>
                 {% endif %}
             {% endif %}
                 <li>
                     <a href="#statistic">
-                        About
+                        {% trans %} Menu.About {% endtrans %}
                     </a>
                 </li>
                 <li>
                     <a href="#news">
-                        News
+                        {% trans %} Menu.News {% endtrans %}
                     </a>
                 </li>
                 <li>
                     <a href="#contacts">
-                        Contacts
+                        {% trans %} Menu.Contact {% endtrans %}
                     </a>
                 </li>
                 <li>
