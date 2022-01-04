@@ -95,6 +95,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -255,7 +260,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->userRelationships->contains($userRelationship)) {
             $this->userRelationships[] = $userRelationship;
-            $userRelationship->setUser1($this);
+            $userRelationship->setReferingUser($this);
         }
 
         return $this;
@@ -265,11 +270,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->userRelationships->removeElement($userRelationship)) {
             // set the owning side to null (unless already changed)
-            if ($userRelationship->getUser1() === $this) {
-                $userRelationship->setUser1(null);
+            if ($userRelationship->getReferingUser() === $this) {
+                $userRelationship->setReferingUser(null);
             }
         }
-
         return $this;
     }
 }

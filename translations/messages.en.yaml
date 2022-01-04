@@ -48,3 +48,12 @@ Option:
     Enabled: Enabled
     Disabled: Disabled
     Close: Close
+
+Profile:
+    Data: Profile Data
+    Mail: Email Adress
+    UName: Username
+    Request: Done Requests
+    Rating: Rating
+    fName: First Name
+    lName: Last Name

@@ -18,14 +18,14 @@ class Request
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="created_by")
+     * @ORM\OneToOne(targetEntity="Customer")
+     * @ORM\JoinColumn(name="created_by", columnDefinition="user_id_id")
      */
     private $Created_by;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="working_on")
+     * @ORM\ManyToOne(targetEntity="Programmer")
+     * @ORM\JoinColumn(name="working_on", columnDefinition="user_id")
      */
     private $Working_on;
 
@@ -59,24 +59,24 @@ class Request
         return $this->id;
     }
 
-    public function getCreatedBy(): ?User
+    public function getCreatedBy(): ?Customer
     {
         return $this->Created_by;
     }
 
-    public function setCreatedBy(User $Created_by): self
+    public function setCreatedBy(Customer $Created_by): self
     {
         $this->Created_by = $Created_by;
 
         return $this;
     }
 
-    public function getWorkingOn(): ?User
+    public function getWorkingOn(): ?Programmer
     {
         return $this->Working_on;
     }
 
-    public function setWorkingOn(?User $Working_on): self
+    public function setWorkingOn(?Programmer $Working_on): self
     {
         $this->Working_on = $Working_on;
 

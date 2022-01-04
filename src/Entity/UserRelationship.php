@@ -61,12 +61,12 @@ class UserRelationship
         return $this;
     }
 
-    public function getreferencedUser(): ?User
+    public function getReferencedUser(): ?User
     {
         return $this->referingUser;
     }
 
-    public function setreferencedUser(?User $referencedUser): self
+    public function setReferencedUser(?User $referencedUser): self
     {
         $this->referencedUser = $referencedUser;
 

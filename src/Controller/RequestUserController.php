@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Form\CreateRequestsType;
 use App\Form\EditRequestType;
 use App\myPHPClasses\MaxwelsUserManager;
+use App\Repository\ProgrammerRepository;
+use App\Repository\SubscriberRepository;
+use App\Session\SessionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +19,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\myPHPClasses\MaxwelsRequestManager;
+use function Webmozart\Assert\Tests\StaticAnalysis\null;
 
 class RequestUserController extends AbstractController
 {
@@ -262,14 +266,18 @@ class RequestUserController extends AbstractController
     }
 
     #[Route('/request/done_request/{id}', name: 'done_request')]
-    public function doneRequest(int $id ,RequestRepository $requestRepository): Response
+    public function doneRequest(int $id ,RequestRepository $requestRepository, ProgrammerRepository $programmerRepository, SessionManager $manager): Response
     {
         $request = $requestRepository->find($id);
         $request->setStatus('Done');
-        $request->setWorkingOn($this->getCurrentUser());
+        $request->setWorkingOn($manager->getUser());
 
         $this->entityManager->persist($request);
         $this->entityManager->flush();
+
+        $programmer = $programmerRepository->findOneBy(['user' => $manager->getUser()->getId()]);
+        $programmer->setDoneRequests($programmer->getDoneRequests() + 1);
+
         return $this->redirect('/request/all_requests/1');
     }
 
@@ -316,6 +324,46 @@ class RequestUserController extends AbstractController
     }
 
 //------------------------------------------------------}
+
+
+//Profile Data------------------------------------------{
+
+    #[Route('user/profile/data/', name: 'profile_data')]
+    public function openProfileData(SubscriberRepository $subscriberRepository, ProgrammerRepository $programmerRepository, SessionManager $sessionManager)
+    {
+
+        $userID = $sessionManager->getUser()->getId();
+        $userMail = $sessionManager->getUser()->getEmail();
+
+        $sub = $subscriberRepository->findOneBy(['email' => $userMail]);
+        $programmer = $programmerRepository->findOneBy(['user' => $userID]);
+
+        if ($sub != null)
+        {
+            $firstName = $sub->getFirstname();
+            $lastName = $sub->getLastname();
+        } else {
+            $firstName = null;
+            $lastName = null;
+        }
+
+        if ($programmer != null)
+        {
+            $rating = $programmer->getRating();
+            $doneRequests = $programmer->getDoneRequests();
+        } else {
+            $rating = null;
+            $doneRequests = null;
+        }
+
+
+        return $this->render('profile_option/contactOption.html.twig', [
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'rating' => $rating,
+            'done_requests' => $doneRequests,
+        ]);
+    }
 
 }
 

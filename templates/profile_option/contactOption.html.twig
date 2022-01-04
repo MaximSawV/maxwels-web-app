@@ -1,0 +1,70 @@
+{% extends 'request_page/index.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/stylesheets/option_menu-style.css"/>
+{% endblock %}
+{% block content %}
+    <div class="layer">
+        <div class="profile-menu">
+            <h1>
+                {% trans %} Profile.Data {% endtrans %}
+            </h1>
+            <hr>
+            {% if app.user.subscribed == 1 %}
+                <div>
+                    <h3>
+                        {% trans %} Profile.fName {% endtrans %}
+                    </h3>
+                    <h4>
+                        {{ first_name }}
+                    </h4>
+                </div>
+                <div>
+                    <h3>
+                        {% trans %} Profile.lName {% endtrans %}
+                    </h3>
+                    <h4>
+                        {{ last_name }}
+                    </h4>
+                </div>
+            {% endif %}
+            <div>
+                <h3>
+                    {% trans %} Profile.UName {% endtrans %}
+                </h3>
+                <h4>
+                    {{ app.user.username }}
+                </h4>
+            </div>
+            <div>
+                <h3>
+                    {% trans %} Profile.Mail {% endtrans %}
+                </h3>
+                <h4>
+                    {{ app.user.email }}
+                </h4>
+            </div>
+
+            <a class="menu-button" href="/request" style="right: 10px; position: absolute; bottom: 10px">
+                {% trans %} Option.Close {% endtrans %}
+            </a>
+            {% if is_granted('ROLE_TAKE_REQUESTS') or is_granted('ROLE_ADMIM') %}
+                <div>
+                    <h3>
+                        {% trans %} Profile.Request {% endtrans %}
+                    </h3>
+                    <h4>
+                        {{ done_requests }}
+                    </h4>
+                </div>
+                <div>
+                    <h3>
+                        {% trans %} Profile.Rating {% endtrans %}
+                    </h3>
+                    <h4>
+                        {{ rating }}
+                    </h4>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

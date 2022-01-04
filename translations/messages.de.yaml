@@ -48,3 +48,14 @@ Option:
     Disabled: Deaktiviert
     Close: Schließen
 
+Profile:
+    Data: Profil Daten
+    Mail: Emailadresse
+    UName: Username
+    Request: Erlededigte Aufträge
+    Rating: Bewertung
+    fName: Vorname
+    lName: Nachname
+
+
+

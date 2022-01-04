@@ -17,10 +17,6 @@ class Customer
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -38,17 +34,6 @@ class Customer
         return $this->id;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
 
     public function getNumberOfRequests(): ?int
     {
