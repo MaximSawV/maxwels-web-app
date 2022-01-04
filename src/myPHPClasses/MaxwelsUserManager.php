@@ -35,7 +35,7 @@ class MaxwelsUserManager
     }
 
     public function createUser(string $username, array $roles, string $plainPassword, string $email, bool $isVerified = false,
-                               string $paymentInfo = null, bool $isSubscriber = false, string $CoP = 'customer', string $status = 'offline')
+                               bool $isSubscriber = false, string $CoP = 'customer', string $status = 'offline')
     {
         $newUser = new User();
         $newUser->setUsername($username);
@@ -43,7 +43,6 @@ class MaxwelsUserManager
         $newUser->setPassword($this->hasher->hashPassword($newUser, $plainPassword));
         $newUser->setEmail($email);
         $newUser->setIsVerified($isVerified);
-        $newUser->setPaymentInformation($paymentInfo);
         $newUser->setSubscribed($isSubscriber);
         $newUser->setCustomerOrProgrammer($CoP);
         $newUser->setStatus($status);

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/stylesheets/admin-buttons.css">
+{% endblock %}
+{% block body %}
+{% set entityList = ['User', 'Customer', 'Programmer', 'Request', 'Profile Options', 'Subscriber', 'Relationship'] %}
+    <div class="contain">
+        {% for entity in entityList %}
+            <div class="button">
+                <h1>
+                    {{ entity }}
+                </h1>
+
+                <img src="/pictures/{{ entity }}Token.png">
+                <div>
+                    <a href="/admin/create/{{ entity }}">
+                        Create
+                    </a>
+                    <a>
+                        Show
+                    </a>
+                    <a>
+                        Delete
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -99,6 +99,13 @@
                         {% trans %} Menu.Contact {% endtrans %}
                     </a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="/admin/">
+                        Admin
+                    </a>
+                </li>
+                {% endif %}
                 <li>
                     <button class="side-menu-button1" id="smButton2" onclick="closeSideMenu()">
                         X

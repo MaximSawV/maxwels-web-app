@@ -41,6 +41,7 @@ security:
         ROLE_ADMIM: [ROLE_MANAGE_OWN_REQUESTS, ROLE_TAKE_REQUESTS, IS_VERIFIED]
 
     access_control:
-        - { path: ^/request, roles: [IS_VERIFIED, IS_AUTHENTICATED_FULLY] }
+        - { path: ^/request, roles: [ROLE_USER, IS_VERIFIED, IS_AUTHENTICATED_FULLY] }
         - { path: ^/request/createRequest, roles: [ROLE_MANAGE_OWN_REQUESTS] }
         - { path: ^/request/takeRequest, roles: [ROLE_TAKE_REQUESTS] }
+        - { path: ^/admin, roles: [ROLE_ADMIN]}
