@@ -73,7 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $profileOptions;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserRelationship::class, mappedBy="User1")
+     * @ORM\OneToMany(targetEntity=UserRelationship::class, mappedBy="referingUser")
      */
     private $userRelationships;
 
@@ -93,13 +93,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->id = $id;
 
         return $this;
-    }
-    /**
-     * @deprecated since Symfony 5.3, use getUserIdentifier instead
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->username;
     }
 
     public function setUsername(string $username): self
