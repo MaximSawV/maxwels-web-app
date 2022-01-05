@@ -65,6 +65,11 @@ class MaxwelsRequestManager
         $this->entityManager->flush();
     }
 
+    public function getAllRequests()
+    {
+        $requests = $this->requestRepository->findAll();
+        return $requests;
+    }
 
     public function getMyRequestsPerPage(int $page)
     {

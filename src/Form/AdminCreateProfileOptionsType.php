@@ -6,6 +6,8 @@ use App\Entity\ProfileOptions;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class AdminCreateProfileOptionsType extends AbstractType
 {
@@ -17,6 +19,7 @@ class AdminCreateProfileOptionsType extends AbstractType
             ->add('Hidden')
             ->add('Darkmode')
             ->add('User')
+            ->add('Submit', SubmitType::class)
         ;
     }
 

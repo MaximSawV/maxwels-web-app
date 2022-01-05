@@ -3,9 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Customer;
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class AdminCreateCustomerType extends AbstractType
 {
@@ -13,7 +18,16 @@ class AdminCreateCustomerType extends AbstractType
     {
         $builder
             ->add('number_of_requests')
-            ->add('user_id')
+            ->add('user_id', EntityType::class, [
+                'class' => User::class,
+                'query_builder' => function (UserRepository $repository) {
+                $queryBuilder = $repository->createQueryBuilder('u')
+                ->andWhere('customer_or_programmer = \'customer\'')
+                ->orWhere('customer_or_programmer = \'both\'');
+                return $queryBuilder;
+                }
+            ])
+            ->add('Submit', SubmitType::class)
         ;
     }
 

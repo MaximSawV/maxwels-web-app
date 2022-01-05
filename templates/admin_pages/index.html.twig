@@ -5,9 +5,15 @@
     <link rel="stylesheet" href="/stylesheets/admin-buttons.css">
 {% endblock %}
 {% block body %}
+    {% for message in app.flashes('success', 'warning') %}
+        <div class="flash-message success">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% set entityList = ['User', 'Customer', 'Programmer', 'Request', 'Profile Options', 'Subscriber', 'Relationship'] %}
     <div class="contain">
         {% block content %}
         {% endblock %}
     </div>
 {% endblock %}
+

@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\UserRelationship;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,9 +16,15 @@ class AdminCreateRelationshipType extends AbstractType
         $builder
             ->add('isFriend')
             ->add('isBlocked')
-            ->add('priority')
+            ->add('priority', IntegerType::class, [
+                    'attr' => [
+                        'min' => 0,
+                        'max' => 4,
+                    ]
+                ])
             ->add('referingUser')
             ->add('referencedUser')
+            ->add('Submit', SubmitType::class)
         ;
     }
 

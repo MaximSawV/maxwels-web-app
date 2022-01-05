@@ -3,9 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Programmer;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class AdminCreateProgrammerType extends AbstractType
 {
@@ -13,9 +19,19 @@ class AdminCreateProgrammerType extends AbstractType
     {
         $builder
             ->add('Status')
-            ->add('Done_Requests')
-            ->add('Rating')
+            ->add('Done_Requests', IntegerType::class, [
+                'attr' => [
+                    'min' => 0,
+                ]
+            ])
+            ->add('Rating', IntegerType::class, [
+                'attr' => [
+                    'min' => 0,
+                    'max' => 4,
+                ]
+            ])
             ->add('user')
+            ->add('Submit', SubmitType::class)
         ;
     }
 

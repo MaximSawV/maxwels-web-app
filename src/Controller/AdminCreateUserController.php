@@ -27,8 +27,6 @@ class AdminCreateUserController extends AbstractController
     #[Route('/admin/create/{entity}', name: 'admin_create_entity')]
     public function index(string $entity, Request $request, ProfileOptionManager $optionManager): Response
     {
-        $form = null;
-
         if ($entity == 'User')
         {
             $user = new User();
@@ -40,25 +38,14 @@ class AdminCreateUserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
-
-                try {
-                    $entityManager->flush();
-                    $e = null;
-                } catch (\PDOException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'A PDO exception occurred: ' . $e->getMessage()
-                    );
-                } finally {
-                    if ($e == null) {
-                        $this->addFlash(
-                            'success',
-                            'Entity was succesfully created!'
-                        );
-                    }
-                }
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Entity created'
+                );
 
                 $optionManager->createProfileOptions($user);
+                return $this->redirectToRoute('admin_page');
             }
         }
 
@@ -73,23 +60,13 @@ class AdminCreateUserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($customer);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Entity created'
+                );
 
-                try {
-                    $entityManager->flush();
-                    $e = null;
-                } catch (\PDOException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'A PDO exception occurred: ' . $e->getMessage()
-                    );
-                } finally {
-                    if ($e == null) {
-                        $this->addFlash(
-                            'success',
-                            'Entity was succesfully created!'
-                        );
-                    }
-                }
+                return $this->redirectToRoute('admin_page');
             }
         }
 
@@ -104,23 +81,13 @@ class AdminCreateUserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($programmer);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Entity created'
+                );
 
-                try {
-                    $entityManager->flush();
-                    $e = null;
-                } catch (\PDOException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'A PDO exception occurred: ' . $e->getMessage()
-                    );
-                } finally {
-                    if ($e == null) {
-                        $this->addFlash(
-                            'success',
-                            'Entity was succesfully created!'
-                        );
-                    }
-                }
+                return $this->redirectToRoute('admin_page');
             }
         }
 
@@ -135,23 +102,13 @@ class AdminCreateUserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($requestEntity);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Entity created'
+                );
 
-                try {
-                    $entityManager->flush();
-                    $e = null;
-                } catch (\PDOException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'A PDO exception occurred: ' . $e->getMessage()
-                    );
-                } finally {
-                    if ($e == null) {
-                        $this->addFlash(
-                            'success',
-                            'Entity was succesfully created!'
-                        );
-                    }
-                }
+                return $this->redirectToRoute('admin_page');
             }
         }
 
@@ -166,23 +123,13 @@ class AdminCreateUserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($pOptions);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Entity created'
+                );
 
-                try {
-                    $entityManager->flush();
-                    $e = null;
-                } catch (\PDOException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'A PDO exception occurred: ' . $e->getMessage()
-                    );
-                } finally {
-                    if ($e == null) {
-                        $this->addFlash(
-                            'success',
-                            'Entity was succesfully created!'
-                        );
-                    }
-                }
+                return $this->redirectToRoute('admin_page');
             }
         }
 
@@ -197,23 +144,13 @@ class AdminCreateUserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($sub);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Entity created'
+                );
 
-                try {
-                    $entityManager->flush();
-                    $e = null;
-                } catch (\PDOException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'A PDO exception occurred: ' . $e->getMessage()
-                    );
-                } finally {
-                    if ($e == null) {
-                        $this->addFlash(
-                            'success',
-                            'Entity was succesfully created!'
-                        );
-                    }
-                }
+                return $this->redirectToRoute('admin_page');
             }
         }
 
@@ -228,26 +165,14 @@ class AdminCreateUserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($relation);
-
-                try {
-                    $entityManager->flush();
-                    $e = null;
-                } catch (\PDOException $e) {
-                    $this->addFlash(
-                        'warning',
-                        'A PDO exception occurred: ' . $e->getMessage()
-                    );
-                } finally {
-                    if ($e == null) {
-                        $this->addFlash(
-                            'success',
-                            'Entity was succesfully created!'
-                        );
-                    }
-                }
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Entity created'
+                );
+                return $this->redirectToRoute('admin_page');
             }
         }
-
         return $this->renderForm('admin_pages/AdminCreatePage.html.twig', [
             'form' => $form
         ]);
