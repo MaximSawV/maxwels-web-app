@@ -1,0 +1,9 @@
+{% extends 'admin_pages/index.html.twig' %}
+{% block flash %}
+
+{% endblock %}
+{% block content %}
+    {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+{% endblock %}

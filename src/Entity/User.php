@@ -83,6 +83,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
     public function getId(): int
     {
         return (string) $this->id;

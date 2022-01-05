@@ -1,0 +1,23 @@
+{% extends 'admin_pages/index.html.twig' %}
+{% block content %}
+    {% for entity in entityList %}
+        <div class="button">
+            <h1>
+                {{ entity }}
+            </h1>
+
+            <img src="/pictures/{{ entity }}Token.png">
+            <div>
+                <a href="/admin/create/{{ entity }}">
+                    Create
+                </a>
+                <a>
+                    Show
+                </a>
+                <a>
+                    Delete
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
