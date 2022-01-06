@@ -10,7 +10,9 @@ namespace App\myPHPClasses;
 
 
 use App\Repository\CustomerRepository;
+use App\Repository\ProfileOptionsRepository;
 use App\Repository\ProgrammerRepository;
+use App\Repository\SubscriberRepository;
 use App\Repository\UserRepository;
 
 class FormUserManager
@@ -18,14 +20,20 @@ class FormUserManager
     private $userRepository;
     private $customerRepository;
     private $programmerRepository;
+    private $optionsRepository;
+    private $subscriberRepository;
 
     public function __construct(UserRepository $userRepository,
                                 CustomerRepository $customerRepository,
-                                ProgrammerRepository $programmerRepository)
+                                ProgrammerRepository $programmerRepository,
+                                ProfileOptionsRepository $optionsRepository,
+                                SubscriberRepository $subscriberRepository)
     {
         $this->userRepository = $userRepository;
         $this->customerRepository = $customerRepository;
         $this->programmerRepository = $programmerRepository;
+        $this->optionsRepository = $optionsRepository;
+        $this->subscriberRepository = $subscriberRepository;
     }
 
     public function getAllNotCustomerUser()
@@ -57,16 +65,44 @@ class FormUserManager
         return $freeUsers;
     }
 
-    public function getAllNotProgrammers()
+    public function getAllUsersWithoutProfOptions()
     {
-        $users = $this->userRepository->findBy(['customer_or_programmer' => ['programmer', 'both']]);
-        $programmer = $this->programmerRepository->findAll();
+        $users = $this->userRepository->findAll();
+        $profileOptions = $this->optionsRepository->findAll();
         $idList = [];
         $freeUsers = array();
-        if (count($programmer) > 0)
+        if (count($profileOptions) > 0)
         {
 
-            foreach ($programmer as $entity)
+            foreach ($profileOptions as $entity)
+            {
+                array_push($idList, $entity->getUser()->getId());
+            }
+
+            foreach ($users as $user)
+            {
+                $id = $user->getId();
+                if (!in_array($id, $idList))
+                {
+                    array_push($freeUsers, $user);
+                }
+            }
+        } else {
+            $freeUsers = $users;
+        }
+        return $freeUsers;
+    }
+
+    public function getAllUnsuscribedUsers()
+    {
+        $users = $this->userRepository->findAll();
+        $subscribers = $this->subscriberRepository->findAll();
+        $idList = [];
+        $freeUsers = array();
+        if (count($subscribers) > 0)
+        {
+
+            foreach ($subscribers as $entity)
             {
                 array_push($idList, $entity->getUser()->getId());
             }

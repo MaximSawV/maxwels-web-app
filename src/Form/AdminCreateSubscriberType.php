@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Subscriber;
+use App\Entity\User;
+use App\myPHPClasses\FormUserManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -13,6 +16,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AdminCreateSubscriberType extends AbstractType
 {
+    private $manager;
+    public function __construct(FormUserManager $manager)
+    {
+        $this->manager = $manager;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -43,7 +51,10 @@ class AdminCreateSubscriberType extends AbstractType
                     'min' => 0
                 ]
             ])
-            ->add('user')
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choices' => $this->manager->getAllUnsuscribedUsers()
+            ])
             ->add('Submit', SubmitType::class)
         ;
     }
