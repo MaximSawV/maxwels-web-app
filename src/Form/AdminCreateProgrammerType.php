@@ -36,12 +36,13 @@ class AdminCreateProgrammerType extends AbstractType
                 'attr' => [
                     'min' => 0,
                     'max' => 4,
-                ]
+                ],
+                'required' => false,
             ])
             ->add('user', EntityType::class, [
-        'class' => User::class,
-        'choices' => $this->manager->getAllNotCustomerUser()
-    ])
+                'class' => User::class,
+                'choices' => $this->manager->getAllNotProgrammer()
+            ])
             ->add('Submit', SubmitType::class)
         ;
     }

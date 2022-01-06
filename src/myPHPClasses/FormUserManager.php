@@ -65,6 +65,35 @@ class FormUserManager
         return $freeUsers;
     }
 
+    public function getAllNotProgrammer()
+    {
+        $users = $this->userRepository->findBy(['customer_or_programmer' => ['programmer', 'both']]);
+        $customer = $this->customerRepository->findAll();
+        $idList = [];
+        $freeUsers = array();
+
+        if (count($customer) > 0)
+        {
+
+            foreach ($customer as $entity)
+            {
+                array_push($idList, $entity->getUserId()->getId());
+            }
+
+            foreach ($users as $user)
+            {
+                $id = $user->getId();
+                if (!in_array($id, $idList))
+                {
+                    array_push($freeUsers, $user);
+                }
+            }
+        } else {
+            $freeUsers = $users;
+        }
+        return $freeUsers;
+    }
+
     public function getAllUsersWithoutProfOptions()
     {
         $users = $this->userRepository->findAll();

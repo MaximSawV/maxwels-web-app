@@ -1,0 +1,29 @@
+{% extends 'admin_pages/index.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/stylesheets/table-style.css"/>
+    <link rel="stylesheet" href="/stylesheets/arrow-style.css"/>
+{% endblock %}
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+            {% for attribute in attributes %}
+                <th>
+                    {{ attribute }}
+                </th>
+            {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+            {% for data in attributes %}
+                <td>
+                    {{ attribute(entity,data) }}
+                </td>
+            {% endfor %}
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}
