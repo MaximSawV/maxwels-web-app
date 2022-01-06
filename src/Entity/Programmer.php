@@ -20,11 +20,6 @@ class Programmer
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Status;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $Done_Requests;
@@ -44,18 +39,6 @@ class Programmer
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->Status;
-    }
-
-    public function setStatus(string $Status): self
-    {
-        $this->Status = $Status;
-
-        return $this;
     }
 
     public function getDoneRequests(): ?int

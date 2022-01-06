@@ -25,7 +25,7 @@ class Request
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="working_on")
+     * @ORM\JoinColumn(name="working_on", nullable=true)
      */
     private $Working_on;
 
