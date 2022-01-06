@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SubscriberRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -76,6 +77,13 @@ class Subscriber
      */
     private $user;
 
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,7 +114,7 @@ class Subscriber
         return $this;
     }
 
-    public function getEmail(): ?User
+    public function getEmail(): ?string
     {
         return $this->email;
     }

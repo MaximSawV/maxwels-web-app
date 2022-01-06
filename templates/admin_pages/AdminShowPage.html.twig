@@ -19,7 +19,13 @@
             <tr>
             {% for data in attributes %}
                 <td>
-                    {{ attribute(entity,data) }}
+                    {% if attribute(entity,data).timestamp is defined  %}
+                        {{ attribute(entity,data) |date('m-d-Y') }}
+                    {% elseif attribute(entity,data).username is defined %}
+                        {{ attribute(entity,data).username}}
+                    {% else %}
+                        {{ attribute(entity,data)}}
+                    {% endif %}
                 </td>
             {% endfor %}
             </tr>

@@ -43,14 +43,10 @@ class ProfileOptions
      */
     private $Darkmode;
 
-    public function __toString()
-    {
-        return $this->id;
-    }
 
     public function getId(): ?int
     {
-        return $this->getId();
+        return $this->id;
     }
 
     public function getUser(): ?User

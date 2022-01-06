@@ -60,8 +60,8 @@ class AdminShowEntityController extends AbstractController
             $numberOfEntities = count($allEntities);
             $attributes = $this->infoExtractor->getProperties(User::class);
 
-            array_splice($attributes,2,5);
-            die($attributes);
+            array_splice($attributes,3,5);
+            array_splice($attributes,7,9);
 
         }
 
