@@ -77,9 +77,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $userRelationships;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ChatParticipant::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $chatParticipants;
+
     public function __construct()
     {
         $this->userRelationships = new ArrayCollection();
+        $this->chatParticipants = new ArrayCollection();
     }
 
 
@@ -279,6 +285,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userRelationship->setReferingUser(null);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChatParticipant[]
+     */
+    public function getChatParticipants(): Collection
+    {
+        return $this->chatParticipants;
+    }
+
+    public function addChatParticipant(ChatParticipant $chatParticipant): self
+    {
+        if (!$this->chatParticipants->contains($chatParticipant)) {
+            $this->chatParticipants[] = $chatParticipant;
+            $chatParticipant->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChatParticipant(ChatParticipant $chatParticipant): self
+    {
+        if ($this->chatParticipants->removeElement($chatParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($chatParticipant->getUser() === $this) {
+                $chatParticipant->setUser(null);
+            }
+        }
+
         return $this;
     }
 }
