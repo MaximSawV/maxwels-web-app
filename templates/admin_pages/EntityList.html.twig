@@ -1,23 +1,44 @@
 {% extends 'admin_pages/index.html.twig' %}
 {% block content %}
     {% for entity in entityList %}
-        <div class="button">
-            <h1>
-                {{ entity }}
-            </h1>
-
-            <img src="/pictures/{{ entity }}Token.png">
-            <div>
-                <a href="/admin/create/{{ entity }}">
-                    Create
-                </a>
-                <a href="/admin/show/{{ entity }}/1">
-                    Show
-                </a>
-                <a>
-                    Delete
-                </a>
+        {% if entity == "Admin" %}
+            {% if is_granted('ROLE_PROMOTE_TO_ADMIN') %}
+                <div class="button">
+                    <h1>
+                        {{ entity }}
+                    </h1>
+                    <img src="/pictures/{{ entity }}Token.png">
+                    <div>
+                        <a href="/admin/create/{{ entity }}">
+                            Create
+                        </a>
+                        <a href="/admin/show/{{ entity }}/1">
+                            Show
+                        </a>
+                        <a href="/admin/edit/{{ entity }}/1">
+                            Edit
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="button">
+                <h1>
+                    {{ entity }}
+                </h1>
+                <img src="/pictures/{{ entity }}Token.png">
+                <div>
+                    <a href="/admin/create/{{ entity }}">
+                        Create
+                    </a>
+                    <a href="/admin/show/{{ entity }}/1">
+                        Show
+                    </a>
+                    <a href="/admin/edit/{{ entity }}/1">
+                        Edit
+                    </a>
+                </div>
             </div>
-        </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}

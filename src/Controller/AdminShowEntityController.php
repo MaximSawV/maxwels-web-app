@@ -170,4 +170,59 @@ class AdminShowEntityController extends AbstractController
             'attributes' => $attributes
         ]);
     }
+
+    #[Route('/admin/edit/{entity}/{page}', name: 'admin_do_entity')]
+    public function showEdit(string $entity, int $page): Response
+    {
+        try {
+            $data = $this->provideData($entity, $page);
+            if (!$data)
+            {
+                throw new \Exception('Data faulty');
+            } else {
+                $numberOfEntities = $data['number'];
+                $entities = $data['entities'];
+                $attributes = $data['attributes'];
+
+
+
+            }
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+            $this->redirectToRoute('admin_page');
+        }
+
+        if ($numberOfEntities > 5)
+        {
+            $nextPage = $page + 1;
+
+            if ($page > 1)
+            {
+                $lastPage = $page - 1;
+            } else {
+                $lastPage = null;
+            }
+        } else {
+            $nextPage = null;
+            if ($page > 1)
+            {
+                $lastPage = $page - 1;
+            } else {
+                $lastPage = null;
+            }
+        }
+
+
+        return $this->render('admin_pages/AdminShowPage.html.twig', [
+            'nextPage' => $nextPage,
+            'nextPageUrl' => '/request/all_requests/'.(string)$nextPage,
+            'currentPage' => $page,
+            'lastPageUrl' => '/request/all_requests/'.(string)$lastPage,
+            'lastPage' => $lastPage,
+            'numberOfEntities' => 5,
+            'entities' => $entities,
+            'attributes' => $attributes,
+            'edit' => true,
+        ]);
+    }
 }

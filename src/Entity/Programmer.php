@@ -35,6 +35,10 @@ class Programmer
      */
     private $user;
 
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
 
     public function getId(): ?int
     {

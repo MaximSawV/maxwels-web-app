@@ -16,6 +16,7 @@ use App\Form\AdminCreateRequestType;
 use App\Form\AdminCreateSubscriberType;
 use App\Form\AdminCreateUserType;
 use App\myPHPClasses\ProfileOptionManager;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminCreateUserController extends AbstractController
 {
     #[Route('/admin/create/{entity}', name: 'admin_create_entity')]
-    public function index(string $entity, Request $request, ProfileOptionManager $optionManager): Response
+    public function index(string $entity, Request $request, ProfileOptionManager $optionManager, UserRepository $userRepository): Response
     {
         if ($entity == 'User')
         {

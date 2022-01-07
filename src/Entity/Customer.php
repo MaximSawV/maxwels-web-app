@@ -29,6 +29,11 @@ class Customer
      */
     private $user_id;
 
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

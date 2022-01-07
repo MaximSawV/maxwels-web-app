@@ -54,6 +54,11 @@ class Request
      */
     private $Vote;
 
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

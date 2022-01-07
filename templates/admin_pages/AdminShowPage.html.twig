@@ -32,4 +32,18 @@
         </tbody>
         {% endfor %}
     </table>
+    {% if edit is defined %}
+    <form>
+        <label for="object">Entity</label>
+        <select id="object" name="object">
+        {% for entity in entities %}
+            <option value="{{ entity }}">
+                {{ entity }}
+            </option>
+        {% endfor %}
+            <submit name="edit" value="Edit" action="/admin/ask/edit/entity{{ entity.id}}">Edit</submit>
+            <submit name="edit" value="Edit" action="/admin/ask/delete/entity{{ entity.id}}">Edit</submit>
+        </select>
+    </form>
+    {% endif %}
 {% endblock %}
