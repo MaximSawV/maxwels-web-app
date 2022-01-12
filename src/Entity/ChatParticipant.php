@@ -20,12 +20,6 @@ class ChatParticipant
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Chat::class, inversedBy="chatParticipants")
-     */
-    private $chat;
-
-
-    /**
      * @ORM\OneToMany(targetEntity=ChatMessage::class, mappedBy="source")
      */
     private $chatMessages;
@@ -51,9 +45,14 @@ class ChatParticipant
      */
     private $logged_in_since;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Chat::class, inversedBy="chatParticipants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $in_chat;
+
     public function __construct()
     {
-        $this->chat = new ArrayCollection();
         $this->chatMessages = new ArrayCollection();
     }
 
@@ -67,29 +66,6 @@ class ChatParticipant
         return $this->id;
     }
 
-    /**
-     * @return Collection|Chat[]
-     */
-    public function getChat(): Collection
-    {
-        return $this->chat;
-    }
-
-    public function addChat(Chat $chat): self
-    {
-        if (!$this->chat->contains($chat)) {
-            $this->chat[] = $chat;
-        }
-
-        return $this;
-    }
-
-    public function removeChat(Chat $chat): self
-    {
-        $this->chat->removeElement($chat);
-
-        return $this;
-    }
 
     /**
      * @return Collection|ChatMessage[]
@@ -129,6 +105,7 @@ class ChatParticipant
     public function setUser(?User $user): self
     {
         $this->user = $user;
+        $user->addChatParticipant($this);
 
         return $this;
     }
@@ -166,6 +143,18 @@ class ChatParticipant
     public function setLoggedInSince(\DateTimeImmutable $logged_in_since): self
     {
         $this->logged_in_since = $logged_in_since;
+
+        return $this;
+    }
+
+    public function getInChat(): ?Chat
+    {
+        return $this->in_chat;
+    }
+
+    public function setInChat(?Chat $in_chat): self
+    {
+        $this->in_chat = $in_chat;
 
         return $this;
     }

@@ -129,4 +129,14 @@ li {
   top: 300px;
   left: 500px; }
 
+.chat-icon {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: block;
+  background: transparent; }
+  .chat-icon > img {
+    width: 100px;
+    height: 100px; }
+
 /*# sourceMappingURL=requestpage-style.css.map */

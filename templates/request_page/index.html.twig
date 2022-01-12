@@ -10,9 +10,11 @@
     {% if app.user.profileOptions.darkmode == true %}
         {% set color = '#0c2436' %}
         {% set colorWords = 'white' %}
+        {% set chatIcon = '/pictures/chatTokenWhite.png' %}
     {% else %}
         {% set color = 'white' %}
         {% set colorWords = 'black' %}
+        {% set chatIcon = '/pictures/chatToken.png' %}
     {% endif %}
     <div class="mainpage" style="background: {{ color }}">
         <div class="menu">
@@ -105,6 +107,9 @@
                     </a>
                 </div>
             {% endif %}
+            <a href="/request/user/chat" class="chat-icon">
+                <img src="{{ chatIcon }}"/>
+            </a>
         </div>
         <div class="content">
             {% block content %}

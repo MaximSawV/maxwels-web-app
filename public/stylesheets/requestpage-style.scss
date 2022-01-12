@@ -125,3 +125,12 @@ li {
   top: 300px;
   left: 500px;
 }
+
+.chat-icon {
+  @include box(100px, 100px, relative, block, transparent);
+
+  & > img {
+    width: 100px;
+    height: 100px;
+  }
+}

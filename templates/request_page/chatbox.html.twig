@@ -3,25 +3,58 @@
     <link rel="stylesheet" href="/stylesheets/chat-style.css"/>
 {% endblock %}
 {% block content %}
-    <a href="/user/{{ app.user.id }}/chat" class="chat-icon">
-    </a>
-
-    {% if chatOpen is defined and if chatOpen is true %}
-        <div class="chat-box">
-            <div class="chat-head">
-
+    <div class="chat-box">
+        <div class="chat-head">
+            <div class="search-user">
+                <form action="/chat/newchat">
+                    <select name="user">
+                        {% for user in user_list %}
+                            <option value="{{ user.id }}">
+                                {{ user.username }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Message">
+                </form>
             </div>
-            <div class="chat-content">
-                <div class="chat-list">
-                {% for chat in chats %}
-                    <div class="chat-banner">
-
-                    </div>
+            <a href="/request">
+                X
+            </a>
+        </div>
+        <div class="chat-content">
+            <div class="chat-list">
+            {% for chat in chats %}
+                <a class="chat-banner" href="/request/user/chat/{{ chat.id }}">
+                    <img src="/pictures/" class="profile-picture">
+                    <p>{{ chat.getGroupName }}<br>
+                    <small>Last read Message</small></p>
+                </a>
+            {% endfor %}
+            </div>
+            <div class="conversation">
+            {% if message is defined %}
+            {% for message in messages %}
+            {% if chat.is_group == true %}
+                <div class="chat-message">
+                    <h4>{{ message.source_id }}</h4>
+                    <h3>{{ message.content }}</h3>
+                    <h5>{{ message.created_on }}</h5>
                 </div>
-                <div class="conversation">
-
+            {% else %}
+                <div class="chat-message">
+                    <h3>{{ message.content }}</h3>
+                    <h5>{{ message.created_on }}</h5>
                 </div>
+            {% endif %}
+            {% endfor %}
+                <div class="message-field">
+                    <form>
+                        <input type="text" placeholder="Message...">
+                        <input type="submit" value="send">
+                    </form>
+                </div>
+            {% endif %}
             </div>
         </div>
-    {% endif %}
+    </div>
 {% endblock %}

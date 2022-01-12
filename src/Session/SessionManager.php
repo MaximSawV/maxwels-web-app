@@ -33,8 +33,8 @@ class SessionManager {
 
         $userInterface = $this->security->getUser();
 
-        $user = null;
-        if (!$this->session->has(SessionManager::USER_SESSION_KEY)) {
+        //$user = null;
+        //if (!$this->session->has(SessionManager::USER_SESSION_KEY)) {
             $user = $this->userRepository->findOneBy(["username" => $userInterface->getUserIdentifier()]);
 
             if (!$user) {
@@ -42,9 +42,9 @@ class SessionManager {
             }
 
             $this->session->set(SessionManager::USER_SESSION_KEY, $user);
-        } else {
-            $user = $this->session->get(SessionManager::USER_SESSION_KEY);
-        }
+        //} else {
+        //    $user = $this->session->get(SessionManager::USER_SESSION_KEY);
+        //}
 
 
         return $user;

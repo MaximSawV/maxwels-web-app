@@ -1,0 +1,76 @@
+@import "style-patterns";
+
+.chat-box {
+  @include box(1200px, 700px, fixed, flex, white);
+  top: 200px;
+  left: 200px;
+  z-index: 3;
+}
+
+.chat-head {
+  @include box (100%, 10%, absolute, flex, white);
+  z-index: 1;
+  border-bottom: black 2px solid;
+  align-items: center;
+
+  & > a {
+    @include box (40px, 40px, absolute, flex, red);
+    color: white;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    text-decoration: none;
+    font-size: 2em;
+  }
+}
+
+.chat-content {
+  @include box(100%, 90%, absolute, flex, white);
+  flex-direction: row;
+  bottom: 0;
+}
+
+.chat-list {
+  @include box(29%, 100%, relative, flex, white);
+  border-right: 2px solid black;
+}
+
+.conversation {
+  @include box(70%, 100%, relative, flex, white);
+}
+
+.search-user {
+  @include box(300px, 40px, absolute, block, white);
+  margin-left: 30%;
+  & > form {
+    @include box(300px, 40px, relative, flex, white);
+    flex-direction: row;
+
+    & > select {
+      @include box(200px, 100%, relative, block, white);
+    }
+  }
+}
+
+.chat-banner {
+  @include box(98%, 14%, relative, flex, white);
+  flex-direction: row;
+  border-bottom: black solid 1px;
+  border-right: black solid 1px;
+  font-size: 1.5em;
+  color: black;
+  text-decoration: none;
+  transition: 0.25s;
+
+  &:hover {
+    width: 100%;
+    height: 15%;
+    border-bottom: black solid 2px;
+    border-right: black solid 0px;
+  }
+}
+
+.profile-picture {
+  @include box(50px, 50px, relative, block, transparent);
+  margin: 10px;
+}

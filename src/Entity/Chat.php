@@ -20,14 +20,34 @@ class Chat
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ChatParticipant::class, mappedBy="chat")
-     */
-    private $chatParticipants;
-
-    /**
      * @ORM\OneToMany(targetEntity=ChatMessage::class, mappedBy="in_chat", orphanRemoval=true)
      */
     private $chatMessages;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_group;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $group_name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $group_image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $group_description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ChatParticipant::class, mappedBy="in_chat", orphanRemoval=true)
+     */
+    private $chatParticipants;
 
 
     public function __construct()
@@ -41,32 +61,6 @@ class Chat
         return $this->id;
     }
 
-    /**
-     * @return Collection|ChatParticipant[]
-     */
-    public function getChatParticipants(): Collection
-    {
-        return $this->chatParticipants;
-    }
-
-    public function addChatParticipant(ChatParticipant $chatParticipant): self
-    {
-        if (!$this->chatParticipants->contains($chatParticipant)) {
-            $this->chatParticipants[] = $chatParticipant;
-            $chatParticipant->addChat($this);
-        }
-
-        return $this;
-    }
-
-    public function removeChatParticipant(ChatParticipant $chatParticipant): self
-    {
-        if ($this->chatParticipants->removeElement($chatParticipant)) {
-            $chatParticipant->removeChat($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|ChatMessage[]
@@ -92,6 +86,84 @@ class Chat
             // set the owning side to null (unless already changed)
             if ($chatMessage->getInChat() === $this) {
                 $chatMessage->setInChat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsGroup(): ?bool
+    {
+        return $this->is_group;
+    }
+
+    public function setIsGroup(bool $is_group): self
+    {
+        $this->is_group = $is_group;
+
+        return $this;
+    }
+
+    public function getGroupName(): ?string
+    {
+        return $this->group_name;
+    }
+
+    public function setGroupName(?string $group_name): self
+    {
+        $this->group_name = $group_name;
+
+        return $this;
+    }
+
+    public function getGroupImage(): ?string
+    {
+        return $this->group_image;
+    }
+
+    public function setGroupImage(?string $group_image): self
+    {
+        $this->group_image = $group_image;
+
+        return $this;
+    }
+
+    public function getGroupDescription(): ?string
+    {
+        return $this->group_description;
+    }
+
+    public function setGroupDescription(?string $group_description): self
+    {
+        $this->group_description = $group_description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChatParticipant[]
+     */
+    public function getChatParticipants(): Collection
+    {
+        return $this->chatParticipants;
+    }
+
+    public function addChatParticipant(ChatParticipant $chatParticipant): self
+    {
+        if (!$this->chatParticipants->contains($chatParticipant)) {
+            $this->chatParticipants[] = $chatParticipant;
+            $chatParticipant->setInChat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChatParticipant(ChatParticipant $chatParticipant): self
+    {
+        if ($this->chatParticipants->removeElement($chatParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($chatParticipant->getInChat() === $this) {
+                $chatParticipant->setInChat(null);
             }
         }
 

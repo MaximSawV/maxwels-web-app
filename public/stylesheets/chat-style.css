@@ -1,0 +1,105 @@
+.chat-box {
+  width: 1200px;
+  height: 700px;
+  position: fixed;
+  display: flex;
+  background: white;
+  top: 200px;
+  left: 200px;
+  z-index: 3; }
+
+.chat-head {
+  width: 100%;
+  height: 10%;
+  position: absolute;
+  display: flex;
+  background: white;
+  z-index: 1;
+  border-bottom: black 2px solid;
+  align-items: center; }
+  .chat-head > a {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    display: flex;
+    background: red;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    text-decoration: none;
+    font-size: 2em; }
+
+.chat-content {
+  width: 100%;
+  height: 90%;
+  position: absolute;
+  display: flex;
+  background: white;
+  flex-direction: row;
+  bottom: 0; }
+
+.chat-list {
+  width: 29%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  background: white;
+  border-right: 2px solid black; }
+
+.conversation {
+  width: 70%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  background: white; }
+
+.search-user {
+  width: 300px;
+  height: 40px;
+  position: absolute;
+  display: block;
+  background: white;
+  margin-left: 30%; }
+  .search-user > form {
+    width: 300px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    background: white;
+    flex-direction: row; }
+    .search-user > form > select {
+      width: 200px;
+      height: 100%;
+      position: relative;
+      display: block;
+      background: white; }
+
+.chat-banner {
+  width: 98%;
+  height: 14%;
+  position: relative;
+  display: flex;
+  background: white;
+  flex-direction: row;
+  border-bottom: black solid 1px;
+  border-right: black solid 1px;
+  font-size: 1.5em;
+  color: black;
+  text-decoration: none;
+  transition: 0.25s; }
+  .chat-banner:hover {
+    width: 100%;
+    height: 15%;
+    border-bottom: black solid 2px;
+    border-right: black solid 0px; }
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: block;
+  background: transparent;
+  margin: 10px; }
+
+/*# sourceMappingURL=chat-style.css.map */
