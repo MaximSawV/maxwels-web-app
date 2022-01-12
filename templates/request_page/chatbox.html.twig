@@ -1,0 +1,27 @@
+{% extends 'request_page/index.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/stylesheets/chat-style.css"/>
+{% endblock %}
+{% block content %}
+    <a href="/user/{{ app.user.id }}/chat" class="chat-icon">
+    </a>
+
+    {% if chatOpen is defined and if chatOpen is true %}
+        <div class="chat-box">
+            <div class="chat-head">
+
+            </div>
+            <div class="chat-content">
+                <div class="chat-list">
+                {% for chat in chats %}
+                    <div class="chat-banner">
+
+                    </div>
+                </div>
+                <div class="conversation">
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
