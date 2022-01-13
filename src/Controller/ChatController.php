@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use function Webmozart\Assert\Tests\StaticAnalysis\true;
 
 class ChatController extends AbstractController
@@ -72,33 +73,22 @@ class ChatController extends AbstractController
     }
 
     #[Route('/chat/newchat', name: 'chat_new_chat')]
-    public function createChat(MaxwelsChat $maxwelsChat, ChatRepository $chatRepository): Response
+    public function createChat(EntityManagerInterface $em, SessionManager $sessionManager, MaxwelsChat $maxwelsChat): Response
     {
-        $chatExists = false;
-        $user = $this->userRepository->find($_GET['user']);
-        $chats = $chatRepository->findAll();
-        $user1 = $this->sessionManager->getUser();
+        $user1 = $sessionManager->getUser();
+        $user2Id = $_GET['user'];
+        $user2 = $this->userRepository->find($user2Id);
 
-        foreach ($chats as $chat)
-        {
-            if ($chat->getIsGroup() == false)
-            {
-                foreach ($chat->getChatParticipants() as $participant)
-                {
-                    if ($participant->getUser()->getId() == $user1->getId() or $participant->getUser()->getId() == $user->getId())
-                    {
-                        $chatExists = true;
-                    }
-                }
-            }
-        }
+        $query = 'SELECT c.id FROM chat c
+                    JOIN chat_participant cp ON c.id = cp.in_chat_id AND cp.user_id = :user1
+                    JOIN chat_participant cp2 ON c.id = cp2.in_chat_id AND cp2.user_id = :user2';
 
-        if ($chatExists == false)
+        $chat = $em->getConnection()->prepare($query)->executeQuery(['user1' => $user1->getId(), 'user2' => $user2Id])->fetchOne();
+
+        if (!$chat)
         {
 
-            //$this->entityManager->persist($user1);
-
-            $maxwelsChat->initiateChat($user1, $user);
+            $maxwelsChat->initiateChat($user1, $user2);
         }
 
         return $this->redirectToRoute('chat');

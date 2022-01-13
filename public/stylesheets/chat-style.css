@@ -46,7 +46,8 @@
   display: flex;
   background: white;
   border-right: 2px solid black;
-  flex-direction: column; }
+  flex-direction: column;
+  overflow-y: scroll; }
 
 .conversation {
   width: 70%;
@@ -83,17 +84,13 @@
   display: flex;
   background: white;
   flex-direction: row;
-  border-bottom: black solid 1px;
-  border-right: black solid 1px;
   font-size: 1.5em;
   color: black;
   text-decoration: none;
   transition: 0.25s; }
   .chat-banner:hover {
     width: 100%;
-    height: 15%;
-    border-bottom: black solid 2px;
-    border-right: black solid 0px; }
+    height: 15%; }
 
 .profile-picture {
   width: 50px;
@@ -102,5 +99,8 @@
   display: block;
   background: transparent;
   margin: 10px; }
+
+.chat-list::-webkit-scrollbar {
+  display: none; }
 
 /*# sourceMappingURL=chat-style.css.map */
