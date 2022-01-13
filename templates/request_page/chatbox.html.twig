@@ -47,13 +47,13 @@
                 </div>
             {% endif %}
             {% endfor %}
+            {% endif %}
                 <div class="message-field">
-                    <form>
-                        <input type="text" placeholder="Message...">
+                    <form action="/request/user/chat/send/">
+                        <input type="text" placeholder="Message..." class="message-input" name="message">
                         <input type="submit" value="send">
                     </form>
                 </div>
-            {% endif %}
             </div>
         </div>
     </div>

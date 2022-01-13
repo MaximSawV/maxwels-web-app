@@ -39,6 +39,7 @@
 
 .conversation {
   @include box(70%, 100%, relative, flex, white);
+  justify-content: center;
 }
 
 .search-user {
@@ -75,4 +76,20 @@
 
 .chat-list::-webkit-scrollbar {
   display: none;
+}
+
+.message-field {
+  @include box(80%, 50px, absolute, flex, none);
+  bottom: 0;
+  justify-content: center;
+
+  & > form > input {
+    height: 40px;
+    font-size: 1em;
+  }
+
+}
+
+.message-input {
+  width: 400px;
 }

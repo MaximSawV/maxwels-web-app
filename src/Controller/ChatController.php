@@ -93,4 +93,7 @@ class ChatController extends AbstractController
 
         return $this->redirectToRoute('chat');
     }
+
+    #[Route('/request/user/chat/send/', name: 'chat_new_message')]
+    public function
 }
