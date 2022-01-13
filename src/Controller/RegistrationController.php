@@ -49,7 +49,7 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setSubscribed(false);
-            $user->setStatus('Offline');
+            $user->setStatus('offline');
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -75,7 +75,6 @@ class RegistrationController extends AbstractController
             {
                 $customer = new Customer();
                 $customer->setUserId($user);
-                $customer->setStatus('OFFLINE');
                 $customer->setNumberOfRequests(0);
 
                 $entityManager = $this->getDoctrine()->getManager();
@@ -96,7 +95,6 @@ class RegistrationController extends AbstractController
             {
                 $programmer = new Programmer();
                 $programmer->setUser($user);
-                $programmer->setStatus('OFFLINE');
                 $programmer->setDoneRequests(0);
                 $programmer->setRating(null);
 

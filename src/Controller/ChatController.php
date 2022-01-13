@@ -72,27 +72,33 @@ class ChatController extends AbstractController
     }
 
     #[Route('/chat/newchat', name: 'chat_new_chat')]
-    public function createChat(MaxwelsChat $maxwelsChat, ChatRepository $chatRepository, ChatParticipantRepository $participantRepository): Response
+    public function createChat(MaxwelsChat $maxwelsChat, ChatRepository $chatRepository): Response
     {
         $chatExists = false;
-        $user = $this->userRepository->find($_GET['user'])->getUserIdentifier();
+        $user = $this->userRepository->find($_GET['user']);
         $chats = $chatRepository->findAll();
+        $user1 = $this->sessionManager->getUser();
 
         foreach ($chats as $chat)
         {
-            if ($chat->getGroupName() == $user)
+            if ($chat->getIsGroup() == false)
             {
-                $chatExists = true;
+                foreach ($chat->getChatParticipants() as $participant)
+                {
+                    if ($participant->getUser()->getId() == $user1->getId() or $participant->getUser()->getId() == $user->getId())
+                    {
+                        $chatExists = true;
+                    }
+                }
             }
         }
 
         if ($chatExists == false)
         {
-            $user1 = $this->sessionManager->getUser();
 
             //$this->entityManager->persist($user1);
 
-            $maxwelsChat->initiateChat($user1,$user);
+            $maxwelsChat->initiateChat($user1, $user);
         }
 
         return $this->redirectToRoute('chat');

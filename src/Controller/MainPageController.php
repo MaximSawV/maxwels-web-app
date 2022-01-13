@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Session\SessionManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +28,7 @@ class MainPageController extends AbstractController
 
 
     #[Route('/', name: 'main_page')]
-    public function index(?Profiler $profiler): Response
+    public function index(?Profiler $profiler, EntityManagerInterface $entityManager, SessionManager $sessionManager): Response
     {
         $user = $this->security->getUser();
         $isSubscriber = 1;
@@ -44,6 +46,23 @@ class MainPageController extends AbstractController
 
         } else {
             $loggedin = false;
+        }
+
+        if($this->security->getUser() != null)
+        {
+            $chats = $sessionManager->getUser()->getChatParticipants();
+            $user = $sessionManager->getUser();
+            $user->setStatus('online');
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $now = $now = new \DateTimeImmutable('now');
+            foreach ($chats as $participant)
+            {
+                $participant->setLoggedInSince($now);
+                $entityManager->persist($participant);
+                $entityManager->flush();
+            }
         }
 
         return $this->render('main_page/index.html.twig', [

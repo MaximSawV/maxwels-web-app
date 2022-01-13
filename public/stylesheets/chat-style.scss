@@ -33,6 +33,7 @@
 .chat-list {
   @include box(29%, 100%, relative, flex, white);
   border-right: 2px solid black;
+  flex-direction: column;
 }
 
 .conversation {

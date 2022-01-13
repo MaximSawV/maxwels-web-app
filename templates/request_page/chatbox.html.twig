@@ -25,9 +25,9 @@
             <div class="chat-list">
             {% for chat in chats %}
                 <a class="chat-banner" href="/request/user/chat/{{ chat.id }}">
-                    <img src="/pictures/" class="profile-picture">
-                    <p>{{ chat.getGroupName }}<br>
-                    <small>Last read Message</small></p>
+                    <img src="/pictures/UserProfilePicture.png" class="profile-picture">
+                    <p>{{ getChatContact(chat, app.user) }}<br>
+                    <small>Last read {{ app.user }}</small></p>
                 </a>
             {% endfor %}
             </div>

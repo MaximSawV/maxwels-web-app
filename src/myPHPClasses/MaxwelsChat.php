@@ -36,11 +36,10 @@ class MaxwelsChat
         $this->participantRepository = $participantRepository;
     }
 
-    private function createChat(string $name)
+    private function createChat()
     {
         $chat = new Chat();
         $chat->setIsGroup(false);
-        $chat->setGroupName($name);
         $this->entityManager->persist($chat);
         $this->entityManager->flush();
 
@@ -53,6 +52,7 @@ class MaxwelsChat
         $participant = new ChatParticipant();
         $participant->setUser($user);
         $participant->setInChat($chat);
+        $chat->addChatParticipant($participant);
         $participant->setLoggedInSince($now);
         $participant->setLoggedOutSince($now);
 
@@ -76,9 +76,10 @@ class MaxwelsChat
         return $message;
     }
 
-    public function initiateChat(User $user, string $secondUsers)
+    public function initiateChat(User $user, User $user2)
     {
-        $chat = $this->createChat($secondUsers);
-        $this->createParticipant($user, $chat);
+        $chat = $this->createChat();
+        $participant1 = $this->createParticipant($user, $chat);
+        $participant2 = $this->createParticipant($user2, $chat);
     }
 }

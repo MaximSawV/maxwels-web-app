@@ -14,7 +14,7 @@
     {% else %}
         {% set color = 'white' %}
         {% set colorWords = 'black' %}
-        {% set chatIcon = '/pictures/chatToken.png' %}
+        {% set chatIcon = '/pictures/chatTokenWhite.png' %}
     {% endif %}
     <div class="mainpage" style="background: {{ color }}">
         <div class="menu">
@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ path('user_logout') }}">
+                        <a href="/logging/out">
                             {% trans %} Menu.Logout {% endtrans %}
                         </a>
                     </li>

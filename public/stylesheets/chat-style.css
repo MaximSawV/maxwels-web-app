@@ -45,7 +45,8 @@
   position: relative;
   display: flex;
   background: white;
-  border-right: 2px solid black; }
+  border-right: 2px solid black;
+  flex-direction: column; }
 
 .conversation {
   width: 70%;
