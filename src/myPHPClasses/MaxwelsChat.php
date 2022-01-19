@@ -63,8 +63,9 @@ class MaxwelsChat
         return $participant;
     }
 
-    private function createMessage(ChatParticipant $participant, Chat $chat, string $content, \DateTimeInterface $date)
+    private function createMessage(ChatParticipant $participant, Chat $chat, string $content)
     {
+        $date = new \DateTime('now');
         $message = new ChatMessage();
         $message->setSource($participant);
         $message->setContent($content);
@@ -79,7 +80,12 @@ class MaxwelsChat
     public function initiateChat(User $user, User $user2)
     {
         $chat = $this->createChat();
-        $participant1 = $this->createParticipant($user, $chat);
-        $participant2 = $this->createParticipant($user2, $chat);
+        $this->createParticipant($user, $chat);
+        $this->createParticipant($user2, $chat);
+    }
+
+    public function writeMessage(ChatParticipant $participant, Chat $chat, $content)
+    {
+        $this->createMessage($participant, $chat, $content);
     }
 }

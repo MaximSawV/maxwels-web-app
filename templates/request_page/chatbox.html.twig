@@ -49,7 +49,7 @@
             {% endfor %}
             {% endif %}
                 <div class="message-field">
-                    <form action="/request/user/chat/send/">
+                    <form action="/request/user/chat/send/{{ currentChat }}/{{ app.user.id }}">
                         <input type="text" placeholder="Message..." class="message-input" name="message">
                         <input type="submit" value="send">
                     </form>

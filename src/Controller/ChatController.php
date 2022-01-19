@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Chat;
+use App\Entity\ChatParticipant;
 use App\Entity\User;
 use App\myPHPClasses\MaxwelsChat;
 use App\Repository\ChatMessageRepository;
@@ -10,6 +12,7 @@ use App\Repository\ChatRepository;
 use App\Repository\UserRepository;
 use App\Session\SessionManager;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,16 +23,37 @@ class ChatController extends AbstractController
 {
     private $userRepository;
     private $sessionManager;
+    private $participantRepository;
+    private $chatRepository;
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
-    public function __construct(UserRepository $userRepository, SessionManager $sessionManager, EntityManagerInterface $entityManager)
+    public function __construct(UserRepository $userRepository,
+                                SessionManager $sessionManager,
+                                EntityManagerInterface $entityManager,
+                                ChatParticipantRepository $participantRepository,
+                                ChatRepository $chatRepository)
     {
         $this->userRepository = $userRepository;
         $this->sessionManager = $sessionManager;
         $this->entityManager = $entityManager;
+        $this->participantRepository = $participantRepository;
+        $this->chatRepository = $chatRepository;
+    }
+
+    private function getYourChats()
+    {
+        $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
+        $chats = [];
+        foreach ($chatParticipants as $participant)
+        {
+            $chat = $this->chatRepository->find($participant->getInChat()->getId());
+            array_push($chats, $chat);
+        }
+
+        return $chats;
     }
 
     private function getAllOtherUsers ()
@@ -43,16 +67,10 @@ class ChatController extends AbstractController
     }
 
     #[Route('/request/user/chat', name: 'chat')]
-    public function index(ChatRepository $chatRepository): Response
+    public function index(): Response
     {
+        $chats = $this->getYourChats();
         $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
-
-        $chats = [];
-        foreach ($chatParticipants as $participant)
-        {
-            $chat = $chatRepository->find($participant->getInChat()->getId());
-            array_push($chats, $chat);
-        }
         return $this->render('request_page/chatbox.html.twig', [
             'chat_participants' => $chatParticipants,
             'user_list' => $this->getAllOtherUsers(),
@@ -61,14 +79,17 @@ class ChatController extends AbstractController
     }
 
     #[Route('/request/user/chat/{id}', name: 'chat_messages')]
-    public function getMessages(int $id,ChatMessageRepository $messageRepository): Response
+    public function getMessages(int $id,ChatMessageRepository $messageRepository, ChatRepository $chatRepository): Response
     {
-        $messages = $messageRepository->findBy(['source_id' => $id]);
+        $chats = $this->getYourChats();
+        $messages = $messageRepository->findBy(['source' => $id]);
         $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
         return $this->render('request_page/chatbox.html.twig', [
             'messages' => $messages,
             'chat_participants' => $chatParticipants,
-            'user_list' => $this->getAllOtherUsers()
+            'user_list' => $this->getAllOtherUsers(),
+            'chats' => $chats,
+            'currentChat' => $id
         ]);
     }
 
@@ -94,6 +115,28 @@ class ChatController extends AbstractController
         return $this->redirectToRoute('chat');
     }
 
-    #[Route('/request/user/chat/send/', name: 'chat_new_message')]
-    public function
+    #[Route('/request/user/chat/send/{chat}/{id}', name: 'chat_new_message')]
+    public function newMessage(MaxwelsChat $maxwelsChat,$chat,$id)
+    {
+        $content = $_GET['message'];
+        $user = $this->userRepository->find($id);
+        $userParticipants = $user->getChatParticipants();
+        $currentChat = $this->chatRepository->find($chat);
+        $chatParticipants = $currentChat->getChatParticipants();
+
+        foreach ($userParticipants as $uP)
+        {
+            foreach ($chatParticipants as $cP)
+            {
+                if($uP->getId() == $cP->getId())
+                {
+                    $parti = $cP;
+                }
+            }
+        }
+
+        $maxwelsChat->writeMessage($parti, $currentChat, $content);
+
+        return $this->redirect('/request/user/chat/'.$chat);
+    }
 }
