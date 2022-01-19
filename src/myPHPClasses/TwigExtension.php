@@ -9,16 +9,26 @@
 namespace App\myPHPClasses;
 
 use App\Entity\Chat;
+use App\Entity\ChatParticipant;
 use App\Entity\User;
+use App\Repository\ChatParticipantRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
+    private $participantRepository;
+
+    public function __construct(ChatParticipantRepository $participantRepository)
+    {
+        $this->participantRepository = $participantRepository;
+    }
+
     public function getFunctions()
     {
         return [
             new TwigFunction('getChatContact', [$this, 'getChatContact']),
+            new TwigFunction('getMessageSender', [$this, 'getMessageSender'])
         ];
     }
 
@@ -34,5 +44,10 @@ class TwigExtension extends AbstractExtension
                 return $chatP->getUser()->getUserIdentifier();
             }
         }
+    }
+
+    public function getMessageSender(ChatParticipant $participant)
+    {
+        return $participant->getUser()->getUserIdentifier();
     }
 }

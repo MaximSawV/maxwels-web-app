@@ -32,28 +32,30 @@
             {% endfor %}
             </div>
             <div class="conversation">
-            {% if message is defined %}
-            {% for message in messages %}
-            {% if chat.is_group == true %}
-                <div class="chat-message">
-                    <h4>{{ message.source_id }}</h4>
-                    <h3>{{ message.content }}</h3>
-                    <h5>{{ message.created_on }}</h5>
-                </div>
-            {% else %}
-                <div class="chat-message">
-                    <h3>{{ message.content }}</h3>
-                    <h5>{{ message.created_on }}</h5>
+            {% if messages is defined %}
+                <div class="text-container">
+                {% for message in messages %}
+                    {% if app.user.UserIdentifier == message.Source.User.UserIdentifier  %}
+                        <div class="chat-message" style="margin-left: 49%; background: #3adb76">
+                            <p class="message-content">{{ message.content }}</p>
+                        </div>
+                    {% else %}
+                        <div class="chat-message" style="margin-right: 49%">
+                            <p class="message-user">{{ message.Source.User.UserIdentifier }}</p>
+                            <p class="message-content">{{ message.content }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
                 </div>
             {% endif %}
-            {% endfor %}
-            {% endif %}
-                <div class="message-field">
-                    <form action="/request/user/chat/send/{{ currentChat }}/{{ app.user.id }}">
-                        <input type="text" placeholder="Message..." class="message-input" name="message">
-                        <input type="submit" value="send">
-                    </form>
-                </div>
+                {% if currentChat is defined %}
+                    <div class="message-field">
+                        <form action="/request/user/chat/send/{{ currentChat }}/{{ app.user.id }}">
+                            <input type="text" placeholder="Message..." class="message-input" name="message">
+                            <input type="submit" value="send">
+                        </form>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

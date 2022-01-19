@@ -82,8 +82,10 @@ class ChatController extends AbstractController
     public function getMessages(int $id,ChatMessageRepository $messageRepository, ChatRepository $chatRepository): Response
     {
         $chats = $this->getYourChats();
-        $messages = $messageRepository->findBy(['source' => $id]);
         $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
+        $messages = $messageRepository->findBy(['in_chat' => $id],['created_on' => 'ASC']);
+
+
         return $this->render('request_page/chatbox.html.twig', [
             'messages' => $messages,
             'chat_participants' => $chatParticipants,
@@ -135,8 +137,12 @@ class ChatController extends AbstractController
             }
         }
 
-        $maxwelsChat->writeMessage($parti, $currentChat, $content);
-
-        return $this->redirect('/request/user/chat/'.$chat);
+        if($content == "")
+        {
+            return $this->redirect('/request/user/chat/'.$chat);
+        } else {
+            $maxwelsChat->writeMessage($parti, $currentChat, $content);
+            return $this->redirect('/request/user/chat/'.$chat);
+        }
     }
 }
