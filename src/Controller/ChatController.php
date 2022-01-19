@@ -25,6 +25,7 @@ class ChatController extends AbstractController
     private $sessionManager;
     private $participantRepository;
     private $chatRepository;
+    private $messageRepository;
     /**
      * @var EntityManagerInterface
      */
@@ -34,13 +35,15 @@ class ChatController extends AbstractController
                                 SessionManager $sessionManager,
                                 EntityManagerInterface $entityManager,
                                 ChatParticipantRepository $participantRepository,
-                                ChatRepository $chatRepository)
+                                ChatRepository $chatRepository,
+                                ChatMessageRepository $messageRepository)
     {
         $this->userRepository = $userRepository;
         $this->sessionManager = $sessionManager;
         $this->entityManager = $entityManager;
         $this->participantRepository = $participantRepository;
         $this->chatRepository = $chatRepository;
+        $this->messageRepository = $messageRepository;
     }
 
     private function getYourChats()
@@ -71,6 +74,7 @@ class ChatController extends AbstractController
     {
         $chats = $this->getYourChats();
         $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
+
         return $this->render('request_page/chatbox.html.twig', [
             'chat_participants' => $chatParticipants,
             'user_list' => $this->getAllOtherUsers(),
@@ -79,19 +83,18 @@ class ChatController extends AbstractController
     }
 
     #[Route('/request/user/chat/{id}', name: 'chat_messages')]
-    public function getMessages(int $id,ChatMessageRepository $messageRepository, ChatRepository $chatRepository): Response
+    public function getMessages(int $id): Response
     {
         $chats = $this->getYourChats();
         $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
-        $messages = $messageRepository->findBy(['in_chat' => $id],['created_on' => 'ASC']);
-
+        $messages = $this->messageRepository->findBy(['in_chat' => $id]);
 
         return $this->render('request_page/chatbox.html.twig', [
             'messages' => $messages,
             'chat_participants' => $chatParticipants,
             'user_list' => $this->getAllOtherUsers(),
             'chats' => $chats,
-            'currentChat' => $id
+            'currentChat' => $id,
         ]);
     }
 
@@ -137,12 +140,22 @@ class ChatController extends AbstractController
             }
         }
 
+        $lastMessage = $this->messageRepository->createQueryBuilder('m')
+            ->where('m.created_on < :loggedIn')
+            ->andWhere('m.in_chat = :chat')
+            ->setParameter('loggedIn', $user->getLoggedInTime())
+            ->setParameter('chat', $chat)
+            ->orderBy('m.created_on','DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+
         if($content == "")
         {
             return $this->redirect('/request/user/chat/'.$chat);
         } else {
             $maxwelsChat->writeMessage($parti, $currentChat, $content);
-            return $this->redirect('/request/user/chat/'.$chat);
+            return $this->redirect('/request/user/chat/'.$chat.'#'.$lastMessage->getId());
         }
     }
 }

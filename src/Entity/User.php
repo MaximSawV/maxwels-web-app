@@ -82,6 +82,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $chatParticipants;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $loggedOutTime;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $loggedInTime;
+
     public function __construct()
     {
         $this->userRelationships = new ArrayCollection();
@@ -314,6 +324,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $chatParticipant->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLoggedOutTime(): ?\DateTimeInterface
+    {
+        return $this->loggedOutTime;
+    }
+
+    public function setLoggedOutTime(\DateTimeInterface $loggedOutTime): self
+    {
+        $this->loggedOutTime = $loggedOutTime;
+
+        return $this;
+    }
+
+    public function getLoggedInTime(): ?\DateTimeInterface
+    {
+        return $this->loggedInTime;
+    }
+
+    public function setLoggedInTime(\DateTimeInterface $loggedInTime): self
+    {
+        $this->loggedInTime = $loggedInTime;
 
         return $this;
     }

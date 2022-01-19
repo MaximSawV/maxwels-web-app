@@ -48,14 +48,10 @@ class MaxwelsChat
 
     private function createParticipant(User $user, Chat $chat)
     {
-        $now = new \DateTimeImmutable('now');
         $participant = new ChatParticipant();
         $participant->setUser($user);
         $participant->setInChat($chat);
         $chat->addChatParticipant($participant);
-        $participant->setLoggedInSince($now);
-        $participant->setLoggedOutSince($now);
-
 
         $this->entityManager->persist($participant);
         $this->entityManager->flush();

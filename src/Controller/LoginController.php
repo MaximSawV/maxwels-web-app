@@ -16,7 +16,7 @@ class LoginController extends AbstractController
 {
     #[Route('/login', name: 'login')]
 
-    public function index(AuthenticationUtils $authenticationUtils, SessionManager $sessionManager, EntityManagerInterface $entityManager): Response
+    public function index(AuthenticationUtils $authenticationUtils): Response
     {
 
         $error = $authenticationUtils->getLastAuthenticationError();

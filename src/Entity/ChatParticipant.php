@@ -36,16 +36,6 @@ class ChatParticipant
     private $nickname;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $logged_out_since;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $logged_in_since;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Chat::class, inversedBy="chatParticipants")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -118,31 +108,6 @@ class ChatParticipant
     public function setNickname(?string $nickname): self
     {
         $this->nickname = $nickname;
-
-        return $this;
-    }
-
-
-    public function getLoggedOutSince(): ?\DateTimeImmutable
-    {
-        return $this->logged_out_since;
-    }
-
-    public function setLoggedOutSince(\DateTimeImmutable $logged_out_since): self
-    {
-        $this->logged_out_since = $logged_out_since;
-
-        return $this;
-    }
-
-    public function getLoggedInSince(): ?\DateTimeImmutable
-    {
-        return $this->logged_in_since;
-    }
-
-    public function setLoggedInSince(\DateTimeImmutable $logged_in_since): self
-    {
-        $this->logged_in_since = $logged_in_since;
 
         return $this;
     }

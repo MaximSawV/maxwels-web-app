@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MainPageController extends AbstractController
@@ -50,19 +51,12 @@ class MainPageController extends AbstractController
 
         if($this->security->getUser() != null)
         {
-            $chats = $sessionManager->getUser()->getChatParticipants();
+            $now = new \DateTimeImmutable('now');
             $user = $sessionManager->getUser();
             $user->setStatus('online');
+            $user->setLoggedInTime($now);
             $entityManager->persist($user);
             $entityManager->flush();
-
-            $now = $now = new \DateTimeImmutable('now');
-            foreach ($chats as $participant)
-            {
-                $participant->setLoggedInSince($now);
-                $entityManager->persist($participant);
-                $entityManager->flush();
-            }
         }
 
         return $this->render('main_page/index.html.twig', [

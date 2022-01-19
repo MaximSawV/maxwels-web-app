@@ -24,11 +24,19 @@
         <div class="chat-content">
             <div class="chat-list">
             {% for chat in chats %}
-                <a class="chat-banner" href="/request/user/chat/{{ chat.id }}">
+                {% set lastMessage = getLastMessage(chat.id) %}
+                {% if lastMessage != null %}
+                <a class="chat-banner" href="/request/user/chat/{{ chat.id }}/#{{ lastMessage.id }}">
                     <img src="/pictures/UserProfilePicture.png" class="profile-picture">
-                    <p>{{ getChatContact(chat, app.user) }}<br>
-                    <small>Last read Message</small></p>
+                    <p>{{ getChatContact(chat, app.user).username }}<br>
+                    <small>{{ lastMessage.Content }}</small></p>
                 </a>
+                {% else %}
+                    <a class="chat-banner" href="/request/user/chat/{{ chat.id }}">
+                        <img src="/pictures/UserProfilePicture.png" class="profile-picture">
+                        <p>{{ getChatContact(chat, app.user).username }}</p>
+                    </a>
+                {% endif %}
             {% endfor %}
             </div>
             <div class="conversation">
@@ -36,11 +44,11 @@
                 <div class="text-container">
                 {% for message in messages %}
                     {% if app.user.UserIdentifier == message.Source.User.UserIdentifier  %}
-                        <div class="chat-message" style="margin-left: 49%; background: #3adb76">
+                        <div id="{{ message.id }}" class="chat-message" style="margin-left: 49%; background: #3adb76">
                             <p class="message-content">{{ message.content }}</p>
                         </div>
                     {% else %}
-                        <div class="chat-message" style="margin-right: 49%">
+                        <div id="{{ message.id }}" class="chat-message" style="margin-right: 49%">
                             <p class="message-user">{{ message.Source.User.UserIdentifier }}</p>
                             <p class="message-content">{{ message.content }}</p>
                         </div>

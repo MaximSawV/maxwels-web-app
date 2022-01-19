@@ -19,22 +19,12 @@ class LoggingOutController extends AbstractController
     public function index(SessionManager $sessionManager, EntityManagerInterface $entityManager): Response
     {
 
-
-        $chats = $sessionManager->getUser()->getChatParticipants();
+        $now = $now = new \DateTimeImmutable('now');
         $user = $sessionManager->getUser();
         $user->setStatus('offline');
+        $user->setLoggedOutTime($now);
         $entityManager->persist($user);
         $entityManager->flush();
-
-
-        $now = $now = new \DateTimeImmutable('now');
-        foreach ($chats as $participant)
-        {
-            $participant->setLoggedOutSince($now);
-            $entityManager->persist($participant);
-            $entityManager->flush();
-        }
-
         return $this->redirect('/user/logout');
 
     }
