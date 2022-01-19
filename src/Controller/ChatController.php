@@ -155,7 +155,8 @@ class ChatController extends AbstractController
             return $this->redirect('/request/user/chat/'.$chat);
         } else {
             $maxwelsChat->writeMessage($parti, $currentChat, $content);
-            return $this->redirect('/request/user/chat/'.$chat.'#'.$lastMessage->getId());
         }
+
+        return $this->redirect('/request/user/chat/'.$chat);
     }
 }
