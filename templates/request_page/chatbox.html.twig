@@ -24,7 +24,7 @@
         <div class="chat-content">
             <div class="chat-list">
             {% for chat in chats %}
-                {% set lastMessage = getLastMessage(chat.id) %}
+                {% set lastMessage = getLastMessage(chat) %}
                 {% if lastMessage != null %}
                 <a class="chat-banner" href="/request/user/chat/{{ chat.id }}/#{{ lastMessage.id }}">
                     <img src="/pictures/UserProfilePicture.png" class="profile-picture">

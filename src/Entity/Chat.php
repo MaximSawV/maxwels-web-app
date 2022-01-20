@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\ChatMessageRepository;
 use App\Repository\ChatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

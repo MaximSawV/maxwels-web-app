@@ -51,12 +51,22 @@ class MainPageController extends AbstractController
 
         if($this->security->getUser() != null)
         {
-            $now = new \DateTimeImmutable('now');
             $user = $sessionManager->getUser();
-            $user->setStatus('online');
-            $user->setLoggedInTime($now);
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $now = new \DateTimeImmutable('now');
+            if($user->getLoggedOutTime() === null)
+            {
+                $minAgo = $now->modify('-1 sec');
+                $user->setLoggedOutTime($minAgo);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+            if ($user->getLoggedOutTime() > $user->getLoggedInTime())
+            {
+                $user->setStatus('online');
+                $user->setLoggedInTime($now);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
         }
 
         return $this->render('main_page/index.html.twig', [

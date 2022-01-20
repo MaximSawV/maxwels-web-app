@@ -9,6 +9,7 @@
 namespace App\myPHPClasses;
 
 use App\Entity\Chat;
+use App\Entity\ChatMessage;
 use App\Entity\ChatParticipant;
 use App\Entity\User;
 use App\Repository\ChatMessageRepository;
@@ -56,18 +57,42 @@ class TwigExtension extends AbstractExtension
         }
     }
 
-    public function getLastMessage(int $id)
+    public function getLastMessage(Chat $chat)
     {
-        $lastMessage = $this->messageRepository->createQueryBuilder('m')
-            ->where('m.created_on < :loggedIn')
-            ->andWhere('m.in_chat = :chat')
-            ->setParameter('loggedIn', $this->sessionManager->getUser()->getLoggedInTime())
-            ->setParameter('chat', $id)
-            ->orderBy('m.created_on', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
+        $chatParticipants = $chat->getChatParticipants();
+        $messageCol = $chat->getChatMessages();
+        /**
+         * @var ChatMessage[] $messages
+         */
+        $messages = $chat->getChatMessages()->toArray();
+        /**
+         * @var ChatMessage $lastMessage
+         */
+        $lastMessage = $messageCol->first();
+        $userParticipants = $this->sessionManager->getUser()->getChatParticipants();
 
+        foreach ($userParticipants as $uP)
+        {
+            foreach ($chatParticipants as $cP)
+            {
+                if ($uP->getId() == $cP->getId())
+                {
+                    $currentParticipant = $cP;
+                }
+
+            }
+        }
+
+        foreach ($messages as $message)
+        {
+            if ($message->getCreatedOn() < $currentParticipant->getLastTimeInChat())
+            {
+                if($lastMessage->getCreatedOn() < $message->getCreatedOn())
+                {
+                    $lastMessage = $message;
+                }
+            }
+        }
         return $lastMessage;
     }
 

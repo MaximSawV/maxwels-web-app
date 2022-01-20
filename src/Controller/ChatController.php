@@ -88,6 +88,26 @@ class ChatController extends AbstractController
         $chats = $this->getYourChats();
         $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
         $messages = $this->messageRepository->findBy(['in_chat' => $id]);
+        $currentChat = $this->chatRepository->find($id);
+        $chatP = $currentChat->getChatParticipants();
+
+        foreach ($chatParticipants as $uP)
+        {
+            foreach ($chatP as $cP)
+            {
+                if ($cP->getId() == $uP->getId())
+                {
+                    $currentParticipant = $cP;
+                }
+            }
+        }
+
+        if(isset($currentParticipant))
+        {
+            $currentParticipant->setLastTimeInChat(new \DateTime('now'));
+            $this->entityManager->persist($currentParticipant);
+            $this->entityManager->flush();
+        }
 
         return $this->render('request_page/chatbox.html.twig', [
             'messages' => $messages,
@@ -140,23 +160,12 @@ class ChatController extends AbstractController
             }
         }
 
-        $lastMessage = $this->messageRepository->createQueryBuilder('m')
-            ->where('m.created_on < :loggedIn')
-            ->andWhere('m.in_chat = :chat')
-            ->setParameter('loggedIn', $user->getLoggedInTime())
-            ->setParameter('chat', $chat)
-            ->orderBy('m.created_on','DESC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-
         if($content == "")
         {
             return $this->redirect('/request/user/chat/'.$chat);
         } else {
-            $maxwelsChat->writeMessage($parti, $currentChat, $content);
+            $lastMessage= $maxwelsChat->writeMessage($parti, $currentChat, $content);
+            return $this->redirect('/request/user/chat/'.$chat.'#'.$lastMessage->getId());
         }
-
-        return $this->redirect('/request/user/chat/'.$chat);
     }
 }

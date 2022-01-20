@@ -41,6 +41,11 @@ class ChatParticipant
      */
     private $in_chat;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $lastTimeInChat;
+
     public function __construct()
     {
         $this->chatMessages = new ArrayCollection();
@@ -120,6 +125,18 @@ class ChatParticipant
     public function setInChat(?Chat $in_chat): self
     {
         $this->in_chat = $in_chat;
+
+        return $this;
+    }
+
+    public function getLastTimeInChat(): ?\DateTimeInterface
+    {
+        return $this->lastTimeInChat;
+    }
+
+    public function setLastTimeInChat(\DateTimeInterface $lastTimeInChat): self
+    {
+        $this->lastTimeInChat = $lastTimeInChat;
 
         return $this;
     }

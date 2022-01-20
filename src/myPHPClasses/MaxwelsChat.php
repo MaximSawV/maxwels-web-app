@@ -48,9 +48,11 @@ class MaxwelsChat
 
     private function createParticipant(User $user, Chat $chat)
     {
+        $now = new \DateTime('now');
         $participant = new ChatParticipant();
         $participant->setUser($user);
         $participant->setInChat($chat);
+        $participant->setLastTimeInChat($now);
         $chat->addChatParticipant($participant);
 
         $this->entityManager->persist($participant);
@@ -82,6 +84,8 @@ class MaxwelsChat
 
     public function writeMessage(ChatParticipant $participant, Chat $chat, $content)
     {
-        $this->createMessage($participant, $chat, $content);
+        $message = $this->createMessage($participant, $chat, $content);
+
+        return $message;
     }
 }
