@@ -1,5 +1,9 @@
 @import "style-patterns";
 
+a {
+  text-decoration: none;
+}
+
 .chat-box {
   @include box(1200px, 700px, fixed, flex, white);
   top: 200px;
@@ -116,6 +120,19 @@
 
 .message-content {
   margin: 5px 15px 10px 15px;
-  word-break: break-all;
+  line-break: auto;
   white-space: normal;
+  font-size: 1.3em;
+}
+
+.create-group {
+  @include box(200px, 80%, relative, flex, #00bbff);
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+
+  & > a {
+    color: black;
+    font-size: 1.5em;
+  }
 }

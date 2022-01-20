@@ -6,6 +6,7 @@ use App\Entity\Chat;
 use App\Entity\ChatParticipant;
 use App\Entity\User;
 use App\myPHPClasses\MaxwelsChat;
+use App\myPHPClasses\MaxwelsChatParticipantManager;
 use App\Repository\ChatMessageRepository;
 use App\Repository\ChatParticipantRepository;
 use App\Repository\ChatRepository;
@@ -26,17 +27,19 @@ class ChatController extends AbstractController
     private $participantRepository;
     private $chatRepository;
     private $messageRepository;
-    /**
-     * @var EntityManagerInterface
-     */
+
+    private $maxwelsChat;
     private $entityManager;
+    private $participantManager;
 
     public function __construct(UserRepository $userRepository,
                                 SessionManager $sessionManager,
                                 EntityManagerInterface $entityManager,
                                 ChatParticipantRepository $participantRepository,
                                 ChatRepository $chatRepository,
-                                ChatMessageRepository $messageRepository)
+                                ChatMessageRepository $messageRepository,
+                                MaxwelsChatParticipantManager $participantManager,
+                                MaxwelsChat $maxwelsChat)
     {
         $this->userRepository = $userRepository;
         $this->sessionManager = $sessionManager;
@@ -44,20 +47,10 @@ class ChatController extends AbstractController
         $this->participantRepository = $participantRepository;
         $this->chatRepository = $chatRepository;
         $this->messageRepository = $messageRepository;
+        $this->participantManager = $participantManager;
+        $this->maxwelsChat = $maxwelsChat;
     }
 
-    private function getYourChats()
-    {
-        $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
-        $chats = [];
-        foreach ($chatParticipants as $participant)
-        {
-            $chat = $this->chatRepository->find($participant->getInChat()->getId());
-            array_push($chats, $chat);
-        }
-
-        return $chats;
-    }
 
     private function getAllOtherUsers ()
     {
@@ -69,25 +62,9 @@ class ChatController extends AbstractController
         return $query->getResult();
     }
 
-    #[Route('/request/user/chat', name: 'chat')]
-    public function index(): Response
+    private function getCurrentParticipant(int $id)
     {
-        $chats = $this->getYourChats();
         $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
-
-        return $this->render('request_page/chatbox.html.twig', [
-            'chat_participants' => $chatParticipants,
-            'user_list' => $this->getAllOtherUsers(),
-            'chats' => $chats,
-        ]);
-    }
-
-    #[Route('/request/user/chat/{id}', name: 'chat_messages')]
-    public function getMessages(int $id): Response
-    {
-        $chats = $this->getYourChats();
-        $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
-        $messages = $this->messageRepository->findBy(['in_chat' => $id]);
         $currentChat = $this->chatRepository->find($id);
         $chatP = $currentChat->getChatParticipants();
 
@@ -102,7 +79,27 @@ class ChatController extends AbstractController
             }
         }
 
-        if(isset($currentParticipant))
+        return $currentParticipant;
+    }
+
+    #[Route('/request/user/chat', name: 'chat')]
+    public function index(): Response
+    {
+        return $this->render('request_page/chatbox.html.twig', [
+            'chat_participants' => $this->participantManager->getChatParticipants(),
+            'user_list' => $this->getAllOtherUsers(),
+            'chats' => $this->maxwelsChat->getMyChats(),
+        ]);
+    }
+
+    #[Route('/request/user/chat/{id}', name: 'chat_messages')]
+    public function getMessages(int $id): Response
+    {
+        $messages = $this->messageRepository->findBy(['in_chat' => $id]);
+
+        $currentParticipant = $this->getCurrentParticipant($id);
+
+        if(isset($this->getCurrentParticipant($id)))
         {
             $currentParticipant->setLastTimeInChat(new \DateTime('now'));
             $this->entityManager->persist($currentParticipant);
@@ -111,9 +108,9 @@ class ChatController extends AbstractController
 
         return $this->render('request_page/chatbox.html.twig', [
             'messages' => $messages,
-            'chat_participants' => $chatParticipants,
+            'chat_participants' => $chatParticipants = $this->participantManager->getChatParticipants(),
             'user_list' => $this->getAllOtherUsers(),
-            'chats' => $chats,
+            'chats' => $this->maxwelsChat->getMyChats(),
             'currentChat' => $id,
         ]);
     }
@@ -168,4 +165,6 @@ class ChatController extends AbstractController
             return $this->redirect('/request/user/chat/'.$chat.'#'.$lastMessage->getId());
         }
     }
+
+
 }

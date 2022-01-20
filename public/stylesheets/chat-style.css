@@ -1,3 +1,6 @@
+a {
+  text-decoration: none; }
+
 .chat-box {
   width: 1200px;
   height: 700px;
@@ -146,7 +149,21 @@
 
 .message-content {
   margin: 5px 15px 10px 15px;
-  word-break: break-all;
-  white-space: normal; }
+  line-break: auto;
+  white-space: normal;
+  font-size: 1.3em; }
+
+.create-group {
+  width: 200px;
+  height: 80%;
+  position: relative;
+  display: flex;
+  background: #00bbff;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center; }
+  .create-group > a {
+    color: black;
+    font-size: 1.5em; }
 
 /*# sourceMappingURL=chat-style.css.map */

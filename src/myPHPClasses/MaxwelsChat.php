@@ -88,4 +88,38 @@ class MaxwelsChat
 
         return $message;
     }
+
+    /**
+     * @param User[] $users
+     * @param string $groupName
+     */
+    public function createGroup(array $users, string $groupName)
+    {
+        $group = new Chat();
+        $group->setIsGroup(true);
+        $group->setGroupName($groupName);
+        $this->entityManager->persist($group);
+        $this->entityManager->flush();
+
+        /**
+         * @var User $user
+         */
+        foreach ($users as $user)
+        {
+            $this->createParticipant($user, $group);
+        }
+    }
+
+    public function getMyChats()
+    {
+        $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
+        $chats = [];
+        foreach ($chatParticipants as $participant)
+        {
+            $chat = $this->chatRepository->find($participant->getInChat()->getId());
+            array_push($chats, $chat);
+        }
+
+        return $chats;
+    }
 }
