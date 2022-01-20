@@ -232,7 +232,6 @@ class RequestUserController extends AbstractController
     public function createRequest(Request $request)
     {
 
-        $newRequest = new \App\Entity\Request();
         $form =$this->createForm(CreateRequestsType::class, null,  [
             'action' => $this->generateUrl('create_request')
         ]);
@@ -244,7 +243,7 @@ class RequestUserController extends AbstractController
             $context = $form->get('Context')->getData();
             $deadline = $form->get('Deadline')->getData();
 
-            $this->requestManager->createRequest(null, null,'offline',null, $deadline, $context, false);
+            $this->requestManager->createRequest(null, null,'requested',null, $deadline, $context, false);
             return $this->redirect('all_requests/1');
         }
 
@@ -306,14 +305,14 @@ class RequestUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
 
-            $customerRequest->setStatus($form->getData()['Status']);
-            $customerRequest->setContext($form->getData()['Context']);
-            $customerRequest->setDeadline($form->getData()['Deadline']);
+            $customerRequest->setStatus($_POST['status']);
+            $customerRequest->setContext($_POST['Context']);
+            $customerRequest->setDeadline($_POST['Deadline']);
 
             $this->entityManager->persist($customerRequest);
             $this->entityManager->flush();
 
-            return $this->redirect('all_requests/1');
+            return $this->redirect('/request/all_requests/1');
         }
 
         return $this->render('request_page/table_requests.html.twig', [
