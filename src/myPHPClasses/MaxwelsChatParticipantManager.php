@@ -9,28 +9,44 @@
 namespace App\myPHPClasses;
 
 
-use App\Entity\ChatParticipant;
+use App\Entity\Chat;
 use App\Repository\ChatParticipantRepository;
 use App\Session\SessionManager;
 
 class MaxwelsChatParticipantManager
 {
-    private $participant;
     private $participantRepository;
     private $sessionManager;
-    public function __construct(ChatParticipant $participant,
-                                ChatParticipantRepository $participantRepository,
+    public function __construct(ChatParticipantRepository $participantRepository,
                                 SessionManager $sessionManager)
     {
-        $this->participant = $participant;
         $this->participantRepository = $participantRepository;
         $this->sessionManager = $sessionManager;
     }
 
     public function getChatParticipants()
     {
-        $chatParticipants = $this->sessionManager->getUser()->getChatParticipants();
+        $userParticipants = $this->sessionManager->getUser()->getChatParticipants();
 
-        return $chatParticipants;
+        return $userParticipants;
+    }
+
+    public function getCurrentParticipant(Chat $chat)
+    {
+        $userParticipants = $this->getChatParticipants();
+        $chatParticipants = $chat->getChatParticipants();
+
+        foreach ($userParticipants as $uP)
+        {
+            foreach ($chatParticipants as $cP)
+            {
+                if ($uP->getId() == $cP->getId())
+                {
+                    return $cP;
+                } else {
+                    return 'error';
+                }
+            }
+        }
     }
 }

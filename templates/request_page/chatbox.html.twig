@@ -17,11 +17,13 @@
                     <input type="submit" value="Message">
                 </form>
             </div>
-            <div class="create-group">
+            {% if is_granted('ROLE_CREATE_GROUP') %}<div class="create-group">
+            <div>
                 <a href="/">
                     Create Group
                 </a>
             </div>
+            {% endif %}
             <a href="/request">
                 X
             </a>

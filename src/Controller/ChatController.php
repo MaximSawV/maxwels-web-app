@@ -99,7 +99,7 @@ class ChatController extends AbstractController
 
         $currentParticipant = $this->getCurrentParticipant($id);
 
-        if(isset($this->getCurrentParticipant($id)))
+        if(isset($currentParticipant))
         {
             $currentParticipant->setLastTimeInChat(new \DateTime('now'));
             $this->entityManager->persist($currentParticipant);
@@ -164,6 +164,17 @@ class ChatController extends AbstractController
             $lastMessage= $maxwelsChat->writeMessage($parti, $currentChat, $content);
             return $this->redirect('/request/user/chat/'.$chat.'#'.$lastMessage->getId());
         }
+    }
+
+    #[Route('/request/user/chat/new/group', name: 'new_group')]
+    public function createGroup(array $users, string $groupName)
+    {
+
+
+
+        $this->maxwelsChat->createGroup($users, $groupName);
+
+        return $this->redirectToRoute('chat');
     }
 
 

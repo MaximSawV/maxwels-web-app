@@ -25,14 +25,17 @@ class TwigExtension extends AbstractExtension
     private $messageRepository;
     private $chatRepository;
     private $sessionManager;
+    private $participantManager;
 
     public function __construct(ChatMessageRepository $messageRepository,
                                 ChatRepository $chatRepository,
-                                SessionManager $sessionManager)
+                                SessionManager $sessionManager,
+                                MaxwelsChatParticipantManager $participantManager)
     {
         $this->messageRepository = $messageRepository;
         $this->chatRepository = $chatRepository;
         $this->sessionManager = $sessionManager;
+        $this->participantManager = $participantManager;
     }
 
     public function getFunctions()
@@ -59,7 +62,6 @@ class TwigExtension extends AbstractExtension
 
     public function getLastMessage(Chat $chat)
     {
-        $chatParticipants = $chat->getChatParticipants();
         $messageCol = $chat->getChatMessages();
         /**
          * @var ChatMessage[] $messages
@@ -69,19 +71,8 @@ class TwigExtension extends AbstractExtension
          * @var ChatMessage $lastMessage
          */
         $lastMessage = $messageCol->first();
-        $userParticipants = $this->sessionManager->getUser()->getChatParticipants();
 
-        foreach ($userParticipants as $uP)
-        {
-            foreach ($chatParticipants as $cP)
-            {
-                if ($uP->getId() == $cP->getId())
-                {
-                    $currentParticipant = $cP;
-                }
-
-            }
-        }
+        $currentParticipant = $this->participantManager->getCurrentParticipant($chat);
 
         foreach ($messages as $message)
         {
