@@ -45,12 +45,10 @@ security:
         ROLE_MANAGE_ALL_REQUESTS: [ROLE_MANAGE_OWN_REQUESTS]
 
     access_control:
-<<<<<<< ours
         - { path: ^/request, roles: [ROLE_USER, IS_VERIFIED, IS_AUTHENTICATED_FULLY] }
         - { path: ^/request/createRequest, roles: [ROLE_MANAGE_OWN_REQUESTS] }
         - { path: ^/request/takeRequest, roles: [ROLE_TAKE_REQUESTS] }
         - { path: ^/admin, roles: [ROLE_ADMIN]}
-=======
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
@@ -66,4 +64,3 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
->>>>>>> theirs
