@@ -6,7 +6,7 @@
     <div class="chat-box">
         <div class="chat-head">
             <div class="search-user">
-                <form action="/chat/newchat">
+                <form action="new/chat">
                     <select name="user">
                         {% for user in user_list %}
                             <option value="{{ user.id }}">
@@ -19,7 +19,7 @@
             </div>
             {% if is_granted('ROLE_CREATE_GROUP') %}
             <div class="create-group">
-                <a href="/">
+                <a href="{{ path('chat_new_group') }}">
                     Create Group
                 </a>
             </div>
@@ -32,17 +32,32 @@
             <div class="chat-list">
             {% for chat in chats %}
                 {% set lastMessage = getLastMessage(chat) %}
-                {% if lastMessage != null %}
-                <a class="chat-banner" href="/request/user/chat/{{ chat.id }}/#{{ lastMessage.id }}">
-                    <img src="/pictures/UserProfilePicture.png" class="profile-picture">
-                    <p>{{ getChatContact(chat, app.user).username }}<br>
-                    <small>{{ lastMessage.Content }}</small></p>
-                </a>
+                {% if chat.IsGroup %}
+                    {% if lastMessage != null %}
+                        <a class="chat-banner" href="/request/user/chat/{{ chat.id }}/#{{ lastMessage.id }}">
+                            <img src="/pictures/UserProfilePicture.png" class="profile-picture">
+                            <p>{{ chat.GroupName }}<br>
+                                <small>{{ lastMessage.Content }}</small></p>
+                        </a>
+                    {% else %}
+                        <a class="chat-banner" href="/request/user/chat/{{ chat.id }}">
+                            <img src="/pictures/UserProfilePicture.png" class="profile-picture">
+                            <p>{{ chat.GroupName }}</p>
+                        </a>
+                    {% endif %}
                 {% else %}
-                    <a class="chat-banner" href="/request/user/chat/{{ chat.id }}">
-                        <img src="/pictures/UserProfilePicture.png" class="profile-picture">
-                        <p>{{ getChatContact(chat, app.user).username }}</p>
-                    </a>
+                    {% if lastMessage != null %}
+                        <a class="chat-banner" href="/request/user/chat/{{ chat.id }}/#{{ lastMessage.id }}">
+                            <img src="/pictures/UserProfilePicture.png" class="profile-picture">
+                            <p>{{ getChatContact(chat, app.user).username }}<br>
+                                <small>{{ lastMessage.Content }}</small></p>
+                        </a>
+                    {% else %}
+                        <a class="chat-banner" href="/request/user/chat/{{ chat.id }}">
+                            <img src="/pictures/UserProfilePicture.png" class="profile-picture">
+                            <p>{{ getChatContact(chat, app.user).username }}</p>
+                        </a>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
             </div>

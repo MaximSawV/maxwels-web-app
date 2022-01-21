@@ -115,7 +115,7 @@ class ChatController extends AbstractController
         ]);
     }
 
-    #[Route('/chat/newchat', name: 'chat_new_chat')]
+    #[Route('/request/user/chat/new/chat', name: 'chat_new_chat')]
     public function createChat(EntityManagerInterface $em, SessionManager $sessionManager, MaxwelsChat $maxwelsChat): Response
     {
         $user1 = $sessionManager->getUser();

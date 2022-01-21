@@ -13,7 +13,10 @@ use App\Entity\Chat;
 use App\Form\CreateGroupType;
 use App\myPHPClasses\MaxwelsChat;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Annotation\Route;
+
 class MaxwelsGroupChatController extends AbstractController
 {
     private $maxwelsChat;
@@ -26,7 +29,7 @@ class MaxwelsGroupChatController extends AbstractController
         $this->request = $request;
     }
 
-    #[Route('/request/user/chat/new/group', name: 'new_group')]
+    #[Route('/request/user/chat/new/group', name: 'chat_new_group')]
     public function createGroup()
     {
         $form = $this->createForm(CreateGroupType::class);
@@ -34,7 +37,7 @@ class MaxwelsGroupChatController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $newGroup = $this->maxwelsChat->createGroup($form->get('group_members')->getData(),
+            $newGroup = $this->maxwelsChat->createGroup($form->get('group_members')->getData()->toArray(),
                 $form->get('group_name')->getData());
         }
 

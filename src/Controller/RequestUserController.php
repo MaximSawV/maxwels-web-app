@@ -365,5 +365,3 @@ class RequestUserController extends AbstractController
     }
 
 }
-
-//TODO[maxim] Mailfunktion von Usern untereinander Erstellen
