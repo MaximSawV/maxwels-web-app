@@ -92,12 +92,14 @@ class MaxwelsChat
     /**
      * @param User[] $users
      * @param string $groupName
+     * @return Chat $group
      */
     public function createGroup(array $users, string $groupName)
     {
         $group = new Chat();
         $group->setIsGroup(true);
         $group->setGroupName($groupName);
+        $group->setGroupImage($groupName."Image.png");
         $this->entityManager->persist($group);
         $this->entityManager->flush();
 
@@ -108,6 +110,8 @@ class MaxwelsChat
         {
             $this->createParticipant($user, $group);
         }
+
+        return $group;
     }
 
     public function getMyChats()

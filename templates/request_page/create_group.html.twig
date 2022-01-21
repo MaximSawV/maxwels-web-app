@@ -1,0 +1,24 @@
+{% extends 'request_page/index.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/stylesheets/chat-style.css"/>
+{% endblock %}
+{% block content %}
+    <div>
+        {{ form_start(groupForm) }}
+        <h1> new Groupchat</h1>
+        <hr>
+        <br>
+        <h3>You will find the Group under this name:</h3>
+        {{ form_row(groupForm.group_name) }}
+        <br>
+        <h3>A short description for this group for example the purpose <small>(optional)</small></h3>
+        {{ form_row(groupForm.group_description) }}
+        <h3>Upload a png file as profile picture <small>(optional)</small> </h3>
+        {{ form_row(groupForm.image) }}
+        <h3>Invite people to this group</h3>
+        {{ form_row(groupForm.group_members) }}
+        <button type="submit" class="btn">Create Group</button>
+        {{ form_end(groupForm) }}
+    </div>
+{% endblock %}
+

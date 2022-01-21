@@ -43,8 +43,6 @@ class MaxwelsChatParticipantManager
                 if ($uP->getId() == $cP->getId())
                 {
                     return $cP;
-                } else {
-                    return 'error';
                 }
             }
         }

@@ -166,16 +166,4 @@ class ChatController extends AbstractController
         }
     }
 
-    #[Route('/request/user/chat/new/group', name: 'new_group')]
-    public function createGroup(array $users, string $groupName)
-    {
-
-
-
-        $this->maxwelsChat->createGroup($users, $groupName);
-
-        return $this->redirectToRoute('chat');
-    }
-
-
 }
