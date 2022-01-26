@@ -197,4 +197,10 @@ class MaxwelsRequestManager
 
         return $numberOfRequests;
     }
+
+    public function deleteRequest(Request $request)
+    {
+        $this->entityManager->remove($request);
+        $this->entityManager->flush();
+    }
 }

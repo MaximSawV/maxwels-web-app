@@ -126,4 +126,31 @@ class MaxwelsChat
 
         return $chats;
     }
+
+    public function deleteChat(Chat $chat)
+    {
+        $messages = $chat->getChatMessages();
+        $participants = $chat->getChatParticipants();
+
+        if($participants)
+        {
+            foreach ($participants as $participant)
+            {
+                $this->entityManager->remove($participant);
+                $this->entityManager->flush();
+            }
+        }
+
+        if($messages)
+        {
+            foreach ($messages as $message)
+            {
+                $this->entityManager->remove($message);
+                $this->entityManager->flush();
+            }
+        }
+
+        $this->entityManager->remove($chat);
+        $this->entityManager->flush();
+    }
 }

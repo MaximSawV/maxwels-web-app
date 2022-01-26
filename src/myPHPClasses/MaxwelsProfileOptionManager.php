@@ -12,7 +12,7 @@ namespace App\myPHPClasses;
 use App\Entity\ProfileOptions;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ProfileOptionManager
+class MaxwelsProfileOptionManager
 {
     private $entityManager;
 
@@ -33,5 +33,11 @@ class ProfileOptionManager
         $this->entityManager->persist($profileOptions);
 
         return $profileOptions;
+    }
+
+    public function deleteProfileOptions(ProfileOptions $profileOptions)
+    {
+        $this->entityManager->remove($profileOptions);
+        $this->entityManager->flush();
     }
 }

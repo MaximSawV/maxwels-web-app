@@ -58,4 +58,10 @@ class MaxwelsUserManager
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
+
+    public function deleteUser(User $user)
+    {
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
+    }
 }

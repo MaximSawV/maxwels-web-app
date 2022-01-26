@@ -17,17 +17,6 @@ class UserRelationship
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userRelationships")
-     * @ORM\JoinColumn(nullable=false, columnDefinition="id")
-     */
-    private $referingUser;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userRelationships")
-     * @ORM\JoinColumn(nullable=false, columnDefinition="id")
-     */
-    private $referencedUser;
 
     /**
      * @ORM\Column(type="boolean")
@@ -44,6 +33,18 @@ class UserRelationship
      */
     private $priority = false;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userRelationships")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $reference_user;
+
     public function __toString()
     {
         return (string) $this->id;
@@ -52,30 +53,6 @@ class UserRelationship
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getReferingUser(): ?User
-    {
-        return $this->referingUser;
-    }
-
-    public function setReferingUser(?User $referingUser): self
-    {
-        $this->referingUser = $referingUser;
-
-        return $this;
-    }
-
-    public function getReferencedUser(): ?User
-    {
-        return $this->referingUser;
-    }
-
-    public function setReferencedUser(?User $referencedUser): self
-    {
-        $this->referencedUser = $referencedUser;
-
-        return $this;
     }
 
     public function getIsFriend(): bool
@@ -110,6 +87,30 @@ class UserRelationship
     public function setPriority(int $priority): self
     {
         $this->priority = $priority;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getReferenceUser(): ?User
+    {
+        return $this->reference_user;
+    }
+
+    public function setReferenceUser(?User $reference_user): self
+    {
+        $this->reference_user = $reference_user;
 
         return $this;
     }

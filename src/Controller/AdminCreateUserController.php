@@ -8,14 +8,14 @@ use App\Entity\Programmer;
 use App\Entity\Subscriber;
 use App\Entity\User;
 use App\Entity\UserRelationship;
-use App\Form\AdminCreateCustomerType;
-use App\Form\AdminCreateProfileOptionsType;
-use App\Form\AdminCreateProgrammerType;
-use App\Form\AdminCreateRelationshipType;
-use App\Form\AdminCreateRequestType;
-use App\Form\AdminCreateSubscriberType;
-use App\Form\AdminCreateUserType;
-use App\myPHPClasses\ProfileOptionManager;
+use App\Form\CreateCustomerType;
+use App\Form\CreateProfileOptionsType;
+use App\Form\CreateProgrammerType;
+use App\Form\CreateRelationshipType;
+use App\Form\CreateRequestType;
+use App\Form\CreateSubscriberType;
+use App\Form\CreateUserType;
+use App\myPHPClasses\MaxwelsProfileOptionManager;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,12 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminCreateUserController extends AbstractController
 {
     #[Route('/admin/create/{entity}', name: 'admin_create_entity')]
-    public function index(string $entity, Request $request, ProfileOptionManager $optionManager, UserRepository $userRepository): Response
+    public function index(string $entity, Request $request, MaxwelsProfileOptionManager $optionManager, UserRepository $userRepository): Response
     {
         if ($entity == 'User')
         {
             $user = new User();
-            $form = $this->createForm(AdminCreateUserType::class, $user, [
+            $form = $this->createForm(CreateUserType::class, $user, [
                 'action' => $this->generateUrl('admin_create_entity', ['entity' => $entity])
             ]);
 
@@ -53,7 +53,7 @@ class AdminCreateUserController extends AbstractController
         if ($entity == 'Customer')
         {
             $customer = new Customer();
-            $form = $this->createForm(AdminCreateCustomerType::class, $customer, [
+            $form = $this->createForm(CreateCustomerType::class, $customer, [
                 'action' => $this->generateUrl('admin_create_entity', ['entity' => $entity])
             ]);
 
@@ -74,7 +74,7 @@ class AdminCreateUserController extends AbstractController
         if ($entity == 'Programmer')
         {
             $programmer = new Programmer();
-            $form = $this->createForm(AdminCreateProgrammerType::class, $programmer, [
+            $form = $this->createForm(CreateProgrammerType::class, $programmer, [
                 'action' => $this->generateUrl('admin_create_entity', ['entity' => $entity])
             ]);
 
@@ -95,7 +95,7 @@ class AdminCreateUserController extends AbstractController
         if ($entity == 'Request')
         {
             $requestEntity = new \App\Entity\Request();
-            $form = $this->createForm(AdminCreateRequestType::class, $requestEntity, [
+            $form = $this->createForm(CreateRequestType::class, $requestEntity, [
                 'action' => $this->generateUrl('admin_create_entity', ['entity' => $entity])
             ]);
 
@@ -116,7 +116,7 @@ class AdminCreateUserController extends AbstractController
         if ($entity == 'Profile Options')
         {
             $pOptions = new ProfileOptions();
-            $form = $this->createForm(AdminCreateProfileOptionsType::class, $pOptions, [
+            $form = $this->createForm(CreateProfileOptionsType::class, $pOptions, [
                 'action' => $this->generateUrl('admin_create_entity', ['entity' => $entity])
             ]);
 
@@ -137,7 +137,7 @@ class AdminCreateUserController extends AbstractController
         if ($entity == 'Subscriber')
         {
             $sub = new Subscriber();
-            $form = $this->createForm(AdminCreateSubscriberType::class, $sub, [
+            $form = $this->createForm(CreateSubscriberType::class, $sub, [
                 'action' => $this->generateUrl('admin_create_entity', ['entity' => $entity])
             ]);
 
@@ -158,7 +158,7 @@ class AdminCreateUserController extends AbstractController
         if ($entity == 'Relationship')
         {
             $relation = new UserRelationship();
-            $form = $this->createForm(AdminCreateRelationshipType::class, $relation, [
+            $form = $this->createForm(CreateRelationshipType::class, $relation, [
                 'action' => $this->generateUrl('admin_create_entity', ['entity' => $entity])
             ]);
 

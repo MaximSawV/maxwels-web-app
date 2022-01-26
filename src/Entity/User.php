@@ -73,11 +73,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $profileOptions;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserRelationship::class, mappedBy="referingUser")
-     */
-    private $userRelationships;
-
-    /**
      * @ORM\OneToMany(targetEntity=ChatParticipant::class, mappedBy="user", orphanRemoval=true)
      */
     private $chatParticipants;
@@ -92,10 +87,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $loggedInTime;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserRelationship::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $userRelationships;
+
     public function __construct()
     {
-        $this->userRelationships = new ArrayCollection();
         $this->chatParticipants = new ArrayCollection();
+        $this->userRelationships = new ArrayCollection();
     }
 
 
@@ -270,35 +270,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|UserRelationship[]
-     */
-    public function getUserRelationships(): Collection
-    {
-        return $this->userRelationships;
-    }
-
-    public function addUserRelationship(UserRelationship $userRelationship): self
-    {
-        if (!$this->userRelationships->contains($userRelationship)) {
-            $this->userRelationships[] = $userRelationship;
-            $userRelationship->setReferingUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserRelationship(UserRelationship $userRelationship): self
-    {
-        if ($this->userRelationships->removeElement($userRelationship)) {
-            // set the owning side to null (unless already changed)
-            if ($userRelationship->getReferingUser() === $this) {
-                $userRelationship->setReferingUser(null);
-            }
-        }
-        return $this;
-    }
-
-    /**
      * @return Collection|ChatParticipant[]
      */
     public function getChatParticipants(): Collection
@@ -348,6 +319,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLoggedInTime(\DateTimeInterface $loggedInTime): self
     {
         $this->loggedInTime = $loggedInTime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserRelationship[]
+     */
+    public function getUserRelationships(): Collection
+    {
+        return $this->userRelationships;
+    }
+
+    public function addUserRelationship(UserRelationship $userRelationship): self
+    {
+        if (!$this->userRelationships->contains($userRelationship)) {
+            $this->userRelationships[] = $userRelationship;
+            $userRelationship->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRelationship(UserRelationship $userRelationship): self
+    {
+        if ($this->userRelationships->removeElement($userRelationship)) {
+            // set the owning side to null (unless already changed)
+            if ($userRelationship->getUser() === $this) {
+                $userRelationship->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdminCreateRequestType extends AbstractType
+class CreateRequestType extends AbstractType
 {
     private $repository;
     public function __construct(UserRepository $repository)

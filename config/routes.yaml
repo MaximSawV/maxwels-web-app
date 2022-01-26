@@ -1,3 +1,47 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+#Pages------------
+
+api_page:
+    path: /api/v1/front-page
+    controller: App\Controller\ApiFrontPageController::index
+
+#Entities----------
+##Create-----------
+
+create_user:
+    path: /api/v1/user/create
+    controller: App\Controller\ApiUserController::createUser
+
+create_request:
+    path: /api/v1/request/create
+    controller: App\Controller\ApiRequestController:createRequest
+
+create_profile_options:
+    path: /api/v1/profile_options/create
+    controller: App\Controller\ApiProfileOptionsController:createProfileOptions
+
+create_chat:
+    path: /api/v1/chat/create
+    controller: App\Controller\ApiChatController:createChat
+
+##Delete-----------
+
+delete_customer:
+    path: /api/v1/customer/delete
+    controller: App\Controller\ApiCustomerController::deleteCustomer
+
+delete_programmer:
+    path: /api/v1/programmer/delete
+    controller: App\Controller\ApiProgrammerController:deleteProgrammer
+
+delete_user:
+    path: /api/v1/user/delete
+    controller: App\Controller\ApiUserController::deleteUser
+
+delete_request:
+    path: /api/v1/request/delete
+    controller: App\Controller\ApiRequestController:deleteRequest
+
+delete_profile_options:
+    path: /api/v1/profile_options/create
+    controller: App\Controller\ApiProfileOptionsController:deleteProfileOptions
+

@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdminCreateRelationshipType extends AbstractType
+class CreateRelationshipType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -22,8 +22,8 @@ class AdminCreateRelationshipType extends AbstractType
                         'max' => 4,
                     ]
                 ])
-            ->add('referingUser')
-            ->add('referencedUser')
+            ->add('user')
+            ->add('referenceUser')
             ->add('Submit', SubmitType::class)
         ;
     }

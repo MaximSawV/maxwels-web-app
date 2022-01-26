@@ -77,13 +77,6 @@ class Subscriber
      */
     private $user;
 
-    private $userRepository;
-
-    public function __construct(UserRepository $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
     public function __toString()
     {
         return (string) $this->id;

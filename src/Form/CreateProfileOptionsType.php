@@ -2,46 +2,33 @@
 
 namespace App\Form;
 
-use App\Entity\Programmer;
+use App\Entity\ProfileOptions;
 use App\Entity\User;
 use App\myPHPClasses\FormUserManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
-class AdminCreateProgrammerType extends AbstractType
+class CreateProfileOptionsType extends AbstractType
 {
     private $manager;
-
     public function __construct(FormUserManager $manager)
     {
         $this->manager = $manager;
     }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Done_Requests', IntegerType::class, [
-                'attr' => [
-                    'min' => 0,
-                ]
-            ])
-            ->add('Rating', IntegerType::class, [
-                'attr' => [
-                    'min' => 0,
-                    'max' => 4,
-                ],
-                'required' => false,
-            ])
-            ->add('user', EntityType::class, [
+            ->add('PublicContact')
+            ->add('ShowStatus')
+            ->add('Hidden')
+            ->add('Darkmode')
+            ->add('User', EntityType::class, [
                 'class' => User::class,
-                'choices' => $this->manager->getAllNotProgrammer()
+                'choices' => $this->manager->getAllUsersWithoutProfOptions()
             ])
             ->add('Submit', SubmitType::class)
         ;
@@ -50,7 +37,7 @@ class AdminCreateProgrammerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Programmer::class,
+            'data_class' => ProfileOptions::class,
         ]);
     }
 }

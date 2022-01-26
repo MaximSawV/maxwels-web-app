@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
-class AdminCreateCustomerType extends AbstractType
+class CreateCustomerType extends AbstractType
 {
     private $manager;
 

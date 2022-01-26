@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class AdminCreateSubscriberType extends AbstractType
+class CreateSubscriberType extends AbstractType
 {
     private $manager;
     public function __construct(FormUserManager $manager)
