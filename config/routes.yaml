@@ -45,3 +45,6 @@ delete_profile_options:
     path: /api/v1/profile_options/create
     controller: App\Controller\ApiProfileOptionsController:deleteProfileOptions
 
+delete_chat:
+    path: /api/v1/chat/delete
+    controller: App\Controller\ApiChatController:deleteChat

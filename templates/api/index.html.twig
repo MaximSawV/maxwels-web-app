@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% body %}
+    <div class="header">
+        <div class="main-link">
+            <a class="home-button" href="{{ path('main_page') }}">
+                <img src="/pictures/logo_small_icon_only.png">
+                <p>
+                    Maxwels Programming
+                </p>
+            </a>
+        </div>
+        <div class="title">
+            <h1>
+                Maxwels API Platform
+            </h1>
+        </div>
+    </div>
+    <div class="option-bar">
+        <form>
+            <select id="entities" name="entities" size="1">
+                {% for entity in entityList %}
+                    <option value="{{ entity }}">{{ Entity }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <div class="api-field">
+        {% for entity in entityList %}
+            <div>
+                <hr>
+                <div>GET</div>
+                <div>PUT</div>
+                <div>DELETE</div>
+                <div>PATCH</div>
+                <div>GET ALL</div>
+                <div>POST</div>
+            </div>
+        {% endfor %}
+    </div>
