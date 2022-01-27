@@ -1,4 +1,3 @@
-
 @mixin side-menu-part() {
   display: flex;
   flex-direction: column;
@@ -37,6 +36,11 @@
 $color: #0a699f;
 $border: #111213 outset 4px;
 
+@import "css-fonts";
+
+* {
+  font-family: quicksand-itlaic;
+}
 
 body {
   margin: 0;

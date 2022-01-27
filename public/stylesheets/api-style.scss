@@ -1,0 +1,164 @@
+@import "style-patterns";
+@import "css-fonts";
+* {
+  font-family: quicksand;
+}
+
+.header {
+  @include box(100%, 23%, fixed, flex, #0b2335);
+  flex-direction: column-reverse;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.main-link {
+  @include box(100%, 70%, absolute, block, transparent);
+  z-index: 2;
+  top: 0;
+
+  & > div {
+    @include box(fit-content, fit-content, absolute, flex, transparent);
+    right: 0;
+    align-items: center;
+
+    & > a {
+      font-size: 4em;
+      text-decoration: none;
+      color: #85cbff;
+    }
+  }
+}
+
+.title {
+  @include box(100%, 30%, absolute, flex, linear-gradient(to bottom, #0b2335 0%, #85cbff 100%));
+  bottom: 0;
+  align-items: center;
+
+  & > h1 {
+    color: white;
+  }
+
+  & > form {
+    position: absolute;
+    right: 40%;
+    display: flex;
+    align-items: center;
+
+    & > select {
+      height: 50px;
+      width: 250px;
+      background: #0b2335;
+      font-size: 1.5em;
+      border-radius: 0 0 0 40px;
+      color: #85cbff;
+      border: hidden;
+      text-align: center;
+    }
+
+    & > input {
+      width: 100px;
+      height: 50px;
+      background: #0b2335;
+      border-radius: 0 40px 0 0;
+      border: hidden;
+      color: #85cbff;
+      font-size: 1.5em;
+    }
+  }
+}
+
+.body {
+  @include box(100%, 77%, fixed, block, linear-gradient(to bottom, #85cbff 0%, #0b2335 100%));
+  top: 23%;
+  overflow: scroll;
+}
+
+.api-field {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+
+  & > hr {
+    width: 80%;
+    margin: 0;
+  }
+
+  & > h1 {
+    color: white;
+  }
+
+  & > div {
+    @include box(50%, 70px, relative, flex, #0b2335);
+    margin: 15px 0 0 15px;
+    align-items: center;
+    border: 5px outset #85cbff;
+    border-radius: 0 40px 0 40px;
+    transition: 0.25s;
+
+    &:hover {
+      border-radius: 0 40px 0 15px;
+    }
+
+    & > p {
+      font-size: larger;
+      margin: 0 50px 0 10px;
+      color: #85cbff;
+      transition: font-size 0.25s;
+
+      &:hover {
+        font-size: x-large;
+      }
+    }
+  }
+}
+
+.description {
+  position: absolute;
+  right: 10px;
+}
+
+.method-button {
+  @include box(90px, 70px, relative, flex, none);
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 0 40px 0 34px;
+  transition: 0.25s;
+
+  &:hover {
+    border-radius: 0 5px 0 5px;
+  }
+}
+
+.get {
+  background: #18cbfc;
+}
+
+.put {
+  background: yellow;
+}
+
+.delete {
+  background: red;
+}
+
+.patch {
+  background: turquoise;
+}
+
+.post {
+  background: #00ff00;
+}
+
+.body::-webkit-scrollbar {
+  display: none;
+}
+
+.footer {
+  @include box(100%, 4%, relative, block, black);
+  bottom: 0;
+  color: white;
+}
+
+

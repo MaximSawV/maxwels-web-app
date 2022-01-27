@@ -1,40 +1,71 @@
 {% extends 'base.html.twig' %}
-{% body %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/stylesheets/api-style.css">
+{% endblock %}
+{% block body %}
     <div class="header">
         <div class="main-link">
-            <a class="home-button" href="{{ path('main_page') }}">
-                <img src="/pictures/logo_small_icon_only.png">
-                <p>
+            <div>
+                <a class="home-button" href="{{ path('main_page') }}">
                     Maxwels Programming
-                </p>
-            </a>
+                </a>
+                <img src="/pictures/logo_small_icon_only.png">
+            </div>
         </div>
         <div class="title">
             <h1>
                 Maxwels API Platform
             </h1>
+            <form action="/api/v1/front-page/search" method="post">
+                <select id="entities" name="entities" size="1">
+                        <option value="#" disabled selected>Choose Entity</option>
+                    {% for entity in entityList %}
+                        <option value="{{ entity }}">{{ entity }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Seek">
+            </form>
         </div>
     </div>
-    <div class="option-bar">
-        <form>
-            <select id="entities" name="entities" size="1">
-                {% for entity in entityList %}
-                    <option value="{{ entity }}">{{ Entity }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Search">
-        </form>
-    </div>
-    <div class="api-field">
-        {% for entity in entityList %}
+    <div class="body">
+    {% for entity in entityList %}
+        <div id="{{ entity }}" class="api-field">
+            <h1>{{ entity }}</h1>
+            <hr>
             <div>
-                <hr>
-                <div>GET</div>
-                <div>PUT</div>
-                <div>DELETE</div>
-                <div>PATCH</div>
-                <div>GET ALL</div>
-                <div>POST</div>
+                <div class="method-button get"><strong>GET</strong></div>
+                <p class="method-url"><strong>/api/v1/{{ entity }}/get/{id}</strong></p>
+                <p class="description"><small>Retrieve one {{ entity }}</small></p>
             </div>
-        {% endfor %}
+            <div>
+                <div class="method-button put"><strong>PUT</strong></div>
+                <p><strong>/api/v1/{{ entity }}/put/{id}</strong></p>
+                <p class="description"><small>Replace one {{ entity }}</small></p>
+            </div>
+            <div>
+                <div class="method-button delete"><strong>DELETE</strong></div>
+                <p><strong>/api/v1/{{ entity }}/delete/{id}</strong></p>
+                <p class="description"><small>Delete one {{ entity }}</small></p>
+            </div>
+            <div>
+                <div class="method-button patch"><strong>PATCH</strong></div>
+                <p><strong>/api/v1/{{ entity }}/patch/{id}</strong></p>
+                <p class="description"><small>Edit one {{ entity }}</small></p>
+            </div>
+            <div>
+                <div class="method-button get"><strong>GET ALL</strong></div>
+                <p><strong>/api/v1/{{ entity }}/get-all</strong></p>
+                <p class="description"><small>Retrieve all {{ entity }}</small></p>
+            </div>
+            <div>
+                <div class="method-button post"><strong>POST</strong></div>
+                <p><strong>/api/v1/{{ entity }}/post</strong></p>
+                <p class="description"><small>Create one {{ entity }}</small></p>
+            </div>
+        </div>
+    {% endfor %}
+        <div class="footer">
+            <p>That's the foot ^°^</p>
+        </div>
     </div>
+{% endblock %}

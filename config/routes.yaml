@@ -1,50 +1,188 @@
-#Pages------------
+#--Pages----------------
 
 api_page:
     path: /api/v1/front-page
     controller: App\Controller\ApiFrontPageController::index
 
-#Entities----------
-##Create-----------
+#--Entities-------------
+##--User----------------
 
-create_user:
-    path: /api/v1/user/create
-    controller: App\Controller\ApiUserController::createUser
+api_get_user:
+    path: /api/v1/User/get/{id}
+    controller: App\Controller\ApiUserController::getUser
 
-create_request:
-    path: /api/v1/request/create
-    controller: App\Controller\ApiRequestController:createRequest
+api_put_user:
+    path: /api/v1/User/put/{id}
+    controller: App\Controller\ApiUserController::replaceUser
 
-create_profile_options:
-    path: /api/v1/profile_options/create
-    controller: App\Controller\ApiProfileOptionsController:createProfileOptions
-
-create_chat:
-    path: /api/v1/chat/create
-    controller: App\Controller\ApiChatController:createChat
-
-##Delete-----------
-
-delete_customer:
-    path: /api/v1/customer/delete
-    controller: App\Controller\ApiCustomerController::deleteCustomer
-
-delete_programmer:
-    path: /api/v1/programmer/delete
-    controller: App\Controller\ApiProgrammerController:deleteProgrammer
-
-delete_user:
-    path: /api/v1/user/delete
+api_delete_user:
+    path: /api/v1/User/delete/{id}
     controller: App\Controller\ApiUserController::deleteUser
 
-delete_request:
-    path: /api/v1/request/delete
-    controller: App\Controller\ApiRequestController:deleteRequest
+api_patch_user:
+    path: /api/v1/User/patch/{id}
+    controller: App\Controller\ApiUserController::editUser
 
-delete_profile_options:
-    path: /api/v1/profile_options/create
-    controller: App\Controller\ApiProfileOptionsController:deleteProfileOptions
+api_get-all_user:
+    path: /api/v1/User/get-all
+    controller: App\Controller\ApiUserController::getAll
 
-delete_chat:
-    path: /api/v1/chat/delete
-    controller: App\Controller\ApiChatController:deleteChat
+api_post_user:
+    path: /api/v1/User/put
+    controller: App\Controller\ApiUserController::createUser
+
+##--Customer------------
+
+api_get_customer:
+    path: /api/v1/Customer/get/{id}
+    controller: App\Controller\ApiCustomerController::getCustomer
+
+api_put_customer:
+    path: /api/v1/Customer/put/{id}
+    controller: App\Controller\ApiCustomerController::replaceCustomer
+
+api_delete_customer:
+    path: /api/v1/Customer/delete/{id}
+    controller: App\Controller\ApiCustomerController::deleteCustomer
+
+api_patch_customer:
+    path: /api/v1/Customer/patch/{id}
+    controller: App\Controller\ApiCustomerController::editCustomer
+
+api_get-all_customer:
+    path: /api/v1/Customer/get-all
+    controller: App\Controller\ApiCustomerController::getAll
+
+api_post_customer:
+    path: /api/v1/Customer/put
+    controller: App\Controller\ApiCustomerController::createCustomer
+
+##--Programmer----------
+
+api_get_programmer:
+    path: /api/v1/Programmer/get/{id}
+    controller: App\Controller\ApiProgrammerController::getProgrammer
+
+api_put_programmer:
+    path: /api/v1/Programmer/put/{id}
+    controller: App\Controller\ApiProgrammerController::replaceProgrammer
+
+api_delete_programmer:
+    path: /api/v1/Programmer/delete/{id}
+    controller: App\Controller\ApiProgrammerController::deleteProgrammer
+
+api_patch_programmer:
+    path: /api/v1/Programmer/patch/{id}
+    controller: App\Controller\ApiProgrammerController::editProgrammer
+
+api_get-all_programmer:
+    path: /api/v1/Programmer/get-all
+    controller: App\Controller\ApiProgrammerController::getAll
+
+api_post_programmer:
+    path: /api/v1/Programmer/put
+    controller: App\Controller\ApiProgrammerController::createProgrammer
+
+##--Request-------------
+
+api_get_request:
+    path: /api/v1/Request/get/{id}
+    controller: App\Controller\ApiRequestController::getRequest
+
+api_put_request:
+    path: /api/v1/Request/put/{id}
+    controller: App\Controller\ApiRequestController::replaceRequest
+
+api_delete_request:
+    path: /api/v1/Request/delete/{id}
+    controller: App\Controller\ApiRequestController::deleteRequest
+
+api_patch_request:
+    path: /api/v1/Request/patch/{id}
+    controller: App\Controller\ApiRequestController::editRequest
+
+api_get-all_request:
+    path: /api/v1/Request/get-all
+    controller: App\Controller\ApiRequestController::getAll
+
+api_post_request:
+    path: /api/v1/Request/put
+    controller: App\Controller\ApiRequestController::createRequest
+
+##--Profile Options-----
+
+api_get_profile-options:
+    path: /api/v1/Profile-Options/get/{id}
+    controller: App\Controller\ApiProfile-OptionsController::getProfile-Options
+
+api_put_profile-options:
+    path: /api/v1/Profile-Options/put/{id}
+    controller: App\Controller\ApiProfile-OptionsController::replaceProfile-Options
+
+api_delete_profile-options:
+    path: /api/v1/Profile-Options/delete/{id}
+    controller: App\Controller\ApiProfile-OptionsController::deleteProfile-Options
+
+api_patch_profile-options:
+    path: /api/v1/Profile-Options/patch/{id}
+    controller: App\Controller\ApiProfile-OptionsController::editProfile-Options
+
+api_get-all_profile-options:
+    path: /api/v1/Profile-Options/get-all
+    controller: App\Controller\ApiProfile-OptionsController::getAll
+
+api_post_profile-options:
+    path: /api/v1/Profile-Options/put
+    controller: App\Controller\ApiProfile-OptionsController::createProfile-Options
+
+##--Subscriber----------
+
+api_get_subscriber:
+    path: /api/v1/Subscriber/get/{id}
+    controller: App\Controller\ApiSubscriberController::getSubscriber
+
+api_put_subscriber:
+    path: /api/v1/Subscriber/put/{id}
+    controller: App\Controller\ApiSubscriberController::replaceSubscriber
+
+api_delete_subscriber:
+    path: /api/v1/Subscriber/delete/{id}
+    controller: App\Controller\ApiSubscriberController::deleteSubscriber
+
+api_patch_subscriber:
+    path: /api/v1/Subscriber/patch/{id}
+    controller: App\Controller\ApiSubscriberController::editSubscriber
+
+api_get-all_subscriber:
+    path: /api/v1/Subscriber/get-all
+    controller: App\Controller\ApiSubscriberController::getAll
+
+api_post_subscriber:
+    path: /api/v1/Subscriber/put
+    controller: App\Controller\ApiSubscriberController::createSubscriber
+
+##--Relationship--------
+
+api_get_relationship:
+    path: /api/v1/Relationship/get/{id}
+    controller: App\Controller\ApiRelationshipController::getRelationship
+
+api_put_relationship:
+    path: /api/v1/Relationship/put/{id}
+    controller: App\Controller\ApiRelationshipController::replaceRelationship
+
+api_delete_relationship:
+    path: /api/v1/Relationship/delete/{id}
+    controller: App\Controller\ApiRelationshipController::deleteRelationship
+
+api_patch_relationship:
+    path: /api/v1/Relationship/patch/{id}
+    controller: App\Controller\ApiRelationshipController::editRelationship
+
+api_get-all_relationship:
+    path: /api/v1/Relationship/get-all
+    controller: App\Controller\ApiRelationshipController::getAll
+
+api_post_relationship:
+    path: /api/v1/Relationship/put
+    controller: App\Controller\ApiRelationshipController::createRelationship

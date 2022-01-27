@@ -11,11 +11,24 @@ use Symfony\Component\Routing\Router;
 
 class ApiFrontPageController extends AbstractController
 {
-    public function index(Router $router): Response
+    public function index(): Response
     {
-        $apiEntityList = ['User', 'Customer', 'Programmer', 'Request', 'Profile Options', 'Subscriber', 'Relationship'];
+        $apiEntityList = ['User', 'Customer', 'Programmer', 'Subscriber', 'Request', 'Profile Options', 'Relationship', 'Chat', 'Groupchat', 'Participant', 'Message'];
         return $this->render('api/index.html.twig', [
             'entityList' => $apiEntityList,
         ]);
+    }
+
+    #[Route('/api/v1/front-page/search', name: 'api_front-page_search')]
+    public function searchEntity(Request $request)
+    {
+        $entity = $request->get('entities');
+
+        if (empty($entity))
+        {
+            return $this->redirect('/api/v1/front-page');
+        }
+
+        return $this->redirect('/api/v1/front-page/#'.$entity);
     }
 }
