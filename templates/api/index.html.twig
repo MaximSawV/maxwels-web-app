@@ -28,44 +28,46 @@
         </div>
     </div>
     <div class="body">
-    {% for entity in entityList %}
-        <div id="{{ entity }}" class="api-field">
-            <h1>{{ entity }}</h1>
-            <hr>
-            <div>
-                <div class="method-button get"><strong>GET</strong></div>
-                <p class="method-url"><strong>/api/v1/{{ entity }}/get/{id}</strong></p>
-                <p class="description"><small>Retrieve one {{ entity }}</small></p>
+        <h1>
+            Entities
+        </h1>
+        <div class="api-entities">
+        {% for entity in entityList %}
+            <div id="{{ entity }}" class="api-field">
+                <h2>{{ entity }}</h2>
+                <hr>
+                <div>
+                    <div class="method-button get"><strong>GET</strong></div>
+                    <p><strong>/api/v1/{{ entity }}/get/{id}</strong></p>
+                    <p class="description"><small>Retrieve one {{ entity }}</small></p>
+                </div>
+                <div>
+                    <div class="method-button put"><strong>PUT</strong></div>
+                    <p><strong>/api/v1/{{ entity }}/put/{id}</strong></p>
+                    <p class="description"><small>Replace one {{ entity }}</small></p>
+                </div>
+                <div>
+                    <div class="method-button delete"><strong>DELETE</strong></div>
+                    <p><strong>/api/v1/{{ entity }}/delete/{id}</strong></p>
+                    <p class="description"><small>Delete one {{ entity }}</small></p>
+                </div>
+                <div>
+                    <div class="method-button patch"><strong>PATCH</strong></div>
+                    <p><strong>/api/v1/{{ entity }}/patch/{id}</strong></p>
+                    <p class="description"><small>Edit one {{ entity }}</small></p>
+                </div>
+                <div>
+                    <div class="method-button get"><strong>GET ALL</strong></div>
+                    <p><strong>/api/v1/{{ entity }}/get-all</strong></p>
+                    <p class="description"><small>Retrieve all {{ entity }}</small></p>
+                </div>
+                <div>
+                    <div class="method-button post"><strong>POST</strong></div>
+                    <p><strong>/api/v1/{{ entity }}/post</strong></p>
+                    <p class="description"><small>Create one {{ entity }}</small></p>
+                </div>
             </div>
-            <div>
-                <div class="method-button put"><strong>PUT</strong></div>
-                <p><strong>/api/v1/{{ entity }}/put/{id}</strong></p>
-                <p class="description"><small>Replace one {{ entity }}</small></p>
-            </div>
-            <div>
-                <div class="method-button delete"><strong>DELETE</strong></div>
-                <p><strong>/api/v1/{{ entity }}/delete/{id}</strong></p>
-                <p class="description"><small>Delete one {{ entity }}</small></p>
-            </div>
-            <div>
-                <div class="method-button patch"><strong>PATCH</strong></div>
-                <p><strong>/api/v1/{{ entity }}/patch/{id}</strong></p>
-                <p class="description"><small>Edit one {{ entity }}</small></p>
-            </div>
-            <div>
-                <div class="method-button get"><strong>GET ALL</strong></div>
-                <p><strong>/api/v1/{{ entity }}/get-all</strong></p>
-                <p class="description"><small>Retrieve all {{ entity }}</small></p>
-            </div>
-            <div>
-                <div class="method-button post"><strong>POST</strong></div>
-                <p><strong>/api/v1/{{ entity }}/post</strong></p>
-                <p class="description"><small>Create one {{ entity }}</small></p>
-            </div>
-        </div>
-    {% endfor %}
-        <div class="footer">
-            <p>That's the foot ^°^</p>
+        {% endfor %}
         </div>
     </div>
 {% endblock %}

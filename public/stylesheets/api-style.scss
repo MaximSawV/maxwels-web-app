@@ -41,29 +41,30 @@
 
   & > form {
     position: absolute;
-    right: 40%;
+    right: 20%;
     display: flex;
     align-items: center;
+    z-index: 3;
 
     & > select {
       height: 50px;
       width: 250px;
       background: #0b2335;
       font-size: 1.5em;
-      border-radius: 0 0 0 40px;
       color: #85cbff;
       border: hidden;
       text-align: center;
+      @include border-animation(0 0 0 40px, 0);
     }
 
     & > input {
       width: 100px;
       height: 50px;
       background: #0b2335;
-      border-radius: 0 40px 0 0;
       border: hidden;
       color: #85cbff;
       font-size: 1.5em;
+      @include border-animation(0 40px 0 0, 0);
     }
   }
 }
@@ -71,7 +72,20 @@
 .body {
   @include box(100%, 77%, fixed, block, linear-gradient(to bottom, #85cbff 0%, #0b2335 100%));
   top: 23%;
+
+  & > h1 {
+    color: white;
+  }
+}
+
+.api-entities {
   overflow: scroll;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.api-entities::-webkit-scrollbar {
+  display: none;
 }
 
 .api-field {
@@ -84,7 +98,7 @@
     margin: 0;
   }
 
-  & > h1 {
+  & > h2 {
     color: white;
   }
 
@@ -93,11 +107,10 @@
     margin: 15px 0 0 15px;
     align-items: center;
     border: 5px outset #85cbff;
-    border-radius: 0 40px 0 40px;
-    transition: 0.25s;
+    @include border-animation(0 40px 0 40px, 0);
 
-    &:hover {
-      border-radius: 0 40px 0 15px;
+    &:hover .method-button {
+      border-radius: 0;
     }
 
     & > p {
@@ -123,12 +136,8 @@
   align-items: center;
   justify-content: center;
   font-size: 1.3em;
-  border-radius: 0 40px 0 34px;
+  border-radius: 0 40px 0 30px;
   transition: 0.25s;
-
-  &:hover {
-    border-radius: 0 5px 0 5px;
-  }
 }
 
 .get {
@@ -150,15 +159,4 @@
 .post {
   background: #00ff00;
 }
-
-.body::-webkit-scrollbar {
-  display: none;
-}
-
-.footer {
-  @include box(100%, 4%, relative, block, black);
-  bottom: 0;
-  color: white;
-}
-
 

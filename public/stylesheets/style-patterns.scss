@@ -31,3 +31,11 @@
   cursor: pointer;
   transition: 0.3s;
 }
+
+@mixin border-animation($border-radius, $new-border) {
+  border-radius: $border-radius;
+  transition: 0.25s;
+  &:hover {
+    border-radius: $new-border;
+  }
+}

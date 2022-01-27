@@ -51,26 +51,33 @@
     color: white; }
   .title > form {
     position: absolute;
-    right: 40%;
+    right: 20%;
     display: flex;
-    align-items: center; }
+    align-items: center;
+    z-index: 3; }
     .title > form > select {
       height: 50px;
       width: 250px;
       background: #0b2335;
       font-size: 1.5em;
-      border-radius: 0 0 0 40px;
       color: #85cbff;
       border: hidden;
-      text-align: center; }
+      text-align: center;
+      border-radius: 0 0 0 40px;
+      transition: 0.25s; }
+      .title > form > select:hover {
+        border-radius: 0; }
     .title > form > input {
       width: 100px;
       height: 50px;
       background: #0b2335;
-      border-radius: 0 40px 0 0;
       border: hidden;
       color: #85cbff;
-      font-size: 1.5em; }
+      font-size: 1.5em;
+      border-radius: 0 40px 0 0;
+      transition: 0.25s; }
+      .title > form > input:hover {
+        border-radius: 0; }
 
 .body {
   width: 100%;
@@ -78,8 +85,17 @@
   position: fixed;
   display: block;
   background: linear-gradient(to bottom, #85cbff 0%, #0b2335 100%);
-  top: 23%;
-  overflow: scroll; }
+  top: 23%; }
+  .body > h1 {
+    color: white; }
+
+.api-entities {
+  overflow: scroll;
+  max-width: 100%;
+  max-height: 100%; }
+
+.api-entities::-webkit-scrollbar {
+  display: none; }
 
 .api-field {
   display: flex;
@@ -88,7 +104,7 @@
   .api-field > hr {
     width: 80%;
     margin: 0; }
-  .api-field > h1 {
+  .api-field > h2 {
     color: white; }
   .api-field > div {
     width: 50%;
@@ -102,7 +118,9 @@
     border-radius: 0 40px 0 40px;
     transition: 0.25s; }
     .api-field > div:hover {
-      border-radius: 0 40px 0 15px; }
+      border-radius: 0; }
+    .api-field > div:hover .method-button {
+      border-radius: 0; }
     .api-field > div > p {
       font-size: larger;
       margin: 0 50px 0 10px;
@@ -124,10 +142,8 @@
   align-items: center;
   justify-content: center;
   font-size: 1.3em;
-  border-radius: 0 40px 0 34px;
+  border-radius: 0 40px 0 30px;
   transition: 0.25s; }
-  .method-button:hover {
-    border-radius: 0 5px 0 5px; }
 
 .get {
   background: #18cbfc; }
@@ -143,17 +159,5 @@
 
 .post {
   background: #00ff00; }
-
-.body::-webkit-scrollbar {
-  display: none; }
-
-.footer {
-  width: 100%;
-  height: 4%;
-  position: relative;
-  display: block;
-  background: black;
-  bottom: 0;
-  color: white; }
 
 /*# sourceMappingURL=api-style.css.map */
